@@ -3,6 +3,7 @@ import Estimate from "./Estimate.jsx";
 import Currency from "./Currency.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { addJob } from "./EstimateSlice";
+import contractualServicesData from "../../public/contractual_services.json";
 
 const ServicesList = ({ search }) => {
     const [services, setServices] = useState([]);
@@ -12,31 +13,51 @@ const ServicesList = ({ search }) => {
     const estimateJobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
 
+    // Import the JSON data directly
+
     useEffect(() => {
-        fetch("/contractual_services.json")
-        .then((res) => {
-            if (!res.ok) {
-            throw new Error("Failed to load JSON");
-            }
-            return res.json();
-        })
-        .then((data) => {       
+        try {
             // Group and sort data by category without using groupByCategory
-            const categories = [...new Set(data.map(service => service.category))].sort((a, b) => a.localeCompare(b));
+            const categories = [...new Set(contractualServicesData.map(service => service.category))].sort((a, b) => a.localeCompare(b));
             const sortedData = categories.map(category => [
                 category,
-                data
+                contractualServicesData
                     .filter(service => service.category === category)
                     .sort((a, b) => a.description.localeCompare(b.description))
             ]);
             setServices(sortedData);   
             setLoading(false);
-        })
-        .catch((err) => {
+        } catch (err) {
             setError(err.message);
             setLoading(false);
-        });
+        }
     }, []);
+
+    // useEffect(() => {
+    //     fetch("/contractual_services.json")
+    //     .then((res) => {
+    //         if (!res.ok) {
+    //         throw new Error("Failed to load JSON");
+    //         }
+    //         return res.json();
+    //     })
+    //     .then((data) => {       
+    //         // Group and sort data by category without using groupByCategory
+    //         const categories = [...new Set(data.map(service => service.category))].sort((a, b) => a.localeCompare(b));
+    //         const sortedData = categories.map(category => [
+    //             category,
+    //             data
+    //                 .filter(service => service.category === category)
+    //                 .sort((a, b) => a.description.localeCompare(b.description))
+    //         ]);
+    //         setServices(sortedData);   
+    //         setLoading(false);
+    //     })
+    //     .catch((err) => {
+    //         setError(err.message);
+    //         setLoading(false);
+    //     });
+    // }, []);
 
     const filteredServices = services.flatMap(([category, items]) => 
         items).filter(service =>
