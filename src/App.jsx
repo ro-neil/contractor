@@ -11,31 +11,35 @@ const App = () => {
   const [search, setSearch] = useState("");
 
   const landingPageText = {
-    title: "The Independendent Contractor",
-    subtitle: "Generate estimates for your services with ease and accuracy",
+    title: "Trade Estimate",
+    subtitle: "Generate estimates for your services with accuracy and precision.",
     action: "Get Started"
   }
   
 
   return (
     <>
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', margin: '0 auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', margin: '0 auto' }}>
       { onHomePage 
-        ? (<div>
-            <Navigation 
-              key="navigation" 
-              setHomePage={setOnHomePage} 
-              setServicesPage={setOnServicesPage}
-              onServicesPage={onServicesPage}
-              search={search} 
-              setSearch={setSearch}
-            />
+        ? (<div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ height: '10vh' }}>
+              <Navigation 
+                key="navigation" 
+                setHomePage={setOnHomePage} 
+                setServicesPage={setOnServicesPage}
+                onServicesPage={onServicesPage}
+                search={search} 
+                setSearch={setSearch}
+              />
+            </div>
 
-            <Display
-              key="main-display"
-              onServicesPage={onServicesPage}
-              search={search} 
-            />
+            <div style={{ minHeight: '90vh' }}>
+              <Display
+                key="main-display"
+                onServicesPage={onServicesPage}
+                search={search} 
+              />
+            </div>
           </div>)
         : <LandingPage 
             key="landing-page"

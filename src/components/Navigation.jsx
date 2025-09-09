@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SearchInput from "./SearchInput.jsx";
+import { useSelector } from "react-redux"; 
 
 const Navigation = ({ setHomePage, setServicesPage, onServicesPage, search, setSearch }) => {
 
@@ -15,7 +16,8 @@ const Navigation = ({ setHomePage, setServicesPage, onServicesPage, search, setS
       alignItems: "center",
       // marginBottom: "1rem",
       borderBottom: "1px solid #e2e8f0",
-      padding: "1rem 2rem"
+      padding: "1rem",
+      minHeight: "2rem"
     },
     button: {
       fontWeight: "bold",
@@ -31,13 +33,13 @@ const Navigation = ({ setHomePage, setServicesPage, onServicesPage, search, setS
 
   return (
     <nav>
-      <div style={{ ...scopedStyles.container, justifyContent: 'center' }}>
+      <div style={{ ...scopedStyles.container }}>
         <div className="left">
-          <button type="button" className="button-shadow" onClick={() => setHomePage(false)}>
-            <h3 style={{ margin: 0 }}>Home</h3>
-          </button>
+          {/* <button type="button" className="button-shadow" onClick={() => setHomePage(false)}>
+            <h3 style={{ margin: 0 }}>Trade Estimate</h3>
+          </button> */}
         </div>
-        <div className="right" style={{ display: "flex", flexGrow: 1, justifyContent: "end", alignItems: 'center', gap: "0.8rem" }}>
+        <div className="right" style={{ display: "flex", flexGrow: 1, justifyContent: "space-between", alignItems: 'center', gap: "0.8rem" }}>
           
           { onServicesPage &&
             <div className="center-box" >

@@ -1,11 +1,12 @@
+:root {
+  --color-green: rgba(37, 157, 60, 1);
+}
+
 #root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto; */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding: 1rem; */
   text-align: center;
   color: black;
 }
@@ -80,4 +81,12 @@
 }
 .fw-bold {
   font-weight: bold;
+}
+.text-green {
+  color: var(--color-green);
+}
+
+.currency-value {
+  font-weight: bold;
+  color: var(--color-green);
 }

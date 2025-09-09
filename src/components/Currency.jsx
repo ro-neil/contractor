@@ -15,11 +15,11 @@ const formatCurrency = (figure, currency = 'USD', separator = ',') => {
   return formattedNum;
 }
 
-const Currency = ({ figure, currency = 'USD', separator = ',', fontSize = '1.1rem' }) => {
+const Currency = ({ figure, currency = 'USD', separator = ',' }) => {
   const formattedValue = formatCurrency(figure, currency, separator);
   return (
     <>
-        <span style={{ fontWeight: 'bold', color: '#229d3cff', fontSize: fontSize }}>
+        <span className='currency-value'>
             {formattedValue}
         </span>
     </>

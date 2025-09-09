@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NumberInput = ({ value, onChange, placeholder, id, name }) => {
+const QuantityInput = ({ value, onChange, placeholder, id, name, operators=true, onPlus, onMinus }) => {
 
   const handleChange = (e) => {
     // Only allow numeric input and limit to 10 digits
@@ -9,18 +9,19 @@ const NumberInput = ({ value, onChange, placeholder, id, name }) => {
   };
 
   return (
+    <>
+    {operators && <button className="operator minus-operator" onClick={onMinus}>&#45;</button>}
     <input
         id={id}
         name={name}
         type="text"
         value={value}
         onChange={handleChange}
-        placeholder={placeholder || 'Measurement'}
+        placeholder={placeholder || 'Value'}
         pattern='^\d{0,6}$'
         style={{
-            maxWidth: '14ch',
             padding: '0.35rem 0.5rem',
-            borderRadius: '0.375rem',
+            borderRadius: '0.9rem',
             border: '1px solid #e2e8f0',
             outline: 'none',
             fontSize: '1em',
@@ -30,7 +31,9 @@ const NumberInput = ({ value, onChange, placeholder, id, name }) => {
             color: '#2d3748'         
         }}
     />
+    {operators && <button className="operator plus-operator" onClick={onPlus}>&#43;</button>}
+    </>
   );
 };
 
-export default NumberInput;
+export default QuantityInput;

@@ -11,14 +11,14 @@ const SearchInput = ({value, onChange, placeholder}) => {
             type="text" 
             placeholder={placeholder || "Search..."}
             style={{
-                width: "16ch",
+                width: "24ch",
                 padding: "0.5rem 1rem",
                 borderRadius: "0.375rem",
                 border: "1px solid #e2e8f0",
                 outline: "none",
                 fontSize: "1rem",
                 // marginBottom: "1.5rem",
-                fontWeight: "600",
+                // fontWeight: "600",
                 backgroundColor: "#f7fafc",
                 height: "1.5rem",
             }}

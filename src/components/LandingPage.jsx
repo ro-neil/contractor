@@ -17,7 +17,7 @@ const styles = {
     // margin: '1.5rem 0',
     // width: '100%',
     // maxWidth: '48rem',
-    margin: '0 auto',
+    margin: '0 2rem',
   },
   heroTitle: {
     color: '#2d3e50',
@@ -28,7 +28,7 @@ const styles = {
     padding: '1rem',
     borderTop: '1px dotted #e2e8f0',
     borderBottom: '1px dotted #e2e8f0',
-    backgroundColor: '#fafcff',
+    // backgroundColor: '#fafcff',
   },
   subtitle: {
     color: '#4a6572',
