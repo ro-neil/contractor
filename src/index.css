@@ -78,11 +78,11 @@ button:focus-visible {
   button:hover {
     border-color: #eae9e9;
   }
-  h1, h2, h3, p, span, div, button {
+  h1, h2, h3, p, span, div, button, input {
     color: #ffffff !important;
   }
 
-  div, span, li, section, button.operator {
+  div, span, li, section, button.operator, input {
     background-color: #242424 !important;
   }
 
