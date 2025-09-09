@@ -63,3 +63,27 @@ button:focus-visible {
     color: #747bff;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+  }
+  a {
+    color: #646cff;
+  }
+  a:hover {
+    color: #535bf2;
+  }
+  button:hover {
+    border-color: #eae9e9;
+  }
+  h1, h2, h3, p, span, div, button {
+    color: #ffffff !important;
+  }
+
+  div, span, li, section, button.operator {
+    background-color: #242424 !important;
+  }
+
+}
