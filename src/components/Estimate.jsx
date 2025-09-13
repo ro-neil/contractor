@@ -1,7 +1,8 @@
 
-import React, {useState, useEffect, use} from "react";
+import React, {useState, useEffect} from "react";
 import Currency from "./Currency.jsx";
 import { useSelector, useDispatch } from "react-redux";
+import { setStarted } from './GetStartedSlice';
 import { removeJob, updateJobQuantity } from "./EstimateSlice";
 import QuantityInput from "./QuantityInput.jsx";
 import "./Estimate.css";
@@ -11,6 +12,8 @@ import unitMap from "../data/unit_map.json"
 const Estimate = () => {
     const jobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
+
+    dispatch(setStarted(true)); // Ensure userStarted is true when this component mounts
 
     const handleUpdateQuantity = (description, quantity) => {
         dispatch(updateJobQuantity({ description, quantity }));

@@ -1,7 +1,10 @@
-import React from 'react';
-import app_logo from '../assets/app-logo.svg';
-import App from '../App';
+import React, {useEffect} from 'react';
 import AppLogo from './AppLogo';
+
+import { setStarted } from './GetStartedSlice';
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 
 const styles = {
   container: {
@@ -41,7 +44,18 @@ const styles = {
   
 };
 
-const LandingPage = ({ setHomePage, title, subtitle, action }) => {
+
+
+const LandingPage = ({ title, subtitle, action }) => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    dispatch(setStarted(true));
+    navigate("/services");
+  }
+  
   return (
     <>
       <div style={styles.container}>
@@ -55,7 +69,7 @@ const LandingPage = ({ setHomePage, title, subtitle, action }) => {
         </p>
 
         <div className="button-container" style={{ textAlign: 'center', padding: '0 1rem' }}>
-          <button className='button bg-dark' style={{padding: '0.75rem 2rem'}} onClick={() => setHomePage(true)}>
+          <button className='button bg-dark' style={{padding: '0.75rem 2rem'}} onClick={() => handleGetStarted()}>
             { action }
           </button>
         </div>

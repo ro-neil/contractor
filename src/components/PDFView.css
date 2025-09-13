@@ -1,0 +1,181 @@
+:root {
+    --primary-color: #012e5a; /* dark blue */
+    --secondary-color: #d33128; /* red */
+    --background-color: #f4f4f4; /* light gray */
+    --text-color: #333; /* dark gray */
+    --header-font: 'Arial Black', sans-serif;
+    --body-font: 'Arial', sans-serif;
+}
+
+.pdf-view {
+    width: auto;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-view .controls {
+    align-self: flex-end;
+    margin-top: 1rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+                  ;
+}
+
+.pdf-view .controls button {
+    background-color: #d33128;
+    color: #fff;
+}
+
+.pdf-view .estimate-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+    border-top: 1px solid #ccc     
+}
+
+.pdf-view .company-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+.pdf-view .estimate-title {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+.pdf-view .estimate-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.pdf-view .estimate-details strong {
+    font-size: larger;
+}
+.pdf-view .client-info .client-name {
+    margin-top: 1rem;
+}
+
+.estimate-table {
+    align-self: flex-start;
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #000;
+    margin-top: 1rem;
+}
+
+.estimate-table .currency-value {
+    color: #000;
+}
+.estimate-table .table-body-row .currency-value {
+    font-weight: lighter;
+}
+
+/* Header Row */
+.table-header {
+    background-color: #012e5a; /* dark blue */
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.table-header th {
+    padding: 0.75rem;
+    text-align: left;
+    border: 1px solid #003366;
+}
+
+/* Table Data Cells */
+
+
+.td-left {
+    text-align: left;
+    padding: 0.6rem;
+}
+
+.td-right {
+    text-align: right;
+    padding: 0.6rem;
+}
+
+.td-center {
+    text-align: center;
+    padding: 0.6rem;
+}
+
+.table-body-row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.table-body-row td:first-of-type {
+    font-weight: bold;
+    color: #2d3748;
+}
+
+/* Remove borders for normal rows */
+.table-body-row td {
+    border: none;
+    padding: 0.6rem;
+}
+
+/* Border top only for Subtotal row */
+.border-top td {
+    border-top: 1px solid #003366;
+}
+
+.subtotal-row *, .discount-row *{
+    font-weight: bold;
+}
+
+/* Total Row Styling */
+.total-row * {
+    font-weight: 900;
+}
+
+.total-row td {
+    border: 1px solid #003366;
+    font-weight: 900;
+    border: none;
+}
+.total-row td:nth-child(2), .total-row td:nth-child(3) {
+    background-color: #e6f0ff;
+    border-top: 1px solid #003366;
+    border-bottom: 1px solid #003366;
+}
+
+
+
+/* Print styling */
+@media print {
+    body {
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .pdf-view {
+        padding: 0.5in;
+        display: flex;
+        align-items: center;
+    }
+
+    .estimate-table th,
+    .estimate-table td {
+        page-break-inside: avoid;
+    }
+
+    .navigation {
+        display: none;
+    }
+    
+    .pdf-view .controls {
+            display: none;
+    }
+}

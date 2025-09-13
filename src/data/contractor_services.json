@@ -116,7 +116,6 @@
     {"description" : "Erect Shed roof incl. rafters, laths & zinc", "rate" : 70, "unit" : "square foot", "category" : "Shed"},
     {"description" : "Erect Staircase", "rate" : 2950, "unit" : "tread", "category" : "Staircase"},
     {"description" : "Cast Staircase", "rate" : 1890, "unit" : "tread", "category" : "Staircase"},
-    {"description" : "Pay Labourer", "rate" : 5000, "unit" : "day", "category" : "Labour"},
     {"description" : "Install Barrel Bolts in Floor/Wall", "rate" : 440, "unit" : "each", "category" : "Fittings"},
     {"description" : "Install Window Rod", "rate" : 360, "unit" : "pair", "category" : "Fittings"},
     {"description" : "Install French Doors (24\"x80\")", "rate" : 5800, "unit" : "each", "category" : "Doors"},

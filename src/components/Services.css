@@ -1,10 +1,28 @@
-.services-container {
+.loading-text {
+    text-align: center;
+    color: #718096;
+}
+
+/* .currency-value {
+    font-weight: inherit;
+    color: inherit;
+} */
+
+.services-section {
     border-radius: 1rem;
     max-width: 972px;
     margin: auto;
 }
-.services-container > div {
+
+.services-section > div {
     border-radius: 1rem;
+}
+
+.services-container {
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: #f9fafb;
+    padding: 1rem;
 }
 
 .services-heading {
@@ -19,6 +37,14 @@
     padding-left: 0.75rem;
     margin: 0;
     border-left: 1px solid #e2e8f0;
+}
+
+.services-category {
+    color: #2d3748;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+    text-align: start;
 }
 
 .service-item {
@@ -54,9 +80,17 @@
     color: #3a3d2c;
 }
 
+.search-results-text {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #373c43ff;
+    font-style: italic;
+    font-weight: 500;
+}
+
 
 @media (prefers-color-scheme: dark) {
-  .services-container > div {
+  .services-section > div {
     background-color: #1e1e1e !important;
   }
 

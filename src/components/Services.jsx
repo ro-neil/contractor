@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import Currency from "./Currency.jsx";
 import { useSelector, useDispatch } from "react-redux";
+// import { setStarted } from './GetStartedSlice';
 import { addJob } from "./EstimateSlice";
 import contractorServicesData from "../data/contractor_services.json";
 import unitMap from "../data/unit_map.json"
@@ -16,6 +17,7 @@ const ServicesList = ({ search }) => {
     // DataPipeline-ready dataSource (returns the local JSON)
     const dataSource = contractorServicesData;
 
+    // dispatch(setStarted(true)); // Ensure userStarted is true when this component mounts
 
     useEffect(() => {
         // Immediately prepare the sorted data (same behavior as before)
@@ -34,10 +36,11 @@ const ServicesList = ({ search }) => {
     }, [contractorServicesData]);
 
 
-    const filteredServices = services.flatMap(([category, items]) => 
-        items).filter(service =>
-        service.description?.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredServices = services
+        .flatMap(([, items]) => items)
+        .filter(service =>
+            (service.description ?? "").toLowerCase().includes((search ?? "").toLowerCase())
+        );
 
     const handleAddToEstimate = (service) => {
         const job = { ...service, quantity: 1 };
@@ -98,7 +101,7 @@ const ServicesList = ({ search }) => {
     );
 
     const SearchResultsText = ({ count, search }) => (
-        search && <div style={{ textAlign: "center", marginBottom: "1rem", color: "#373c43ff", fontStyle: "italic", fontWeight: '500' }}>
+        search && <div className="search-results-text">
             {count > 0
                 ? `Showing ${count} result${count > 1 ? "s" : ""} for "${search}"`
                 : `No results found for "${search}"`}
@@ -115,29 +118,26 @@ const ServicesList = ({ search }) => {
         return unitMap[longUnit] || longUnit; // falls back to original if not found
     }
     
-
     // if (loading) return <h2>Loading services...</h2>;
     if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
     return (
         <div>
-            <h2 className="services-heading">Contract Services</h2>
+            <h2 className="services-heading">Services</h2>
 
             <SearchResultsText count={filteredServices.length} search={search} />
 
-            {loading && <p style={{ textAlign: "center", color: "#718096" }}>Loading services...</p>}
+            {loading && <p className="loading-text">Loading services...</p>}
             
-            <section className="services-container">     
+            <section className="services-section">     
                 { !search ? (
                     services.map(([category, items], idx) => (
-                        <div key={idx} style={{ marginBottom: "1.5rem", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", background: "#f9fafb", padding: "1rem" }}>
-                            <h2 style={{ color: "#2d3748", fontSize: "1.3rem", marginBottom: "0.5rem", marginTop: "0", textAlign: "start" }}>{category}</h2>
+                        <div className="services-container" key={idx}>
+                            <h2 className="services-category">{category}</h2>
                             <ul className="services-list">
                                 {items.map((service, index) => (
                                     <li key={index} className="service-item" style={{ backgroundColor: isAddedToEstimate(service) ? "#f7f9ff" : "" }}>
-                                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                            <span className="service-description">{service.description}</span>
-                                        </div>
+                                        <span className="service-description">{service.description}</span>
                                         <ServiceActions
                                             service={service}
                                             isAddedToEstimate={isAddedToEstimate}
@@ -152,9 +152,7 @@ const ServicesList = ({ search }) => {
                     <ul style={{ paddingLeft: "unset" }}>
                         {filteredServices.map((service, index) => (
                             <li key={index} className="service-item">
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                                    <span className="service-description">{service.description}</span>
-                                </div>
+                                <span className="service-description">{service.description}</span>
                                 <ServiceActions
                                     service={service}
                                     isAddedToEstimate={isAddedToEstimate}
