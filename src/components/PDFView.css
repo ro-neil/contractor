@@ -1,6 +1,6 @@
 :root {
     --primary-color: #012e5a; /* dark blue */
-    --secondary-color: #d33128; /* red */
+    --secondary-color: #dc4037; /* red */
     --background-color: #f4f4f4; /* light gray */
     --text-color: #333; /* dark gray */
     --header-font: 'Arial Black', sans-serif;
@@ -20,11 +20,11 @@
     height: 5rem;
     display: flex;
     align-items: center;
-                  ;
+    gap: 0.5rem;
 }
 
 .pdf-view .controls button {
-    background-color: #d33128;
+    background-color: var(--secondary-color);
     color: #fff;
 }
 
@@ -34,34 +34,45 @@
     flex-direction: column;
     gap: 0.5rem;
     text-align: left;
-    border-top: 1px solid #ccc     
+    border-top: 1px solid #ccc;     
 }
 
 .pdf-view .company-details {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     gap: 0.5rem;
+}
+.pdf-view .company-logo {
+   align-self: flex-end;
 }
 .pdf-view .estimate-title {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
+    text-align: right;
+    text-transform: uppercase;
 }
 .pdf-view .estimate-details {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
 }
-
 .pdf-view .estimate-details strong {
     font-size: larger;
+}
+
+.pdf-view .estimate-details strong::after {
+    content: " ";
 }
 .pdf-view .client-info .client-name {
     margin-top: 1rem;
 }
 
-.estimate-table {
+.pdf-view .estimate-info p:first-child {
+    margin-top: none;
+}
+
+.pdf-view .estimate-table {
     align-self: flex-start;
     width: 100%;
     border-collapse: collapse;
@@ -69,25 +80,25 @@
     font-size: 1rem;
     background-color: #fff;
     color: #000;
-    margin-top: 1rem;
+    margin-top: 2.5rem;
 }
 
-.estimate-table .currency-value {
+.pdf-view .estimate-table .currency-value {
     color: #000;
 }
-.estimate-table .table-body-row .currency-value {
+.pdf-view .estimate-table .table-body-row .currency-value {
     font-weight: lighter;
 }
 
 /* Header Row */
-.table-header {
+.pdf-view .table-header {
     background-color: #012e5a; /* dark blue */
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
 }
 
-.table-header th {
+.pdf-view .table-header th {
     padding: 0.75rem;
     text-align: left;
     border: 1px solid #003366;
@@ -96,58 +107,89 @@
 /* Table Data Cells */
 
 
-.td-left {
+.pdf-view .td-left {
     text-align: left;
     padding: 0.6rem;
 }
 
-.td-right {
+.pdf-view .td-right {
     text-align: right;
     padding: 0.6rem;
 }
 
-.td-center {
+.pdf-view .td-center {
     text-align: center;
     padding: 0.6rem;
 }
 
-.table-body-row:nth-child(even) {
+.pdf-view .table-body-row:nth-child(even) {
     background-color: #f9f9f9;
 }
-.table-body-row td:first-of-type {
+.pdf-view .table-body-row td:first-of-type {
     font-weight: bold;
     color: #2d3748;
 }
 
 /* Remove borders for normal rows */
-.table-body-row td {
+.pdf-view .table-body-row td {
     border: none;
     padding: 0.6rem;
 }
 
 /* Border top only for Subtotal row */
-.border-top td {
+.pdf-view .border-top td {
     border-top: 1px solid #003366;
 }
 
-.subtotal-row *, .discount-row *{
+.pdf-view .subtotal-row *, .discount-row *{
     font-weight: bold;
 }
 
 /* Total Row Styling */
-.total-row * {
+.pdf-view .total-row * {
     font-weight: 900;
 }
 
-.total-row td {
+.pdf-view .total-row td {
     border: 1px solid #003366;
     font-weight: 900;
     border: none;
 }
-.total-row td:nth-child(2), .total-row td:nth-child(3) {
+.pdf-view .total-row td:nth-child(2), .total-row td:nth-child(3) {
     background-color: #e6f0ff;
     border-top: 1px solid #003366;
     border-bottom: 1px solid #003366;
+}
+
+.pdf-view input[type="text"],
+.pdf-view input[type="number"],
+.pdf-view input[type="email"],
+.pdf-view textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--body-font);
+    font-size: 1rem;
+    background-color: #fff;
+    color: var(--text-color);
+    transition: border-color 0.2s;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+}
+
+.pdf-view input[type="text"]:focus,
+.pdf-view input[type="number"]:focus,
+.pdf-view input[type="email"]:focus,
+.pdf-view textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.pdf-view label {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+    display: block;
 }
 
 
@@ -166,8 +208,8 @@
         align-items: center;
     }
 
-    .estimate-table th,
-    .estimate-table td {
+    .pdf-view .estimate-table th,
+    .pdf-view .estimate-table td {
         page-break-inside: avoid;
     }
 
@@ -177,5 +219,8 @@
     
     .pdf-view .controls {
             display: none;
+    }
+    .pdf-view .estimate-header {
+        border-top: none;
     }
 }
