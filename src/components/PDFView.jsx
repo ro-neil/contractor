@@ -79,7 +79,7 @@ const PDFView = () => {
             </div>
 
             <section className={editMode ? "estimate edit-mode" : "estimate"}>
-                <div className="estimate-header">
+                <div className={editMode ? "estimate-header edit-mode" : "estimate-header"}>
                     {(estimateHeader.companyName || editMode) && <div className="company-details">
                         <div className="company-info">
                             <h2 className="company-name">
@@ -105,22 +105,20 @@ const PDFView = () => {
                                             value={estimateHeader.companyAddress.street}
                                             onChange={(e) => handleInputChange(e, "companyAddress", "street")}
                                         />
-                                        <div style={{display: "flex", gap: "0.5rem"}}>
-                                            <input
-                                                name="town-address"
-                                                type="text"
-                                                placeholder="Town"
-                                                value={estimateHeader.companyAddress.town}
-                                                onChange={(e) => handleInputChange(e, "companyAddress", "town")}
-                                            />
-                                            <input
-                                                name="city-address"
-                                                type="text"
-                                                placeholder="City"
-                                                value={estimateHeader.companyAddress.city}
-                                                onChange={(e) => handleInputChange(e, "companyAddress", "city")}
-                                            />
-                                        </div>
+                                        <input
+                                            name="town-address"
+                                            type="text"
+                                            placeholder="Town"
+                                            value={estimateHeader.companyAddress.town}
+                                            onChange={(e) => handleInputChange(e, "companyAddress", "town")}
+                                        />
+                                        <input
+                                            name="city-address"
+                                            type="text"
+                                            placeholder="City"
+                                            value={estimateHeader.companyAddress.city}
+                                            onChange={(e) => handleInputChange(e, "companyAddress", "city")}
+                                        />
                                         <input
                                             name="company-phone"
                                             type="text"
@@ -142,15 +140,15 @@ const PDFView = () => {
                             </address>
                             {!editMode && estimateHeader.companyPhone && <p className="phone-number">{estimateHeader.companyPhone}</p>}
                         </div>
-                        <div className="company-logo">
+                        {!editMode && <div className="company-logo">
                             <img src={estimateHeader.companyIcon} alt="Company Logo" />
-                        </div>
+                        </div>}
                     </div>}
 
-                    <div className="estimate-title">
+                    <div className={editMode ? "estimate-title edit-mode" : "estimate-title"}>
                     {editMode ? (
                         <div>
-                            <strong>Estimate Title:</strong>
+                            {/* <strong>Estimate Title:</strong> */}
                             <input
                                 name="estimate-title"
                                 type="text"
@@ -172,10 +170,13 @@ const PDFView = () => {
                     }                        
                     </div>
 
-                    <div className="estimate-details" style={{justifyContent: estimateHeader.clientName || editMode ? 'space-between' : 'end'}}>
+                    <div className="estimate-details" style={{
+                        justifyContent: estimateHeader.clientName || editMode ? 'space-between' : 'end',
+                        flexDirection: editMode ? 'column' : 'row'
+                        }}>
                         {(editMode || estimateHeader.clientName) && 
                         <div className="client-info">
-                            {(editMode || estimateHeader.clientName) ? <strong>Bill To:</strong> : ""}
+                            {(!editMode || estimateHeader.clientName) ? <strong>Bill To:</strong> : ""}
                             <p className="client-name">
                                 {editMode ? (
                                     <input
@@ -200,22 +201,20 @@ const PDFView = () => {
                                             value={estimateHeader.clientAddress.street}
                                             onChange={(e) => handleInputChange(e, "clientAddress", "street")}
                                         />
-                                        <div style={{display: "flex", gap: "0.5rem"}}>
-                                            <input
-                                                name="town-address"
-                                                type="text"
-                                                placeholder="Town"
-                                                value={estimateHeader.clientAddress.town}
-                                                onChange={(e) => handleInputChange(e, "clientAddress", "town")}
-                                            />
-                                            <input
-                                                name="city-address"
-                                                type="text"
-                                                placeholder="City"
-                                                value={estimateHeader.clientAddress.city}
-                                                onChange={(e) => handleInputChange(e, "clientAddress", "city")}
-                                            />
-                                        </div>
+                                        <input
+                                            name="town-address"
+                                            type="text"
+                                            placeholder="Town"
+                                            value={estimateHeader.clientAddress.town}
+                                            onChange={(e) => handleInputChange(e, "clientAddress", "town")}
+                                        />
+                                        <input
+                                            name="city-address"
+                                            type="text"
+                                            placeholder="City"
+                                            value={estimateHeader.clientAddress.city}
+                                            onChange={(e) => handleInputChange(e, "clientAddress", "city")}
+                                        />
                                         <input
                                             name="client-phone"
                                             type="text"
@@ -239,19 +238,8 @@ const PDFView = () => {
                         </div>}
 
                         <div className="estimate-info">
-                            <p className="estimate-date"><strong>Estimate Date:</strong>
-                                {editMode ? (
-                                    <input
-                                        type="text"
-                                        value={estimateHeader.estimateDate}
-                                        onChange={(e) => handleInputChange(e, null, "estimateDate")}
-                                    />
-                                ) : (
-                                    estimateHeader.estimateDate
-                                )}
-                            </p>
                             {(editMode || estimateHeader.projectTitle) && (
-                                <p className="estimate-project"><strong>Project Title:</strong>
+                                <p className="estimate-project"> {!editMode && <strong>Project Title:</strong>}
                                     {editMode ?
                                         <input
                                             type="text"
@@ -265,6 +253,18 @@ const PDFView = () => {
                                     }
                                 </p>
                             )}
+                            <p className="estimate-date">{!editMode && <strong>Estimate Date:</strong>}
+                                {editMode ? (
+                                    <input
+                                        type="text"
+                                        value={estimateHeader.estimateDate}
+                                        onChange={(e) => handleInputChange(e, null, "estimateDate")}
+                                    />
+                                ) : (
+                                    estimateHeader.estimateDate
+                                )}
+                            </p>
+                            
                         </div>
                     </div>
                 </div>

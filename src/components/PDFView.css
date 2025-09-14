@@ -42,6 +42,12 @@
     text-align: left;
     margin-top: 1rem;     
 }
+.pdf-view .estimate-header.edit-mode {
+    align-items: center;    
+}
+.pdf-view .estimate-header.edit-mode input {
+    width: 20rem;   
+}
 
 .pdf-view .estimate-header strong {
     font-size: larger;
@@ -61,6 +67,9 @@
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
+}
+.pdf-view .company-info {
+    flex-grow: 1;
 }
 .pdf-view .company-name {
    font-size: xx-large;
@@ -109,9 +118,14 @@
 }
 .pdf-view .estimate-title {
     display: flex;
-    justify-content: flex-end;
     gap: 0.5rem;
+    justify-content: flex-end;
     text-align: right;
+}
+.pdf-view .estimate-title.edit-mode {
+    justify-content: start;
+    text-align: left;
+    margin-top: 1rem;
 }
 .pdf-view .estimate-title h1 {
     text-transform: uppercase;
@@ -166,6 +180,9 @@
     padding: 0.75rem;
     text-align: left;
     border: 1px solid #003366;
+    max-width: 8ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Table Data Cells */
@@ -290,3 +307,42 @@
         border-top: none;
     }
 }
+
+
+/* Responsive layout for smaller screens */
+@media (min-width: 425px) {
+  .job-quantity-selector {
+    flex-direction: row !important;
+
+  }
+  button.operator.minus-operator {
+    margin-left: unset !important;
+  }
+
+  .job-unit {
+    max-width: 15ch;
+  }
+
+  .short-unit {
+    display: none !important;
+  }
+  .long-unit {
+    display: inline-block !important;
+  }
+}
+
+
+@media (min-width: 426px) {
+    .pdf-view .table-header th {
+        max-width: fit-content;
+    }
+
+}
+
+
+/* Responsive layout for larger screens */
+@media (min-width: 768px) {
+
+
+}
+
