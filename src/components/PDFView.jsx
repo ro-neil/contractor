@@ -36,7 +36,7 @@ const PDFView = () => {
         clientPhone: "",
         estimateDate: formattedDate,
         projectTitle: "",
-        estimateDiscount: '' 
+        estimateDiscount: 0 
     });
 
     const handleInputChange = (e, section, field) => {
@@ -268,7 +268,7 @@ const PDFView = () => {
                             {editMode && <span>Discount<br/></span>}
                             {editMode && <input
                                 id="estimate-discount"
-                                type="text"
+                                type="number"
                                 placeholder="Estimate Discount"
                                 value={estimateHeader.estimateDiscount}
                                 onChange={(e) => handleInputChange(e, null, "estimateDiscount")}
@@ -279,7 +279,7 @@ const PDFView = () => {
                     </div>
                 </div>
 
-                <Estimate table={true} discount={Number.parseInt(estimateHeader.estimateDiscount) ? Number.parseInt(estimateHeader.estimateDiscount) : 0 }/>
+                <Estimate table={true} discount={Number.parseInt(estimateHeader.estimateDiscount) || 0 }/>
             </section>
         </div>
     );
