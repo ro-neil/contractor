@@ -9,7 +9,7 @@ import "./Estimate.css";
 import unitMap from "../data/unit_map.json"
 
 
-const Estimate = ({ table }) => {
+const Estimate = ({ table, discount }) => {
     const jobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const Estimate = ({ table }) => {
         handleUpdateQuantity(description, newValue);
     };
 
-    const generateEstimateTable = (jobs) => {
+    const generateEstimateTable = (jobs, discount=0) => {
         return (
             <table className="estimate-table">
                 <thead>
@@ -58,7 +58,7 @@ const Estimate = ({ table }) => {
                     {(() => {
                         const subtotal = jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0);
                         const taxAmount = 0;
-                        const discount = 0;
+                        // const discount = 0;
                         const grandTotal = subtotal + taxAmount - discount;
 
                         return (
@@ -92,7 +92,7 @@ const Estimate = ({ table }) => {
 
 
     return (
-        table === true ? generateEstimateTable(jobs) : 
+        table === true ? generateEstimateTable(jobs, discount) : 
         <div>
             <h2 className="estimate-heading">Estimate</h2>
             <section className="estimate-body">

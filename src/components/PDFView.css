@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    border-bottom: 1px solid ghostwhite;
+    border-bottom: 1px solid whitesmoke;
 }
 
 .pdf-view .controls button {
