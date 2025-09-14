@@ -1,6 +1,6 @@
 :root {
     --primary-color: #012e5a; /* dark blue */
-    --secondary-color: #dc4037; /* red */
+    --secondary-color: #218c4e; /* green */
     --background-color: #f4f4f4; /* light gray */
     --text-color: #333; /* dark gray */
     --header-font: 'Arial Black', sans-serif;
@@ -10,6 +10,7 @@
 .pdf-view {
     width: auto;
     height: 90vh;
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -28,48 +29,110 @@
     color: #fff;
 }
 
+.pdf-view .estimate {
+    width: 100%;
+}
+
 .pdf-view .estimate-header {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     text-align: left;
-    border-top: 1px solid #ccc;     
+    margin-top: 1rem;     
 }
+
+.pdf-view .estimate-header strong {
+    font-size: larger;
+}
+
+.pdf-view .estimate-header strong::after {
+    content: " ";
+}
+
+.pdf-view .estimate.edit-mode {
+    width: 80%;   
+    margin: auto; 
+}
+
 
 .pdf-view .company-details {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
 }
+.pdf-view .company-name {
+   font-size: xx-large;
+   margin-top: 0;
+}
+
 .pdf-view .company-logo {
-   align-self: flex-end;
+  width: 16rem; /* match the image height */
+  height: 16rem;
+  border-radius: 50%; /* makes it circular */
+  overflow: hidden; /* hides overflow outside the circle */
+  border: 1px solid #fdfdfd; /* optional: gray border */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  padding: 0.5rem 1rem;
+}
+
+.company-logo {
+  transition: box-shadow 0.3s ease;
+}
+
+.company-logo:hover {
+  box-shadow: 0 8px 20px rgba(236, 235, 235, 0.3);
+}
+
+
+.pdf-view .company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* crop image to fit the circular frame */
+}
+
+.pdf-view address span:not(:last-child)::after {
+    content: ",";
+    margin-right: 0.25rem;
+}
+.pdf-view .company-address, .pdf-view .client-address{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.pdf-view .estimate .phone-number {
+    font-style: italic;
 }
 .pdf-view .estimate-title {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
     text-align: right;
-    text-transform: uppercase;
 }
+.pdf-view .estimate-title h1 {
+    text-transform: uppercase;
+    margin-top: 0;
+}
+/* .pdf-view .estimate-date {
+    text-align: end;
+} */
+
 .pdf-view .estimate-details {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
 }
-.pdf-view .estimate-details strong {
+
+.pdf-view .client-info .client-name {
+    margin-top: 1rem;
     font-size: larger;
 }
 
-.pdf-view .estimate-details strong::after {
-    content: " ";
-}
-.pdf-view .client-info .client-name {
-    margin-top: 1rem;
-}
-
-.pdf-view .estimate-info p:first-child {
-    margin-top: none;
+.pdf-view .estimate-info p:first-of-type {
+    margin-top: 0;
 }
 
 .pdf-view .estimate-table {
@@ -200,6 +263,7 @@
         margin: 0;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        height: 95vh;
     }
 
     .pdf-view {

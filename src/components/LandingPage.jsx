@@ -4,6 +4,7 @@ import AppLogo from './AppLogo';
 import { setStarted } from './GetStartedSlice';
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import "./LandingPage.css";
 
 
 const styles = {
@@ -17,10 +18,7 @@ const styles = {
     padding: '3rem',
     borderRadius: '0.75rem',
     boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-    // margin: '1.5rem 0',
-    // width: '100%',
-    // maxWidth: '48rem',
-    margin: '0 2rem',
+    margin: '4rem 2rem',
   },
   heroTitle: {
     color: '#2d3e50',
@@ -58,7 +56,7 @@ const LandingPage = ({ title, subtitle, action }) => {
   
   return (
     <>
-      <div style={styles.container}>
+      <div className='landing-page-container' style={styles.container}>
         <div style={styles.logo}>
           <AppLogo/>
         </div>

@@ -97,7 +97,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 h1 {
@@ -155,5 +155,12 @@ button:focus-visible {
   div, span, li, section, button.operator, input {
     background-color: #242424 !important;
   }
+  table, .table-body-row td {
+    color: white !important;
+  }
+  td, .total-row td {
+    background-color: #213547 !important;
+  }
+  
 
 }
