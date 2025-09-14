@@ -130,7 +130,7 @@ const Navigation = ({ search, setSearch }) => {
                         <Dropdown
                           options={{
                             "Export as PDF": handleExportPDF,
-                            "Print": () => alert("Printing..."),
+                            // "Print": () => alert("Printing..."),
                           }}
                         />
                       </div>

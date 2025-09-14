@@ -16,12 +16,13 @@
 }
 
 .pdf-view .controls {
-    align-self: flex-end;
-    margin-top: 1rem;
+    align-self: center;
+    margin: 1rem 0;
     height: 5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    border-bottom: 1px solid ghostwhite;
 }
 
 .pdf-view .controls button {
@@ -150,7 +151,7 @@
     color: #000;
 }
 .pdf-view .estimate-table .table-body-row .currency-value {
-    font-weight: lighter;
+    font-weight: 500;
 }
 
 /* Header Row */
@@ -178,6 +179,7 @@
 .pdf-view .td-right {
     text-align: right;
     padding: 0.6rem;
+    text-wrap: nowrap;
 }
 
 .pdf-view .td-center {
