@@ -1,0 +1,182 @@
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+  font-size: medium;
+}
+
+.navigation {
+  width: 100%;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #fff764aa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.center-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.bg-dark {
+  background-color: #1a2a3a !important;
+}
+
+.bg-light {
+  background-color: #f5f5f5 !important;
+}
+
+.text-dark {
+  color: #000 !important;
+}
+
+.text-light {
+  color: #f5f5f5 !important;
+}
+
+.border-light {
+  border-color: #eae9e9;
+}
+
+.text-light {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.text-green {
+  color: var(--color-green);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.currency-value {
+  font-weight: bold;
+  color: var(--color-green);
+}
+
+.flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-end {
+  align-items: end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.input-field {
+  box-shadow: var(--box-shadow-light);
+}
+
+.input-field:focus {
+  box-shadow: var(--box-shadow-heavy);
+}
+
+button.operator {
+  font-size: large;
+  background-color: var(--color-light);
+  padding: 1px 6px;
+  margin: 0.5rem;
+  border-radius: 100%;
+  font-weight: bold;
+  width: 2rem;
+  color: var(--color-dark);
+  box-shadow: var(--box-shadow-light);
+  border: 1px solid rgb(246, 245, 245);
+}
+
+button.operator:hover {
+  box-shadow: var(--box-shadow-heavy);
+}
+
+.service-unit,
+.job-unit {
+  border-radius: var(--border-radius-hard);
+  padding: 0.25rem 0.5rem;
+  font-size: small;
+  font-weight: bold;
+  background: var(--color-yellow);
+  font-style: italic;
+}
+
+/* Responsive sizes for larger screens */
+@media (min-width: 600px) {
+
+  .service-unit,
+  .job-unit {
+    font-size: medium;
+  }
+
+  button {
+    font-size: large;
+  }
+
+  .pdf-view .controls button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .pdf-view .estimate-header.edit-mode input {
+    font-size: large;
+  }
+
+}

@@ -1,9 +1,0 @@
-.dropdown-button {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.dropdown-button .button-icon {
-  display: flex;
-  align-self: flex-end;
-}

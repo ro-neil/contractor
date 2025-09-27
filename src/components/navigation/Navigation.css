@@ -1,0 +1,43 @@
+.dropdown-button {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.dropdown-button .button-icon {
+  display: flex;
+  align-self: flex-end;
+}
+
+.navigation {
+  width: 100%;
+}
+
+.navigation button {
+  background-color: var(--color-light);
+  color: black;
+  font-weight: bold;
+}
+.navigation button.home-button {
+  box-shadow: var(--box-shadow-medium);
+}
+.navigation button:hover {
+  background-color: hsl(210, 36%, 99%);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem;
+  min-height: 2rem;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+

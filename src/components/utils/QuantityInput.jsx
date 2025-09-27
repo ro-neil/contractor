@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 
-const QuantityInput = ({ value, onChange, placeholder, id, name, operators=true, onPlus, onMinus }) => {
-
-  const handleChange = (e) => {
-    // Only allow numeric input and limit to 10 digits
-    let inputValue = e.target.value.replace(/\D/g, '').slice(0, 6);
-    onChange(inputValue);
-  };
+const QuantityInput = ({ value, onChange, onBlur, placeholder, id, name, operators=true, onPlus, onMinus }) => {
 
   return (
     <>
@@ -14,9 +8,11 @@ const QuantityInput = ({ value, onChange, placeholder, id, name, operators=true,
     <input
         id={id}
         name={name}
+        className='input-field'
         type="text"
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder || 'Value'}
         pattern='^\d{0,6}$'
         style={{

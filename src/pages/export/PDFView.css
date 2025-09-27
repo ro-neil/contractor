@@ -1,14 +1,14 @@
 :root {
     --primary-color: #012e5a; /* dark blue */
-    --secondary-color: #218c4e; /* green */
+    --secondary-color: #ec4c50; /* green */
     --background-color: #f4f4f4; /* light gray */
     --text-color: #333; /* dark gray */
-    --header-font: 'Arial Black', sans-serif;
-    --body-font: 'Arial', sans-serif;
+    /* --header-font: 'Arial Black', sans-serif;
+    --body-font: 'Arial', sans-serif; */
 }
 
 .pdf-view {
-    width: auto;
+    width: 100%;
     height: 90vh;
     margin-bottom: 2rem;
     display: flex;
@@ -21,13 +21,23 @@
     height: 5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    border-bottom: 1px solid whitesmoke;
+    gap: 1rem;
 }
 
 .pdf-view .controls button {
-    background-color: var(--secondary-color);
-    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 10rem;
+    gap: 0.5rem;
+}
+
+.pdf-view .controls .save-button {
+    background-color: var(--color-red);
+    opacity: 0.9;
+}
+.pdf-view .controls .save-button:hover {
+    background-color: var(--color-light);
 }
 
 .pdf-view .estimate {
@@ -43,10 +53,14 @@
     margin-top: 1rem;     
 }
 .pdf-view .estimate-header.edit-mode {
-    align-items: center;    
+    align-items: center; 
+    border: 1px solid #f9f9f9;  
+    box-shadow: var(--box-shadow-medium); 
+    border-radius: var(--border-radius-soft);
+    padding-bottom: 1rem;
 }
 .pdf-view .estimate-header.edit-mode input {
-    width: 20rem;   
+    width: 40ch;   
 }
 
 .pdf-view .estimate-header strong {
@@ -62,7 +76,6 @@
     margin: auto; 
 }
 
-
 .pdf-view .company-details {
     display: flex;
     justify-content: space-between;
@@ -75,17 +88,20 @@
    font-size: xx-large;
    margin-top: 0;
 }
+.pdf-view #companyNameInput {
+   margin-bottom: 1rem;
+}
 
 .pdf-view .company-logo {
   width: 16rem; /* match the image height */
-  height: 16rem;
+  height: 10rem;
   border-radius: 50%; /* makes it circular */
   overflow: hidden; /* hides overflow outside the circle */
   border: 1px solid #fdfdfd; /* optional: gray border */
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: center;
+  align-self: flex-start;
   padding: 0.5rem 1rem;
 }
 
@@ -111,29 +127,20 @@
 .pdf-view .company-address, .pdf-view .client-address{
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    font-weight: 600;
 }
 .pdf-view .estimate .phone-number {
     font-style: italic;
+    font-weight: 600;
 }
-.pdf-view .estimate-title {
+.pdf-view .estimate-titles.edit-mode {
     display: flex;
-    gap: 0.5rem;
-    justify-content: flex-end;
-    text-align: right;
-}
-.pdf-view .estimate-title.edit-mode {
-    justify-content: start;
-    text-align: left;
-    margin-top: 1rem;
+    flex-direction: column;
 }
 .pdf-view .estimate-title h1 {
     text-transform: uppercase;
-    margin-top: 0;
+    text-align: right;
 }
-/* .pdf-view .estimate-date {
-    text-align: end;
-} */
 
 .pdf-view .estimate-details {
     display: flex;
@@ -144,18 +151,26 @@
 .pdf-view .client-info .client-name {
     margin-top: 1rem;
     font-size: larger;
+    font-weight: 600;
+}
+.pdf-view .client-info #clientNameInput {
+    margin-bottom: 1rem;
 }
 
-.pdf-view .estimate-info p:first-of-type {
+
+.pdf-view .estimate-project-title, .pdf-view .estimate-date {
     margin-top: 0;
+    font-size: larger;
+}
+.pdf-view .estimate-project-title span, .pdf-view .estimate-date span {
+    font-weight: 600;
 }
 
 .pdf-view .estimate-table {
     align-self: flex-start;
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Arial', sans-serif;
-    font-size: 1rem;
+    font-size: larger;
     background-color: #fff;
     color: #000;
     margin-top: 2.5rem;
@@ -229,12 +244,12 @@
 
 /* Total Row Styling */
 .pdf-view .total-row * {
-    font-weight: 900;
+    font-size: larger;
 }
 
 .pdf-view .total-row td {
     border: 1px solid #003366;
-    font-weight: 900;
+    font-weight: 700;
     border: none;
 }
 .pdf-view .total-row td:nth-child(2), .total-row td:nth-child(3) {
@@ -245,7 +260,9 @@
 
 .pdf-view input[type="text"],
 .pdf-view input[type="number"],
+.pdf-view input[type="tel"],
 .pdf-view input[type="email"],
+.pdf-view input[type="date"],
 .pdf-view textarea {
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -261,7 +278,9 @@
 
 .pdf-view input[type="text"]:focus,
 .pdf-view input[type="number"]:focus,
+.pdf-view input[type="tel"]:focus,
 .pdf-view input[type="email"]:focus,
+.pdf-view input[type="date"]:focus,
 .pdf-view textarea:focus {
     border-color: var(--primary-color);
     outline: none;

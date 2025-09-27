@@ -1,10 +1,10 @@
 
 
-import LandingPage from '../components/LandingPage.jsx';
-import ServicesList from '../components/Services.jsx';
-import Estimate from '../components/Estimate.jsx';
-import PDFView from '../components/PDFView.jsx';
-import NotFound from '../components/NotFound.jsx';
+import LandingPage from '@/pages/home/LandingPage.jsx';
+import ServicesList from '@/pages/services/Services.jsx';
+import Estimate from '@/pages/estimate/Estimate.jsx';
+import PDFView from '@/pages/export/PDFView.jsx';
+import NotFound from '@/pages/notFound/NotFound.jsx';
 
 
 const routes = [

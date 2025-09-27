@@ -1,30 +1,39 @@
 
 import React, {useState, useEffect} from "react";
-import Currency from "./Currency.jsx";
+import Currency from "@/components/utils/Currency.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { setStarted } from './GetStartedSlice';
-import { removeJob, updateJobQuantity } from "./EstimateSlice";
-import QuantityInput from "./QuantityInput.jsx";
+import { removeJob, updateJobQuantity } from "@/data/EstimateSlice.js";
+import QuantityInput from "@/components/utils/QuantityInput.jsx";
 import "./Estimate.css";
-import unitMap from "../data/unit_map.json"
+import unitMap from "@/data/service-unit-map.json"
+import { useNavigate } from "react-router-dom";
 
 
 const Estimate = ({ table, discount }) => {
     const jobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    dispatch(setStarted(true)); // Ensure userStarted is true when this component mounts
+    const handleExportPDF = () => {
+        navigate("/estimate/pdf");
+    };
 
-    const handleUpdateQuantity = (description, quantity) => {
-        dispatch(updateJobQuantity({ description, quantity }));
+    const handleUpdateQuantity = (description, value) => {
+        dispatch(updateJobQuantity({ description: description, quantity: value }));
     }
 
     const handleRemoveJob = (description) => {
         dispatch(removeJob(description));
     }
 
-    const handleNumberInputChange = (description, newValue) => {
-        handleUpdateQuantity(description, newValue);
+    const handleNumberInputChange = (description, e) => {
+        const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+        handleBlur(description, value);
+    };
+
+    // Handle blur (when user finishes typing)
+    const handleBlur = (description, quantity) => {
+        dispatch(updateJobQuantity({ description, quantity }));
     };
 
     const generateEstimateTable = (jobs, discount=0) => {
@@ -33,7 +42,7 @@ const Estimate = ({ table, discount }) => {
                 <thead>
                     <tr className="table-header">
                         <th className="th-left">Description</th>
-                        <th className="th-left">Qty</th>
+                        <th className="text-center">Qty</th>
                         <th className="th-left">Unit</th>
                         <th className="th-left">Unit Price</th>
                         <th className="th-left">Amount</th>
@@ -92,20 +101,31 @@ const Estimate = ({ table, discount }) => {
 
 
     return (
-        table === true ? generateEstimateTable(jobs, discount) : 
-        <div>
+        table === true ? <div className="estimate-component">{generateEstimateTable(jobs, discount)}</div> : 
+        <div className="estimate-component">
             <h2 className="estimate-heading">Estimate</h2>
             <section className="estimate-body">
-                {jobs.length > 0 &&
-                    <div className="grand-total-container">
-                        <span className="grand-total-text colon-end">Grand Total</span>
-                        <span className="grand-total-currency text-green">
-                            <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0)} />
-                        </span>
+                {jobs.length > 0 && (
+                    <div>
+                        <div className="controls flex justify-end">
+                            <button type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
+                                <span className='button-text'>PDF Preview</span>                           
+                            </button>
+                        </div>
+                        <div className="grand-total-container">
+                            <span className="grand-total-text colon-end">Grand Total</span>
+                            <span className="grand-total-currency text-green">
+                                <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
+                            </span>
+                        </div>
                     </div>
-                }
+            )}
+
                 {jobs.length === 0 ? (
-                    <h2 className="empty-estimate-text">No jobs added</h2>
+                    
+                    <div>
+                        <h2 className="empty-estimate-text">No jobs added</h2>
+                    </div>
                 ) : (
                     
                     jobs.map((job, index) => (
@@ -117,7 +137,7 @@ const Estimate = ({ table, discount }) => {
                                     title="Remove from Estimate"
                                     onClick={() => handleRemoveJob(job.description)}
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red">
+                                    <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
                                     </svg>
                                 </button>     
@@ -127,11 +147,12 @@ const Estimate = ({ table, discount }) => {
                                     <QuantityInput 
                                         id={`job_quantity_${index}`} 
                                         name={`job_quantity_${index}`} 
-                                        value={job.quantity} 
-                                        placeholder={"Qty"}
-                                        onChange={(e) => handleUpdateQuantity(job.description, e)}
+                                        value={job.quantity || ''} 
+                                        placeholder="Qty"
+                                        onChange={(e) => handleNumberInputChange(job.description, e)}
                                         onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
                                         onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
+                                        onBlur={() => handleBlur(job.description, job.quantity)}
                                     />
                                 </div>
                                 
@@ -147,7 +168,7 @@ const Estimate = ({ table, discount }) => {
                             </div>                    
                             <div className="job-item-footer job-subtotal">
                                 <span className="job-subtotal-text colon-end">Subtotal</span> 
-                                <Currency figure={job.quantity * job.rate} />                            
+                                <Currency figure={(job.quantity * job.rate) || 0} />                            
                             </div>
                         </div>
                     ))

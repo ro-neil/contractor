@@ -1,17 +1,17 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import routes from '@/routes/routeConfig.jsx';
-import Navigation from '@/components/Navigation.jsx';
+import Navigation from '@/components/navigation/Navigation.jsx';
 
-const Layout = ({ search, setSearch, hideNav }) => {
+const Layout = () => {
     const location = useLocation();
 
     // Match current route
     const currentRoute = routes.find(r => r.path === location.pathname);
-    const shouldHideNav = hideNav || currentRoute?.hideNav;
+    const shouldHideNav = currentRoute?.hideNav == undefined ? 'true' : currentRoute?.hideNav;
 
     const landingPageText = {
-        title: "Contractor Estimate",
-        subtitle: "Generate estimates for your services with accuracy and precision.",
+        title: "Swift Estimate",
+        subtitle: "Swiftly generate estimates for your services with accuracy and precision.",
         action: "Get Started"
     }
 
@@ -20,7 +20,7 @@ const Layout = ({ search, setSearch, hideNav }) => {
             case '/':
                 return <Route key={idx} path={route.path} element={route.element(landingPageText)} />
             case '/services':
-                return <Route key={idx} path={route.path} element={route.element({ search: search })} />
+                return <Route key={idx} path={route.path} element={route.element()} />
             default:
                 return <Route key={idx} path={route.path} element={route.element()} />
         }
@@ -29,7 +29,7 @@ const Layout = ({ search, setSearch, hideNav }) => {
 
     return (
         <>
-            {!shouldHideNav && <Navigation search={search} setSearch={setSearch} />}
+            {!shouldHideNav && <Navigation  />}
             <Routes>
                 {routes.map((route, idx) => (
                     setRoute(route, idx)

@@ -18,7 +18,9 @@ export const EstimateSlice = createSlice({
         const { description, quantity } = action.payload;
         const jobToUpdate = state.jobs.find(job => job.description === description);
         if (jobToUpdate && quantity >= 0) {
-          jobToUpdate.quantity = quantity;        
+          jobToUpdate.quantity = parseInt(quantity);        
+        } else {
+          jobToUpdate.quantity = 0;
         }
     }
   },
