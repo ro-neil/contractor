@@ -19,7 +19,7 @@
     align-self: center;
     margin: 1rem 0;
     height: 5rem;
-    display: flex;
+    display: flex;  
     align-items: center;
     gap: 1rem;
 }
@@ -32,12 +32,17 @@
     gap: 0.5rem;
 }
 
+.pdf-view .controls .button-text {
+    color: light-dark(var(--light), #000);
+}
+
 .pdf-view .controls .save-button {
     background-color: var(--color-red);
     opacity: 0.9;
 }
 .pdf-view .controls .save-button:hover {
     background-color: var(--color-light);
+    color: #000 ;
 }
 
 .pdf-view .estimate {
@@ -177,7 +182,7 @@
 }
 
 .pdf-view .estimate-table .currency-value {
-    color: #000;
+    color: light-dark(var(--color-dark), var(--color-green));
 }
 .pdf-view .estimate-table .table-body-row .currency-value {
     font-weight: 500;
@@ -224,7 +229,7 @@
 }
 .pdf-view .table-body-row td:first-of-type {
     font-weight: bold;
-    color: #2d3748;
+    color: var(--color-dark);
 }
 
 /* Remove borders for normal rows */
@@ -270,7 +275,7 @@
     font-family: var(--body-font);
     font-size: 1rem;
     background-color: #fff;
-    color: var(--text-color);
+    color: light-dark(var(--text-color), var(--color-light));
     transition: border-color 0.2s;
     margin-bottom: 0.5rem;
     box-sizing: border-box;
@@ -315,13 +320,10 @@
         page-break-inside: avoid;
     }
 
-    .navigation {
+    .pdf-view .controls, .navigation, .pdf-view .page-heading {
         display: none;
     }
     
-    .pdf-view .controls {
-            display: none;
-    }
     .pdf-view .estimate-header {
         border-top: none;
     }
@@ -364,4 +366,8 @@
 
 
 }
+
+/* @media (prefers-color-scheme: dark) {
+   
+} */
 

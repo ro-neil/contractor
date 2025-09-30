@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="314" height="190">
+  <!-- Background: from #FEFEFE to #121212 -->
+  <path d="M0 0 C103.62 0 207.24 0 314 0 C314 62.7 314 125.4 314 190 C210.38 190 106.76 190 0 190 C0 127.3 0 64.6 0 0 Z" fill="#121212" transform="translate(0,0)"/>
+  
+  <!-- Black paths remain unchanged -->
+  <path d="M0 0 C2.36190378..." fill="#030303" transform="translate(201.943603515625,13.217529296875)"/>
+  <path d="M0 0 C18.48 0 36.96..." fill="#000000" transform="translate(173,115)"/>
+
+  <!-- Green accent changed from bright green to cyan -->
+  <path d="M0 0 C1.88256603..." fill="#00d8d8" transform="translate(49,66)"/>
+
+  <!-- Yellow element (optional: slightly dimmed) -->
+  <path d="M0 0 C6.6 0 13.2..." fill="#c2b100" transform="translate(36,103)"/>
+
+  <!-- Light gray to mid-gray -->
+  <path d="M0 0 C6.6 0 13.2..." fill="#888888" transform="translate(191,133)"/>
+  <path d="M0 0 C2.5 0.125..." fill="#666666" transform="translate(45.5,109.875)"/>
+</svg>

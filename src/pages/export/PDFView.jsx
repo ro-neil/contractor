@@ -101,27 +101,41 @@ const PDFView = () => {
     }
 
     /**
-     * Formats an ISO date string into a human-readable alphanumeric format like "Sep 26, 2025".
+     * Formats an ISO date string into a human-readable alphanumeric format like "Sep 26, 2025",
+     * using the user's local time zone.
      * 
      * @param {string} isoDateString - The date string in ISO format (with or without time).
      * @param {string} [locale='en-US'] - Optional locale for formatting.
      * @param {Object} [options] - Optional Intl.DateTimeFormat options.
      * @returns {string} - Formatted date string.
      */
-    const formatReadableDate = (isoDateString, locale = 'en-US', options = {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
-    }) => {
-        if (!isoDateString) return '';
+    const formatReadableDate = (
+        isoDateString,
+        locale = 'en-US',
+        options = {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        }
+    ) => {
+    if (!isoDateString) return '';
 
-        const normalizedDateString = isoDateString.includes('T')
-            ? isoDateString
-            : `${isoDateString}T00:00:00`;
+    const normalizedDateString = isoDateString.includes('T')
+        ? isoDateString
+        : `${isoDateString}T00:00:00`;
 
-        const date = new Date(normalizedDateString);
-        return date.toLocaleDateString(locale, options);
+    const date = new Date(normalizedDateString);
+
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    const formatter = new Intl.DateTimeFormat(locale, {
+        ...options,
+        timeZone: userTimeZone, // Ensures correct local rendering
+    });
+
+    return formatter.format(date);
     };
+
 
 
     /**
@@ -152,6 +166,7 @@ const PDFView = () => {
 
     return (
         <div className="pdf-view">
+            <h1 className="page-heading">PDF Preview</h1>
             <div className="controls flex justify-center align-center">
                 {editMode && 
                     <button className="button preview-button" onClick={() => setEditMode(false)}>              

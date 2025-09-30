@@ -99,81 +99,85 @@ const Estimate = ({ table, discount }) => {
         )
     }
 
+    const isEmpty = (arr) => arr.length <= 0;
+
 
     return (
         table === true ? <div className="estimate-component">{generateEstimateTable(jobs, discount)}</div> : 
         <div className="estimate-component">
-            <h2 className="estimate-heading">Estimate</h2>
-            <section className="estimate-body">
-                {jobs.length > 0 && (
-                    <div>
-                        <div className="controls flex justify-end">
-                            <button type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
-                                <span className='button-text'>PDF Preview</span>                           
-                            </button>
-                        </div>
-                        <div className="grand-total-container">
-                            <span className="grand-total-text colon-end">Grand Total</span>
-                            <span className="grand-total-currency text-green">
-                                <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
-                            </span>
-                        </div>
-                    </div>
-            )}
-
-                {jobs.length === 0 ? (
-                    
-                    <div>
+            <h1 className="estimate-heading page-heading">Estimate</h1>
+            {isEmpty(jobs) && (      
+                <section className="estimate-body">            
+                    <div className="empty-estimate">
                         <h2 className="empty-estimate-text">No jobs added</h2>
                     </div>
-                ) : (
-                    
-                    jobs.map((job, index) => (
-                        <div key={index} className="job-item">                    
-                            <div className="job-item-header">
-                                <span className="job-description">{job.description}</span>
-                                <button 
-                                    className="job-remove-button"
-                                    title="Remove from Estimate"
-                                    onClick={() => handleRemoveJob(job.description)}
-                                >
-                                    <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                                    </svg>
-                                </button>     
-                            </div>
-                            <div className="job-item-body">
-                                <div className="job-quantity-selector">
-                                    <QuantityInput 
-                                        id={`job_quantity_${index}`} 
-                                        name={`job_quantity_${index}`} 
-                                        value={job.quantity || ''} 
-                                        placeholder="Qty"
-                                        onChange={(e) => handleNumberInputChange(job.description, e)}
-                                        onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
-                                        onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
-                                        onBlur={() => handleBlur(job.description, job.quantity)}
-                                    />
+                </section>
+            )}
+
+            {!isEmpty(jobs) && (
+                <section className="estimate-body">
+                    <div className="controls flex justify-end">
+                        <button type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
+                            <span className='button-text'>PDF Preview</span>                           
+                        </button>
+                    </div>
+
+                    <div className="grand-total-container">
+                        <span className="grand-total-text colon-end">Grand Total</span>
+                        <span className="grand-total-currency">
+                            <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
+                        </span>
+                    </div>
+
+                    <div className="job-items">
+                        {jobs.map((job, index) => (
+                            <div key={index} className="job-item">                    
+                                <div className="job-item-header">
+                                    <span className="job-description">{job.description}</span>
+                                    <button 
+                                        className="job-remove-button"
+                                        title="Remove from Estimate"
+                                        onClick={() => handleRemoveJob(job.description)}
+                                    >
+                                        <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                                        </svg>
+                                    </button>     
                                 </div>
-                                
-                                <div className="job-rate-container">
-                                    <span className="at-symbol">&#64;</span>
-                                    <div className="job-rate">
-                                        <Currency figure={job.rate} />
-                                        <span className="forward-slash">&#47;</span> 
-                                        <span className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit]}</span>
-                                        <span className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                                <div className="job-item-body">
+                                    <div className="job-quantity-selector quantity-selector">
+                                        <QuantityInput 
+                                            id={`job_quantity_${index}`} 
+                                            name={`job_quantity_${index}`} 
+                                            value={job.quantity || ''} 
+                                            placeholder="Qty"
+                                            onChange={(e) => handleNumberInputChange(job.description, e)}
+                                            onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
+                                            onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
+                                            onBlur={() => handleBlur(job.description, job.quantity)}
+                                        />
                                     </div>
+                                    
+                                    <div className="job-rate-container">
+                                        <span className="at-symbol">&#64;</span>
+                                        <div className="job-rate">
+                                            <Currency figure={job.rate} />
+                                            <span className="forward-slash">&#47;</span> 
+                                            <span className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit]}</span>
+                                            <span className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                                        </div>
+                                    </div>
+                                </div>                    
+                                <div className="job-item-footer job-subtotal">
+                                    <span className="job-subtotal-text colon-end">Subtotal</span> 
+                                    <Currency figure={(job.quantity * job.rate) || 0} />                            
                                 </div>
-                            </div>                    
-                            <div className="job-item-footer job-subtotal">
-                                <span className="job-subtotal-text colon-end">Subtotal</span> 
-                                <Currency figure={(job.quantity * job.rate) || 0} />                            
                             </div>
-                        </div>
-                    ))
-                )}
-            </section>
+                            ))
+                        }
+                    </div>                  
+                </section>
+            )}
         </div>
     );
 };

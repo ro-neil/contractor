@@ -95,7 +95,7 @@ const ServicesList = () => {
                         display: "flex",
                         alignItems: "center",
                         gap: "0.5rem",
-                        color: "#2d3748",
+                        color: "var(--color-dark)",
                         paddingRight: "0.5rem",
                     }}
                 >
@@ -105,10 +105,10 @@ const ServicesList = () => {
                             display: "flex",
                             alignItems: "center",
                             gap: "0.5rem",
-                            color: "#2d3748",
+                            color: "var(--color-dark)",
                         }}
                     >
-                        <span style={{ fontWeight: "500", color: "gray" }}>/</span>
+                        <span className="forward-slash">/</span>
                         <span className="service-unit">{service.unit}</span>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ const ServicesList = () => {
                             <div className="job-on-estimate">
                                 <span className="job-added-text">Added to Estimate</span>
                                 
-                                <div className="service-quantity-selector">
+                                <div className="service-quantity-selector quantity-selector">
                                     <QuantityInput
                                         id={`service_quantity_${service.description}`}
                                         name={`service_quantity_${service.description}`}
@@ -171,8 +171,8 @@ const ServicesList = () => {
     if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
     return (
-        <div className="services-component">
-            <h2 className="services-heading">Services</h2>
+        <div className="services-component page">
+            <h1 className="services-heading page-heading">Services</h1>
             <div className="flex justify-center controls">
                 <SearchInput id="servicesSearchInput" value={search} onChange={setSearch}/> 
             </div>
@@ -188,8 +188,8 @@ const ServicesList = () => {
                             <h2 className="services-category">{category}</h2>
                             <ul className="services-list">
                                 {items.map((service, index) => (
-                                    <li key={index} className="service-item" style={{ backgroundColor: locateJobOnEstimate(service) ? "#f7f9ff" : "" }}>
-                                        <span className="service-description">{service.description}</span>
+                                    <li key={index} className={ locateJobOnEstimate(service) ? "service-item selected" : "service-item"}>
+                                        <span className="service-description">{service.description}</span>                                     
                                         <ServiceActions
                                             service={service}
                                             locateJobOnEstimate={locateJobOnEstimate}
@@ -215,8 +215,8 @@ const ServicesList = () => {
                     </ul>
                 )}
             </section>
-            <p style={{ color: "#718096", fontSize: "0.875rem", marginTop: "1rem" }}>
-                Note: Rates are in JMD and may vary based on contract terms.
+            <p className="footnote">
+                Note: Rates are quoted in Jamaican Dollars &#40;JMD&#41;.
             </p>
         </div>
     );

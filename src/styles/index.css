@@ -73,19 +73,29 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --color-dark: #1c2c3c;
+  --color-dark: #213547;
+  --color-darker: #1c2c3c;
   --color-light: white;
   --color-red: #EF3054;
   --color-yellow: #ED9B40;
   --color-green: #259d3c;
+  --color-gray: #618394; /*#718096;*/
+  --color-light-semi-transparent: #f9fafb75;
+  --color-dark-semi-transparent: #20202075;
+  --background-color-light: var(--color-light);
+  --background-color-dark: #242424;
+  --background-color-gray: #2d3034;
+  --color-selected-light: #f7f9ff;
+  --color-selected-dark: var(--background-color-gray);
+  --color-hero-title: #243447;
 
   --box-shadow-light: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   --box-shadow-medium: rgba(25, 118, 210, 0.15) 0 2px 8px;
@@ -124,7 +134,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-dark);
+  background-color: var(--color-darker);
   color: var(--color-light);
   cursor: pointer;
   box-shadow: var(--box-shadow-light);
@@ -142,6 +152,14 @@ button:focus-visible {
   outline: 2px auto hsl(210, 36%, 99%);
 }
 
+/* Hide native clear button in search inputs */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+
 @keyframes shake {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(-15deg); }
@@ -152,8 +170,10 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-dark);
+    background-color: var(--background-color-light);
+    --background-color-brand-logo: var(--color-light);
+    --color-brand-logo-primary: var(--color-darker);
   }
   a:hover {
     color: #747bff;
@@ -162,9 +182,12 @@ button:focus-visible {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: var(--color-light);
+    background-color: var(--background-color-dark);
+    --background-color-brand-logo: var(--background-color-dark);
+    --color-brand-logo-primary: var(--color-light);
   }
+
   a {
     color: #646cff;
   }
@@ -174,19 +197,24 @@ button:focus-visible {
   button:hover {
     border-color: #eae9e9;
   }
-  h1, h2, h3, p, span, div, button, input {
-    color: #ffffff !important;
+  h1, h2, h3, p, span, div, input {
+    color: #ffffff;
   }
 
-  div, span, li, section, button.operator, input {
-    background-color: #242424 !important;
+  div, li, section, button.operator, input {
+    background-color: var(--background-color-dark) !important;
   }
-  table, .table-body-row td {
+
+  .quantity-selector button.operator, .quantity-selector .input-field {
+    color: var(--color-light) !important;
+  }
+  
+  table, .table-body-row td, table, .table-body-row .currency-value {
     color: white !important;
   }
   td, .total-row td {
-    background-color: #213547 !important;
+    background-color: var(--color-darker) !important;
+    color: var(--color-light);
   }
-  
 
 }

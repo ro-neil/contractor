@@ -22,9 +22,9 @@ const QuantityInput = ({ value, onChange, onBlur, placeholder, id, name, operato
             outline: 'none',
             fontSize: '1em',
             fontWeight: '600',
-            backgroundColor: '#f7fafc',
+            // backgroundColor: '#f7fafc',
             textAlign: 'center',
-            color: '#2d3748'         
+            color: 'var(--color-dark)'         
         }}
     />
     {operators && <button className="operator plus-operator" onClick={onPlus}>&#43;</button>}

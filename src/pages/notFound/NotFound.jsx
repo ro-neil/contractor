@@ -6,7 +6,7 @@ const NotFound = () => {
   return (
     <div className="notfound-container">
       <div className="notfound-icon">🚧</div>
-      <h1 className="notfound-title">404 - Page Under Construction</h1>
+      <h1 className="notfound-title page-heading">404 - Page Under Construction</h1>
       <p className="notfound-message">
         Looks like the page you're looking for is still being drafted — or doesn’t exist.
       </p>

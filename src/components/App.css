@@ -8,6 +8,12 @@
   font-size: medium;
 }
 
+
+.page-heading {
+  color: light-dark(#30424B, var(--color-light)); /*  2d3e50 */
+  font-size: 2.5em;
+}
+
 .navigation {
   width: 100%;
 }
@@ -86,9 +92,6 @@
   font-weight: bold;
 }
 
-.text-green {
-  color: var(--color-green);
-}
 
 .w-100 {
   width: 100%;
@@ -139,7 +142,7 @@ button.operator {
   border-radius: 100%;
   font-weight: bold;
   width: 2rem;
-  color: var(--color-dark);
+  color: var(--color-darker);
   box-shadow: var(--box-shadow-light);
   border: 1px solid rgb(246, 245, 245);
 }
@@ -154,12 +157,17 @@ button.operator:hover {
   padding: 0.25rem 0.5rem;
   font-size: small;
   font-weight: bold;
-  background: var(--color-yellow);
+  background: light-dark(var(--color-yellow), var(--color-light));
   font-style: italic;
+  color: var(--color-dark);
 }
 
 /* Responsive sizes for larger screens */
 @media (min-width: 600px) {
+
+  .page-heading {
+    font-size: 2.8em;
+  }
 
   .service-unit,
   .job-unit {
