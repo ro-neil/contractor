@@ -6,12 +6,25 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // Determine if on services page based on URL
-  const onServicesPage = location.pathname === "/services";
-  const onEstimatePage = location.pathname === "/estimate";
-  const onPDFPage = location.pathname === "/estimate/pdf";
+  const useOnPage = () => {
+    const location = useLocation();
+
+    const pages = {
+      'landing': "/",
+      'services': "/services",
+      'estimate': "/estimate",
+      'preview': "/estimate/pdf",
+    }
+
+    return (page) => {
+      const path = pages[page];
+      if (!path) return false;
+      return location.pathname === path;
+    };
+  };
+
+  const onPage = useOnPage();
 
   // Handlers
   const handleHomeClick = () => {
@@ -36,7 +49,7 @@ const Navigation = () => {
           </button>
         </div>
         <div className="nav-right">
-          { (onServicesPage || onPDFPage) &&
+          { (onPage('services') || onPage('preview')) &&
             <Link to="/estimate">
               <button type="button" className="estimate-button" onClick={() => handleEstimateClick()}>
                 <span className='button-text'>Estimate</span>
@@ -44,7 +57,7 @@ const Navigation = () => {
             </Link>
           }
               
-          { (onEstimatePage || onPDFPage) && 
+          { (onPage('estimate') || onPage('preview')) && 
             <Link to="/services">
               <button type="button" className="services-button" onClick={() => handleServicesClick()}>
                 <span className='button-text'>Services</span>
