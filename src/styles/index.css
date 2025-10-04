@@ -106,6 +106,8 @@
 
   --border-color-light: #e2e8f0; /* #f7f9ff */
   --border-color-dark: #2d3034;
+
+  --outline-color-dark: rgba(237, 156, 64);
 }
 
 
@@ -132,12 +134,12 @@ h1 {
 
 button {
   border-radius: var(--border-radius-soft);
-  border: 1px solid transparent;
+  border: 1px solid light-dark(transparent, var(--border-color-dark));
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-darker);
+  background-color: var(--color-dark);
   color: var(--color-light);
   cursor: pointer;
   box-shadow: var(--box-shadow-light);
@@ -145,14 +147,17 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  background-color: hsl(210, 36%, 99%);
-  color: black;
-  border-color: whitesmoke;
+  background-color: var(--color-darker);
+  border-color: var(--color-dark);
   box-shadow: var(--box-shadow-heavy);
 }
+
 button:focus,
 button:focus-visible {
-  outline: 2px auto hsl(210, 36%, 99%);
+  outline: none;
+  /* visible focus ring using box-shadow for better compatibility */
+  box-shadow: 0 0 0 2px var(--background-color-dark), var(--box-shadow-light);
+  border-color: light-dark(transparent, var(--outline-color-dark));
 }
 
 /* Hide native clear button in search inputs */
@@ -196,9 +201,6 @@ input[type="search"]::-webkit-search-cancel-button {
   }
   a:hover {
     color: #535bf2;
-  }
-  button:hover {
-    border-color: #313740;
   }
   h1, h2, h3, p, span, div, input {
     color: #ffffff;

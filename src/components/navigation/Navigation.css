@@ -18,7 +18,11 @@
   box-shadow: var(--box-shadow-medium);
 }
 .navigation button:hover {
-  background-color: light-dark(hsl(210, 36%, 99%), var(--color-darker))
+  background-color: light-dark(hsl(210, 36%, 99%), var(--color-darker));
+  border-color: light-dark(var(--color-light), var(--color-yellow));
+}
+.navigation button:focus, .navigation button:focus-visible {
+  box-shadow: var(--box-shadow-medium);
 }
 
 .nav-container {

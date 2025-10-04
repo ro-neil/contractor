@@ -12,7 +12,7 @@
 }
 
 .estimate-body {
-  padding: 1rem 2rem;
+  padding: 1rem 1.2rem;
   background: #f9fafb;
   border-radius: 1rem;
   box-shadow: var(--box-shadow-medium);
@@ -30,9 +30,7 @@
 }
 
 .estimate-body .controls .pdf-preview-button:hover {
-  background-color: var(--color-red);
-  border-color: transparent;
-  color: var(--color-light)
+  background-color: var(--color-dark) !important;
 }
 
 .estimate-body .controls .icon {
@@ -84,11 +82,12 @@
   padding: 1rem;
   margin-bottom: 0.75rem;
   border: 1px solid light-dark(var(--border-color-light), #3d4551);
+  padding-top: 0.5rem;
 }
 
 .job-item-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   color: var(--color-dark);
@@ -111,6 +110,7 @@
   /* transition: transform 0.2s ease, opacity 0.2s ease; */
   transition: transform 0.4s ease-in-out, opacity 0.2s ease;
   display: inline-block;
+  border-color: transparent;
 }
 .job-remove-button:hover {
   box-shadow: unset;

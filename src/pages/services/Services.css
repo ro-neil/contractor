@@ -9,7 +9,8 @@
 }
 
 .services-component .controls .search-input:focus {
-    box-shadow: var(--box-shadow-heavy);
+    outline: none;
+    box-shadow: 0 0 0 1px light-dark(var(--color-light-semi-transparent), var(--outline-color-dark)), var(--box-shadow-heavy);
 }
 .services-component .controls .search-input {
     border-color: light-dark(var(--border-color-light), #313740) !important;
@@ -91,10 +92,6 @@
     font-style: italic;
 }
 
-/* .search-input {
-    background-color: #f7fafc !important;
-} */
-
 .search-results-text {
     text-align: center;
     margin: 0.5rem 0;
@@ -146,6 +143,12 @@
 
 
 /* Responsive layout for smaller screens */
+@media (min-width: 375px) {
+    .search-input-container {
+        min-width: 50ch !important;
+    }
+}
+
 @media (min-width: 425px) {
 
 }

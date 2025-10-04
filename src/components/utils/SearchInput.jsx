@@ -31,9 +31,9 @@ const SearchInput = ({ value, onChange, placeholder, id }) => {
                     borderRadius: '0.3rem',
                     border: '1px solid #e2e8f0',
                     outline: 'none',
-                    fontSize: '1rem',
+                    fontSize: '1.1em',
                     backgroundColor: '#f7fafc',
-                    height: '2.5rem',
+                    height: '2.8rem',
                     color: '#606060',
                     fontStyle: 'italic',
                 }}
