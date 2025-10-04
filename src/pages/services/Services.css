@@ -146,7 +146,7 @@
 
 @media (min-width: 376px) {
     .search-input-container {
-        min-width: 44ch !important;
+        min-width: 42ch !important;
     }
 }
 

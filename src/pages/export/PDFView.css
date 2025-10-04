@@ -332,13 +332,17 @@
 
 
 /* Responsive layout for smaller screens */
-@media (min-width: 375px) {
+@media (min-width: 376px) {
   .pdf-view .estimate-header.edit-mode input {
-    width: 40ch;
+    width: 36ch;
   }
 }
 
 @media (min-width: 425px) {
+  .pdf-view .estimate-header.edit-mode input {
+    width: 40ch;
+  }
+
   .job-quantity-selector {
     flex-direction: row !important;
 
