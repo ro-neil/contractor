@@ -65,7 +65,7 @@
     padding-bottom: 1rem;
 }
 .pdf-view .estimate-header.edit-mode input {
-    width: 40ch;
+    width: 38ch;
     border-color: light-dark(var(--border-color-light), #313740);
 }
 
@@ -78,7 +78,7 @@
 }
 
 .pdf-view .estimate.edit-mode {
-    width: 80%;   
+    max-width: 90%;   
     margin: auto; 
 }
 
@@ -332,6 +332,12 @@
 
 
 /* Responsive layout for smaller screens */
+@media (min-width: 375px) {
+  .pdf-view .estimate-header.edit-mode input {
+    width: 40ch;
+  }
+}
+
 @media (min-width: 425px) {
   .job-quantity-selector {
     flex-direction: row !important;

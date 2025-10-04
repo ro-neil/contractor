@@ -143,9 +143,10 @@
 
 
 /* Responsive layout for smaller screens */
+
 @media (min-width: 375px) {
     .search-input-container {
-        min-width: 50ch !important;
+        min-width: 52ch !important;
     }
 }
 
