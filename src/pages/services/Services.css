@@ -11,6 +11,9 @@
 .services-component .controls .search-input:focus {
     box-shadow: var(--box-shadow-heavy);
 }
+.services-component .controls .search-input {
+    border-color: light-dark(var(--border-color-light), #313740) !important;
+}
 
 .loading-text {
     text-align: center;
@@ -40,7 +43,7 @@
     list-style: none;
     padding-left: 0.75rem;
     margin: 0;
-    border-left: 1px solid #e2e8f0;
+    border-left: 1px solid light-dark(var(--border-color-light), var(--border-color-dark));
 }
 
 .services-category {
@@ -61,7 +64,16 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     padding: 0.5rem 1rem;
     margin-bottom: 0.75rem;
-    border: 1px solid #e5e7eb;
+    border: 1px solid light-dark(var(--border-color-light), var(--border-color-dark));
+}
+
+.service-item-controls { 
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid light-dark(var(--border-color-light), #313740);
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .service-item.selected {

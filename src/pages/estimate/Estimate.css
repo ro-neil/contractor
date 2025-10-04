@@ -15,10 +15,10 @@
   padding: 1rem 2rem;
   background: #f9fafb;
   border-radius: 1rem;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
   box-shadow: var(--box-shadow-medium);
   max-width: 768px;
   width: 80%;
+  border: 1px solid light-dark(transparent, #313740)
 }
 .estimate-body .empty-estimate {
   padding: 5rem 2rem;
@@ -46,7 +46,7 @@
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid light-dark(var(--border-color-light), var(--border-color-dark));
 }
 
 .grand-total-text {
@@ -80,10 +80,10 @@
   flex-direction: column;
   background: #fff;
   border-radius: 0.75rem;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--box-shadow-light);
   padding: 1rem;
   margin-bottom: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid light-dark(var(--border-color-light), #3d4551);
 }
 
 .job-item-header {
@@ -145,6 +145,7 @@
 
 .job-quantity-selector input {
   max-width: 8ch;
+  border-color: light-dark(var(--border-color-light), var(--border-color-light)) !important;
 }
 
 .overflow-ellipsis {
@@ -189,7 +190,7 @@
 .job-item-footer {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid rgb(239, 239, 239);
+  border-top: 1px solid light-dark(var(--border-color-light), #313740);
   gap: 2rem;
   margin-top: 0.5rem;
   padding-top: 0.5rem;

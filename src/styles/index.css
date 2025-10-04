@@ -103,6 +103,9 @@
 
   --border-radius-soft: 0.2rem;
   --border-radius-hard: 0.5rem;
+
+  --border-color-light: #e2e8f0; /* #f7f9ff */
+  --border-color-dark: #2d3034;
 }
 
 
@@ -195,7 +198,7 @@ input[type="search"]::-webkit-search-cancel-button {
     color: #535bf2;
   }
   button:hover {
-    border-color: #eae9e9;
+    border-color: #313740;
   }
   h1, h2, h3, p, span, div, input {
     color: #ffffff;

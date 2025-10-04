@@ -47,7 +47,7 @@ const Navigation = () => {
     <nav className={showNav ? 'navigation' : 'invisible'}>
       <div className='nav-container'>
         <div className="nav-left">
-          <button type="button" className="home-button border-light" onClick={() => handleHomeClick()}>
+          <button type="button" className="home-button" onClick={() => handleHomeClick()}>
             <span className='button-text'>Home</span>
           </button>
         </div>

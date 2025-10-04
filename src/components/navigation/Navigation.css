@@ -1,15 +1,9 @@
-.dropdown-button {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.dropdown-button .button-icon {
-  display: flex;
-  align-self: flex-end;
-}
-
 .navigation {
   width: 100%;
+}
+
+.navigation .home-button {
+  border-color: light-dark(var(--border-color-light), var(--border-color-dark));
 }
 
 .navigation button {
@@ -31,7 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid light-dark(#f7fafc, var(--border-color-dark));
   padding: 1rem;
   min-height: 2rem;
 }

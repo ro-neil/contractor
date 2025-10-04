@@ -112,7 +112,7 @@ const ServicesList = () => {
                         <span className="service-unit">{service.unit}</span>
                     </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "flex-end", borderTop: "1px solid #efefef", width: "100%", paddingTop: "1rem", paddingBottom: "0.5rem" }}>
+                <div className="service-item-controls">
                     {locateJobOnEstimate(service)
                         ? (
                             <div className="job-on-estimate">

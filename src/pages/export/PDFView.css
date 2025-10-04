@@ -59,13 +59,14 @@
 }
 .pdf-view .estimate-header.edit-mode {
     align-items: center; 
-    border: 1px solid #f9f9f9;  
+    border: 1px solid light-dark(var(--border-color-light), #313740);  
     box-shadow: var(--box-shadow-medium); 
     border-radius: var(--border-radius-soft);
     padding-bottom: 1rem;
 }
 .pdf-view .estimate-header.edit-mode input {
-    width: 40ch;   
+    width: 40ch;
+    border-color: light-dark(var(--border-color-light), #313740);
 }
 
 .pdf-view .estimate-header strong {
