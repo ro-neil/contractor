@@ -35,7 +35,7 @@
 
 .services-container {
     margin-bottom: 1.5rem;
-    box-shadow: var(--box-shadow-light);
+    box-shadow: var(--box-shadow-medium);
     background: var(--color-light-semi-transparent);
     padding: 1rem;
 }
