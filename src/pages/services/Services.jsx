@@ -184,8 +184,8 @@ const ServicesList = () => {
             <section className="services-section">
                 {!search ? (
                     services.map(([category, items], idx) => (
-                        <div className="services-container" key={idx}>
-                            <h2 className="services-category">{category}</h2>
+                        <div className="services-category" key={idx}>
+                            <h2 className="services-category-header">{category}</h2>
                             <ul className="services-list">
                                 {items.map((service, index) => (
                                     <li key={index} className={ locateJobOnEstimate(service) ? "service-item selected" : "service-item"}>

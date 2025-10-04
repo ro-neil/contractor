@@ -33,7 +33,7 @@
 }
 
 
-.services-container {
+.services-category {
     margin-bottom: 1.5rem;
     box-shadow: var(--box-shadow-medium);
     background: var(--color-light-semi-transparent);
@@ -47,7 +47,7 @@
     border-left: 1px solid light-dark(var(--border-color-light), var(--border-color-dark));
 }
 
-.services-category {
+.services-category-header {
     color: light-dark(var(--color-darker), var(--color-light)) ;
     margin-bottom: 0.5rem;
     margin-top: 0;
@@ -166,7 +166,7 @@
 /* Responsive layout for larger screens */
 @media (min-width: 600px) {
 
-    .services-category {
+    .services-category-header {
         font-size: xx-large;
     }
 
