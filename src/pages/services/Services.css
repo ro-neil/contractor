@@ -146,12 +146,14 @@
 
 @media (min-width: 376px) {
     .search-input-container {
-        min-width: 52ch !important;
+        min-width: 44ch !important;
     }
 }
 
 @media (min-width: 425px) {
-
+    .search-input-container {
+        min-width: 50ch !important;
+    }
 }
 
 

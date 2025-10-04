@@ -65,7 +65,7 @@
     padding-bottom: 1rem;
 }
 .pdf-view .estimate-header.edit-mode input {
-    width: 36ch;
+    width: 32ch;
     border-color: light-dark(var(--border-color-light), #313740);
 }
 
