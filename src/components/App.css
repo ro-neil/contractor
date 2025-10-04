@@ -49,6 +49,10 @@
   }
 }
 
+.invisible {
+  display: none;
+}
+
 .card {
   padding: 2em;
 }

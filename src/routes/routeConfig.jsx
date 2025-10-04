@@ -12,33 +12,57 @@ const routes = [
     path: '/',
     element:  (props) => <LandingPage {...props}/>,
     label: 'Home',
-    hideNav: true,
+    showNav: false,
   },
   {
     path: '/services',
     element: (props) => <ServicesList {...props}/>,
     label: 'Services',
-    hideNav: false,
+    showNav: true,
   },
   {
     path: '/estimate',
     element: (props) => <Estimate />,
     label: 'Services',
-    hideNav: false,
+    showNav: true,
   },
   {
     path: '/estimate/pdf',
     element: (props) => <PDFView />,
     label: 'Services',
-    hideNav: false,
+    showNav: true,
   },
   {
     path: '*',
     element: () => <NotFound/>,
     label: 'Not Found',
-    hideNav: true,
+    showNav: false,
   },
 
 ];
 
-export default routes;
+const pages = {
+  'home': "/",
+  'services': "/services",
+  'estimate': "/estimate",
+  'preview': "/estimate/pdf"
+}
+
+const usePages = () => {
+  return pages;
+}
+
+const useOnPage = (location) => {
+    return (page) => {
+        const path = pages[page];
+        if (!path) return false;
+        return location.pathname === path;
+    };
+};
+
+const useShowNav = (location) => {
+    const currentRoute = routes.find(r => r.path === location.pathname);
+    return !!currentRoute?.showNav;
+}
+
+export { routes as default, useOnPage, useShowNav, usePages };

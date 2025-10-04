@@ -5,13 +5,17 @@ import "./LandingPage.css";
 
 
 
-const LandingPage = ({ title, subtitle, action }) => {
+const LandingPage = () => {
 
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
     navigate("/services");
   }
+
+  const title = "Swift Estimate";
+  const subtitle = "Swiftly generate estimates for your services with accuracy and precision.";
+  const action = "Get Started";
 
   return (
     <>
