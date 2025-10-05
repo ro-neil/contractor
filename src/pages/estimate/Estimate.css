@@ -87,7 +87,7 @@
 
 .job-item-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
   color: var(--color-dark);

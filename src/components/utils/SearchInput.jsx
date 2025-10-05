@@ -14,7 +14,7 @@ const SearchInput = ({ value, onChange, placeholder, id }) => {
             className="search-input-container"
             style={{
                 position: 'relative',
-                width: '40ch',
+                width: '38ch',
                 display: 'flex',
                 alignItems: 'center',
             }}
