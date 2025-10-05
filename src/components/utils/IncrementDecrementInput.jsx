@@ -34,7 +34,7 @@ const IncrementDecrementInput = ({
   placeholder
 }) => (
   <div className="increment-decrement-input">
-    <button className="operator decrement-operator" onClick={onMinus}>
+    <button className="operator decrement-operator" title='Decrement Operator' onClick={onMinus}>
       <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M200-440v-80h560v80H200Z"/></svg>
     </button>
     <NumberInput
@@ -46,7 +46,7 @@ const IncrementDecrementInput = ({
       placeholder={placeholder}
       inputMode="numeric"
     />
-    <button className="operator increment-operator" onClick={onPlus}>
+    <button className="operator increment-operator" title='Increment Operator' onClick={onPlus}>
       <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="currentColor"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
     </button>
 

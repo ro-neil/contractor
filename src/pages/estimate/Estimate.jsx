@@ -7,16 +7,24 @@ import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.
 import "./Estimate.css";
 import unitMap from "@/data/service-unit-map.json"
 import { useNavigate } from "react-router-dom";
+import {usePages} from '@/routes/routeConfig.jsx';
 
 
 const Estimate = ({ table, discount }) => {
     const jobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const pages = usePages();
 
     const handleExportPDF = () => {
-        navigate("/estimate/pdf");
+        const previewPage = pages.preview;
+        navigate(previewPage);
     };
+
+    const handleEmptyEstimateClick = () => {
+        const servicesPage = pages.services;
+        navigate(servicesPage);
+    }
 
     const handleUpdateQuantity = (description, value) => {
         dispatch(updateJobQuantity({ description: description, quantity: value }));
@@ -108,8 +116,8 @@ const Estimate = ({ table, discount }) => {
             <h1 className="estimate-heading page-heading">Estimate</h1>
             {isEmpty(jobs) && (      
                 <section className="estimate-body">            
-                    <div className="empty-estimate">
-                        <h2 className="empty-estimate-text">No jobs added</h2>
+                    <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
+                        <h2 className="empty-estimate-text">No services added</h2>
                     </div>
                 </section>
             )}
@@ -117,7 +125,7 @@ const Estimate = ({ table, discount }) => {
             {!isEmpty(jobs) && (
                 <section className="estimate-body">
                     <div className="controls flex justify-end">
-                        <button type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
+                        <button title="Preview PDF Estimate" type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
                             <span className='button-text'>PDF Preview</span>                           
                         </button>
                     </div>
@@ -133,10 +141,10 @@ const Estimate = ({ table, discount }) => {
                         {jobs.map((job, index) => (
                             <div key={index} className="job-item">                    
                                 <div className="job-item-header">
-                                    <span className="job-description">{job.description}</span>
+                                    <span title="Job Description" className="job-description">{job.description}</span>
                                     <button 
                                         className="job-remove-button"
-                                        title="Remove from Estimate"
+                                        title="Remove Job from Estimate"
                                         onClick={() => handleRemoveJob(job.description)}
                                     >
                                         <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
@@ -161,8 +169,8 @@ const Estimate = ({ table, discount }) => {
                                         <div className="job-rate">
                                             <Currency figure={job.rate} />
                                             <span className="forward-slash">&#47;</span> 
-                                            <span className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit]}</span>
-                                            <span className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                                            <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit]}</span>
+                                            <span title="Job Unit" className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
                                         </div>
                                     </div>
                                 </div>                    

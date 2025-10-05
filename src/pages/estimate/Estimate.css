@@ -13,20 +13,23 @@
 
 .estimate-body {
   padding: 1rem 1.2rem;
-  background: #f9fafb;
+  background: light-dark(#f9fafb, #1e1e1e) !important;
   border-radius: 1rem;
   box-shadow: var(--box-shadow-medium);
   max-width: 768px;
   width: 80%;
   border: 1px solid light-dark(transparent, #313740)
 }
+
 .estimate-body .empty-estimate {
   padding: 5rem 2rem;
   min-height: 6rem;
+  cursor: pointer;
 }
 
 .estimate-body .controls {
   margin-bottom: 1.5rem;
+  background-color: inherit !important;
 }
 
 .estimate-body .controls .pdf-preview-button:hover {
@@ -45,6 +48,7 @@
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid light-dark(var(--border-color-light), var(--border-color-dark));
+  background-color: inherit !important;
 }
 
 .grand-total-text {
@@ -73,10 +77,20 @@
   font-weight: bold;
 }
 
+.job-items, 
+.job-items, 
+.job-item > div, 
+.increment-decrement-input, 
+.job-rate-container,
+.job-rate,
+.empty-estimate {
+  background-color: inherit !important;
+}
+
 .job-item {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background-color: light-dark(var(--color-selected-light), var(--color-selected-dark)) !important;
   border-radius: 0.75rem;
   box-shadow: var(--box-shadow-light);
   padding: 1rem;
@@ -224,6 +238,11 @@
     justify-content: flex-end !important;
   }
 
+  .estimate-body {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
 }
 
 /* Responsive layout for larger screens */
@@ -235,6 +254,11 @@
 
     .grand-total-text, .grand-total-currency {
       font-size: x-large;
+    }
+
+    .estimate-body {
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
 
 }

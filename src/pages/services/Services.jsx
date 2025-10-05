@@ -5,7 +5,6 @@ import Currency from "@/components/utils/Currency.jsx";
 import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import SearchInput from "@/components/utils/SearchInput.jsx";
 import contractorServicesData from "@/data/contractor-services.json";
-import unitMap from "@/data/service-unit-map.json";
 import "./Services.css";
 
 const ServicesList = () => {
@@ -99,7 +98,7 @@ const ServicesList = () => {
                         paddingRight: "0.5rem",
                     }}
                 >
-                    <span className="service-rate"><Currency figure={service.rate} /></span>
+                    <span title="Unit Price" className="service-rate"><Currency figure={service.rate} /></span>
                     <div
                         style={{
                             display: "flex",
@@ -109,7 +108,7 @@ const ServicesList = () => {
                         }}
                     >
                         <span className="forward-slash">/</span>
-                        <span className="service-unit">{service.unit}</span>
+                        <span title="Service Unit" className="service-unit">{service.unit}</span>
                     </div>
                 </div>
                 <div className="service-item-controls">
@@ -133,7 +132,7 @@ const ServicesList = () => {
                             <div style={{ display: "flex" }}>
                                 <button
                                     className="button"
-                                    title="Add to Estimate"
+                                    title="Add Service to Estimate"
                                     onClick={() => handleAddToEstimate(service)}
                                 >
                                     Add to Estimate
@@ -154,16 +153,6 @@ const ServicesList = () => {
         </div>
     );
 
-    /**
-     * Converts a long-form unit into its short-form equivalent.
-     * 
-     * @param {string} longUnit - The unit in long form (e.g., "square yard").
-     * @returns {string} - The short form of the unit (e.g., "yd²").
-     */
-    const convertLongUnit = (longUnit) => {
-        return unitMap[longUnit] || longUnit; // falls back to original if not found
-    }
-
     // if (loading) return <h2>Loading services...</h2>;
     if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
@@ -182,11 +171,11 @@ const ServicesList = () => {
                 {!search ? (
                     services.map(([category, items], idx) => (
                         <div className="services-category" key={idx}>
-                            <h2 className="services-category-header">{category}</h2>
+                            <h2 className="services-category-header" title="Service Category">{category}</h2>
                             <ul className="services-list">
                                 {items.map((service, index) => (
                                     <li key={index} className={ locateJobOnEstimate(service) ? "service-item selected" : "service-item"}>
-                                        <span className="service-description">{service.description}</span>                                     
+                                        <span title="Service Description" className="service-description">{service.description}</span>                                     
                                         <ServiceActions
                                             service={service}
                                             locateJobOnEstimate={locateJobOnEstimate}

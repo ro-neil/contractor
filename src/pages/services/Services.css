@@ -23,7 +23,7 @@
 
 .services-section {
     border-radius: 1rem;
-    max-width: 972px;
+    max-width: 64rem;
     margin: 2rem auto 1rem auto;
     padding: 0.5rem 1rem 0.5rem 1rem;
 }
@@ -31,7 +31,6 @@
 .services-section > div {
     border-radius: 1rem;
 }
-
 
 .services-category {
     margin-bottom: 1.5rem;
@@ -42,9 +41,8 @@
 
 .services-list {
     list-style: none;
-    padding-left: 0.75rem;
+    padding-left: 0;
     margin: 0;
-    border-left: 1px solid light-dark(var(--border-color-light), var(--border-color-dark));
 }
 
 .services-category-header {
@@ -147,7 +145,10 @@
 
 
 @media (min-width: 426px) {
-
+    .services-category {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
 
 }
 
@@ -169,6 +170,11 @@
 
     .service-unit {
         font-size: medium;
+    }
+
+    .services-category {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 
 }
