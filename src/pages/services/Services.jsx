@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addJob, updateJobQuantity } from "@/data/EstimateSlice.js";
 import Currency from "@/components/utils/Currency.jsx";
-import QuantityInput from "@/components/utils/QuantityInput.jsx";
+import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import SearchInput from "@/components/utils/SearchInput.jsx";
 import contractorServicesData from "@/data/contractor-services.json";
 import unitMap from "@/data/service-unit-map.json";
@@ -117,19 +117,16 @@ const ServicesList = () => {
                         ? (
                             <div className="job-on-estimate">
                                 <span className="job-added-text">Added to Estimate</span>
-                                
-                                <div className="service-quantity-selector quantity-selector">
-                                    <QuantityInput
-                                        id={`service_quantity_${service.description}`}
-                                        name={`service_quantity_${service.description}`}
-                                        value={localQuantity}
-                                        placeholder="Qty"
-                                        onChange={(e) => handleInputChange(e)}
-                                        onBlur={handleBlur} // Update the Redux store when input loses focus
-                                        onMinus={() => handleQuantityUpdate(-1)}
-                                        onPlus={() => handleQuantityUpdate(1)}
-                                    />
-                                </div>
+                                <IncrementDecrementInput
+                                    id={`service_quantity_${service.description}`}
+                                    name={`service_quantity_${service.description}`}
+                                    value={localQuantity}
+                                    placeholder="Qty"
+                                    onChange={(e) => handleInputChange(e)}
+                                    onBlur={handleBlur} // Update the Redux store when input loses focus
+                                    onMinus={() => handleQuantityUpdate(-1)}
+                                    onPlus={() => handleQuantityUpdate(1)}
+                                />
                             </div>
                         )
                         : (

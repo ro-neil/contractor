@@ -133,31 +133,6 @@
   justify-content: space-between;
 }
 
-.input-field {
-  box-shadow: var(--box-shadow-light);
-}
-
-.input-field:focus {
-  box-shadow: var(--box-shadow-heavy);
-}
-
-button.operator {
-  font-size: large;
-  background-color: var(--color-light);
-  padding: 1px 6px;
-  margin: 0.5rem;
-  border-radius: 100%;
-  font-weight: bold;
-  width: 2rem;
-  color: var(--color-darker);
-  box-shadow: var(--box-shadow-light);
-  border: 1px solid light-dark(var(--border-color-light), var(--border-color-light));
-}
-
-button.operator:hover {
-  box-shadow: var(--box-shadow-heavy);
-}
-
 .service-unit,
 .job-unit {
   border-radius: var(--border-radius-hard);

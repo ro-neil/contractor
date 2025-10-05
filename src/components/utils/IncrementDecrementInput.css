@@ -1,0 +1,47 @@
+.increment-decrement-input {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.number-input {
+    box-shadow: var(--box-shadow-light);
+    padding: 0.35rem 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid light-dark(var(--border-color-light), var(--border-color-light));
+    outline: none;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    color: light-dark(var(--color-darker), var(--color-light));;
+    height: 1.8rem;
+    width: 8ch;
+}
+
+.number-input:focus {
+  box-shadow: var(--box-shadow-heavy);
+}
+
+.increment-decrement-input .operator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+    transition: box-shadow 0.3s, transform 0.1s;
+    background-color: var(--color-light);
+    border-radius: 100%;
+    font-weight: 700;
+    color: light-dark(var(--color-darker), var(--color-light));
+    box-shadow: var(--box-shadow-light);
+    border: 1px solid light-dark(var(--border-color-light),var(--border-color-light));
+}
+
+/* Focus and hover effects */
+.increment-decrement-input .operator:hover {
+    transform: scale(1.05);
+    box-shadow: var(--box-shadow-heavy);
+}
+
+.operator:active {
+    transform: scale(0.95); /* Slightly smaller on click */
+}

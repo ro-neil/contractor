@@ -101,13 +101,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
+  margin: 0.5rem 0;
 }
 
 .job-remove-button {
   padding: unset;
   background-color: unset;
-  /* transition: transform 0.2s ease, opacity 0.2s ease; */
   transition: transform 0.4s ease-in-out, opacity 0.2s ease;
   display: inline-block;
   border-color: transparent;
@@ -116,13 +115,10 @@
   box-shadow: unset;
   background-color: unset;
   border-color: transparent;
-
   transform: scale(1.15);
   opacity: 0.85;
-
   animation: shake 0.5s ease-in-out;
 }
-
 
 .job-description {
   font-weight: 600;
@@ -135,17 +131,8 @@
   max-height: 4.5em; /* Adjust based on line-height */
 }
 
-
-.job-quantity-selector {
-  display: flex;
+.estimate-component .increment-decrement-input {
   flex-direction: column-reverse;
-  align-items: center;
-  font-weight: bold;
-}
-
-.job-quantity-selector input {
-  max-width: 8ch;
-  border-color: light-dark(var(--border-color-light), var(--border-color-light)) !important;
 }
 
 .overflow-ellipsis {
@@ -172,13 +159,13 @@
 }
 
 .at-symbol {
-  color: var(--color-green);
-  border: 1px solid #eeeee5ff;
+  color: light-dark(var(--color-darker), var(--color-yellow));
+  border: 1px solid light-dark(var(--border-color-light), var(--color-darker));
   border-radius: 100%;
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   font-weight: bold;
-  background: #d9e4efff;
+  background: light-dark(#d9e4efff, var(--color-darker));
 }
 
 .forward-slash {
@@ -199,6 +186,7 @@
 .job-item-footer .job-subtotal-text {
   color: light-dark(#313740, var(--color-light));
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .job-subtotal .currency-value {
@@ -214,12 +202,8 @@
 
 /* Responsive layout for smaller screens */
 @media (min-width: 425px) {
-  .job-quantity-selector {
-    flex-direction: row !important;
-
-  }
-  button.operator.minus-operator {
-    margin-left: unset !important;
+  .estimate-component .increment-decrement-input {
+    flex-direction: row;
   }
 
   .job-unit {

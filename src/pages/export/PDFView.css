@@ -343,14 +343,6 @@
     width: 40ch;
   }
 
-  .job-quantity-selector {
-    flex-direction: row !important;
-
-  }
-  button.operator.minus-operator {
-    margin-left: unset !important;
-  }
-
   .job-unit {
     max-width: 15ch;
   }

@@ -100,15 +100,6 @@
     font-weight: 500;
 }
 
-.service-quantity-selector {
-    display: flex;
-    align-items: center;
-}
-
-.service-quantity-selector input {
-    max-width: 8ch;
-}
-
 .job-added-text {
     color: light-dark(var(--color-red), var(--color-yellow));
     font-weight: bold;

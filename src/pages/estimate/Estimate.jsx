@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import Currency from "@/components/utils/Currency.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { removeJob, updateJobQuantity } from "@/data/EstimateSlice.js";
-import QuantityInput from "@/components/utils/QuantityInput.jsx";
+import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import "./Estimate.css";
 import unitMap from "@/data/service-unit-map.json"
 import { useNavigate } from "react-router-dom";
@@ -145,18 +145,16 @@ const Estimate = ({ table, discount }) => {
                                     </button>     
                                 </div>
                                 <div className="job-item-body">
-                                    <div className="job-quantity-selector quantity-selector">
-                                        <QuantityInput 
-                                            id={`job_quantity_${index}`} 
-                                            name={`job_quantity_${index}`} 
-                                            value={job.quantity || ''} 
-                                            placeholder="Qty"
-                                            onChange={(e) => handleNumberInputChange(job.description, e)}
-                                            onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
-                                            onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
-                                            onBlur={() => handleBlur(job.description, job.quantity)}
-                                        />
-                                    </div>
+                                    <IncrementDecrementInput 
+                                        id={`job_quantity_${index}`} 
+                                        name={`job_quantity_${index}`} 
+                                        value={job.quantity || ''} 
+                                        placeholder="Qty"
+                                        onChange={(e) => handleNumberInputChange(job.description, e)}
+                                        onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
+                                        onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
+                                        onBlur={() => handleBlur(job.description, job.quantity)}
+                                    />
                                     
                                     <div className="job-rate-container">
                                         <span className="at-symbol">&#64;</span>
@@ -169,7 +167,7 @@ const Estimate = ({ table, discount }) => {
                                     </div>
                                 </div>                    
                                 <div className="job-item-footer job-subtotal">
-                                    <span className="job-subtotal-text colon-end">Subtotal</span> 
+                                    <span className="job-subtotal-text">Subtotal</span> 
                                     <Currency figure={(job.quantity * job.rate) || 0} />                            
                                 </div>
                             </div>

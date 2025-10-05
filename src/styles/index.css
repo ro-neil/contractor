@@ -209,10 +209,6 @@ input[type="search"]::-webkit-search-cancel-button {
   div, li, section, button.operator, input {
     background-color: var(--background-color-dark) !important;
   }
-
-  .quantity-selector button.operator, .quantity-selector .input-field {
-    color: var(--color-light) !important;
-  }
   
   table, .table-body-row td, table, .table-body-row .currency-value {
     color: white !important;
