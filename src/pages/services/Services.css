@@ -136,9 +136,7 @@
 /* Responsive layout for smaller screens */
 
 @media (min-width: 376px) {
-    .search-input-container {
-        max-width: 80%;
-    }
+
 }
 
 @media (min-width: 425px) {
