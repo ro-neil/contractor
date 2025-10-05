@@ -14,9 +14,10 @@ const SearchInput = ({ value, onChange, placeholder, id }) => {
             className="search-input-container"
             style={{
                 position: 'relative',
-                width: '36ch',
+                width: '100%',
                 display: 'flex',
                 alignItems: 'center',
+                padding: '0 1rem'
             }}
         >
             <input
@@ -49,7 +50,7 @@ const SearchInput = ({ value, onChange, placeholder, id }) => {
                     aria-label="Clear"
                     style={{
                         position: 'absolute',
-                        right: '0.5rem',
+                        right: '1.5rem',
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
@@ -71,7 +72,7 @@ const SearchInput = ({ value, onChange, placeholder, id }) => {
                 <div
                     style={{
                         position: 'absolute',
-                        right: '0.5rem',
+                        right: '1.5rem',
                         pointerEvents: 'none',
                         display: 'flex',
                         alignItems: 'center',

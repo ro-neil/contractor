@@ -137,13 +137,13 @@
 
 @media (min-width: 376px) {
     .search-input-container {
-        min-width: 40ch !important;
+        max-width: 80%;
     }
 }
 
 @media (min-width: 425px) {
     .search-input-container {
-        min-width: 50ch !important;
+        max-width: 50ch;
     }
 }
 
