@@ -1,8 +1,12 @@
 :root {
-    --primary-color: #012e5a; /* dark blue */
-    --secondary-color: #ec4c50; /* green */
-    --background-color: #f4f4f4; /* light gray */
-    --text-color: #333; /* dark gray */
+    --primary-color: #012e5a;
+    /* dark blue */
+    --secondary-color: #ec4c50;
+    /* green */
+    --background-color: #f4f4f4;
+    /* light gray */
+    --text-color: #333;
+    /* dark gray */
     /* --header-font: 'Arial Black', sans-serif;
     --body-font: 'Arial', sans-serif; */
 }
@@ -19,7 +23,7 @@
     align-self: center;
     margin: 1rem 0;
     height: 5rem;
-    display: flex;  
+    display: flex;
     align-items: center;
     gap: 1rem;
 }
@@ -40,6 +44,7 @@
     background-color: var(--color-green);
     opacity: 0.9;
 }
+
 .pdf-view .controls .save-button:hover {
     border-color: var(--color-green);
     opacity: 1;
@@ -55,15 +60,17 @@
     flex-direction: column;
     gap: 0.5rem;
     text-align: left;
-    margin-top: 1rem;     
+    margin-top: 1rem;
 }
+
 .pdf-view .estimate-header.edit-mode {
-    align-items: center; 
-    border: 1px solid light-dark(var(--border-color-light), #313740);  
-    box-shadow: var(--box-shadow-medium); 
+    align-items: center;
+    border: 1px solid light-dark(var(--border-color-light), #313740);
+    box-shadow: var(--box-shadow-medium);
     border-radius: var(--border-radius-soft);
     padding-bottom: 1rem;
 }
+
 .pdf-view .estimate-header.edit-mode input {
     width: 32ch;
     border-color: light-dark(var(--border-color-light), #313740);
@@ -78,8 +85,8 @@
 }
 
 .pdf-view .estimate.edit-mode {
-    max-width: 90%;   
-    margin: auto; 
+    max-width: 90%;
+    margin: auto;
 }
 
 .pdf-view .company-details {
@@ -87,62 +94,62 @@
     justify-content: space-between;
     gap: 0.5rem;
 }
+
 .pdf-view .company-info {
     flex-grow: 1;
 }
+
 .pdf-view .company-name {
-   font-size: xx-large;
-   margin-top: 0;
+    font-size: xx-large;
+    margin-top: 0;
 }
+
 .pdf-view #companyNameInput {
-   margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .pdf-view .company-logo {
-  width: 16rem; /* match the image height */
-  height: 10rem;
-  border-radius: 50%; /* makes it circular */
-  overflow: hidden; /* hides overflow outside the circle */
-  border: 1px solid #fdfdfd; /* optional: gray border */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
-  padding: 0.5rem 1rem;
+    width: 16rem;
+    height: 8rem;
 }
 
 .company-logo {
-  transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .company-logo:hover {
-  box-shadow: 0 8px 20px rgba(236, 235, 235, 0.3);
+    box-shadow: var(--box-shadow-medium)
 }
 
 
 .pdf-view .company-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* crop image to fit the circular frame */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .pdf-view address span:not(:last-child)::after {
     content: ",";
     margin-right: 0.25rem;
 }
-.pdf-view .company-address, .pdf-view .client-address{
+
+.pdf-view .company-address,
+.pdf-view .client-address {
     display: flex;
     flex-direction: column;
     font-weight: 600;
 }
+
 .pdf-view .estimate .phone-number {
     font-style: italic;
     font-weight: 600;
 }
+
 .pdf-view .estimate-titles.edit-mode {
     display: flex;
     flex-direction: column;
 }
+
 .pdf-view .estimate-title h1 {
     text-transform: uppercase;
     text-align: right;
@@ -159,16 +166,20 @@
     font-size: larger;
     font-weight: 600;
 }
+
 .pdf-view .client-info #clientNameInput {
     margin-bottom: 1rem;
 }
 
 
-.pdf-view .estimate-project-title, .pdf-view .estimate-date {
+.pdf-view .estimate-project-title,
+.pdf-view .estimate-date {
     margin-top: 0;
     font-size: larger;
 }
-.pdf-view .estimate-project-title span, .pdf-view .estimate-date span {
+
+.pdf-view .estimate-project-title span,
+.pdf-view .estimate-date span {
     font-weight: 600;
 }
 
@@ -185,13 +196,15 @@
 .pdf-view .estimate-table .currency-value {
     color: light-dark(var(--color-dark), var(--color-green));
 }
+
 .pdf-view .estimate-table .table-body-row .currency-value {
     font-weight: 500;
 }
 
 /* Header Row */
 .pdf-view .table-header {
-    background-color: #012e5a; /* dark blue */
+    background-color: #012e5a;
+    /* dark blue */
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
@@ -228,6 +241,7 @@
 .pdf-view .table-body-row:nth-child(even) {
     background-color: #f9f9f9;
 }
+
 .pdf-view .table-body-row td:first-of-type {
     font-weight: bold;
     color: var(--color-dark);
@@ -244,7 +258,8 @@
     border-top: 1px solid #003366;
 }
 
-.pdf-view .subtotal-row *, .discount-row *{
+.pdf-view .subtotal-row *,
+.discount-row * {
     font-weight: bold;
 }
 
@@ -258,20 +273,24 @@
     font-weight: 700;
     border: none;
 }
-.pdf-view .total-row td:nth-child(2), .total-row td:nth-child(3) {
+
+.pdf-view .total-row td:nth-child(2),
+.total-row td:nth-child(3) {
     background-color: #e6f0ff;
     border-top: 1px solid #003366;
     border-bottom: 1px solid #003366;
 }
 
+.pdf-view .file-input-wrapper .file-input-button,
 .pdf-view input[type="text"],
 .pdf-view input[type="number"],
 .pdf-view input[type="tel"],
 .pdf-view input[type="email"],
 .pdf-view input[type="date"],
+.pdf-view input[type="file"],
 .pdf-view textarea {
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid light-dark(#ccc, #313740);
     border-radius: 4px;
     font-family: var(--body-font);
     font-size: 1rem;
@@ -299,6 +318,45 @@
     display: block;
 }
 
+.pdf-view .logo-preview-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 14rem;
+}
+
+.pdf-view .logo-preview {
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+.pdf-view input.file-input {
+    display: none;
+}
+
+.pdf-view .file-input-wrapper .file-input-button {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: light-dark(var(--color-light-semi-transparent), var(--color-selected-dark));
+    color: light-dark(var(--color-dark), var(--color-light-semi-transparent));
+}
+
+.pdf-view .file-input-wrapper .file-input-button:hover {
+    background-color: light-dark(var(--color-selected-light), var(--color-darker));
+}
+
+.pdf-view .file-input-wrapper .file-input-button .icon {
+    width: 10rem;
+    height: 10rem;
+}
+
+.pdf-view .file-input-wrapper .file-input-button .file-input-button-text {
+    color: light-dark(inherit, var(--color-light-semi-transparent));
+}
 
 
 /* Print styling */
@@ -321,10 +379,12 @@
         page-break-inside: avoid;
     }
 
-    .pdf-view .controls, .navigation, .pdf-view .page-heading {
+    .pdf-view .controls,
+    .navigation,
+    .pdf-view .page-heading {
         display: none;
     }
-    
+
     .pdf-view .estimate-header {
         border-top: none;
     }
@@ -333,26 +393,27 @@
 
 /* Responsive layout for smaller screens */
 @media (min-width: 376px) {
-  .pdf-view .estimate-header.edit-mode input {
-    width: 36ch;
-  }
+    .pdf-view .estimate-header.edit-mode input {
+        width: 36ch;
+    }
 }
 
 @media (min-width: 425px) {
-  .pdf-view .estimate-header.edit-mode input {
-    width: 40ch;
-  }
+    .pdf-view .estimate-header.edit-mode input {
+        width: 40ch;
+    }
 
-  .job-unit {
-    max-width: 15ch;
-  }
+    .job-unit {
+        max-width: 15ch;
+    }
 
-  .short-unit {
-    display: none !important;
-  }
-  .long-unit {
-    display: inline-block !important;
-  }
+    .short-unit {
+        display: none !important;
+    }
+
+    .long-unit {
+        display: inline-block !important;
+    }
 }
 
 
@@ -365,12 +426,8 @@
 
 
 /* Responsive layout for larger screens */
-@media (min-width: 768px) {
-
-
-}
+@media (min-width: 768px) {}
 
 /* @media (prefers-color-scheme: dark) {
    
 } */
-
