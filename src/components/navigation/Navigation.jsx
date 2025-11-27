@@ -11,6 +11,12 @@ const Navigation = () => {
   const onPage = useOnPage(location);
   const showNav = useShowNav(location);
   const pages = usePages();
+  const buttonText = {
+    home: 'Home',
+    services: 'Services',
+    estimate: 'Estimate',
+    newService: 'Add Service'
+  }
 
   /**
    * Navigates the user to the home page (root route '/').
@@ -42,20 +48,33 @@ const Navigation = () => {
     navigate(estimatePage);
   }
 
+  /**
+   * Navigates to the new service creation page
+   * @function handleNewServiceClick
+   * @return {void}
+   */
+  const handleNewServiceClick = () => {
+    alert('Add Service button clicked! Implement new service creation logic here.');
+  }
 
   return (
     <nav className={showNav ? 'navigation' : 'invisible'}>
       <div className='nav-container'>
         <div className="nav-left">
           <button type="button" className="home-button" onClick={() => handleHomeClick()}>
-            <span className='button-text'>Home</span>
+            <span className='button-text'>{ buttonText.home }</span>
           </button>
         </div>
         <div className="nav-right">
+          { (onPage('services')) &&
+            <button type="button" className="new-service-button" onClick={() => handleNewServiceClick()}>
+              <span className='button-text'>{ buttonText.newService }</span>
+            </button>
+          }
           { (onPage('services') || onPage('preview')) &&
             <Link to={pages.estimate}>
               <button type="button" className="estimate-button" onClick={() => handleEstimateClick()}>
-                <span className='button-text'>Estimate</span>
+                <span className='button-text'>{ buttonText.estimate }</span>
               </button>
             </Link>
           }
@@ -63,7 +82,7 @@ const Navigation = () => {
           { (onPage('estimate') || onPage('preview')) && 
             <Link to={pages.services}>
               <button type="button" className="services-button" onClick={() => handleServicesClick()}>
-                <span className='button-text'>Services</span>
+                <span className='button-text'>{ buttonText.services }</span>
               </button>
             </Link>     
           }
