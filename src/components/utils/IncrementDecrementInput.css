@@ -4,7 +4,7 @@
     gap: 0.6rem;
 }
 
-.number-input {
+.increment-decrement-input .number-input {
     box-shadow: var(--box-shadow-light);
     padding: 0.35rem 0.5rem;
     border-radius: 2rem;
@@ -16,9 +16,11 @@
     color: light-dark(var(--color-darker), var(--color-light));;
     height: 1.8rem;
     width: 8ch;
+    margin-bottom: unset;
+    box-sizing: inherit;
 }
 
-.number-input:focus {
+.increment-decrement-input .number-input:focus {
   box-shadow: var(--box-shadow-heavy);
 }
 

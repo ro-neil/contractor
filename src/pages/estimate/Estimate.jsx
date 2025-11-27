@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeJob, updateJobQuantity } from "@/data/EstimateSlice.js";
 import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import "./Estimate.css";
-import unitMap from "@/data/service-unit-map.json"
+import unitMap from "@/data/service-unit-map.json";
+import { truncate } from "@/utils/string.js";
 import { useNavigate } from "react-router-dom";
 import { usePages } from '@/hooks/router.jsx';
 
@@ -169,7 +170,7 @@ const Estimate = ({ table, discount }) => {
                                         <div className="job-rate">
                                             <Currency figure={job.rate} />
                                             <span className="forward-slash">&#47;</span> 
-                                            <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit]}</span>
+                                            <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit] || truncate(String(job.unit))}</span>
                                             <span title="Job Unit" className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
                                         </div>
                                     </div>

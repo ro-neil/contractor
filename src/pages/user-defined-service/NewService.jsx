@@ -133,9 +133,9 @@ export default function NewService() {
                             value={form.unit}
                             onChange={handleChange}
                             required
-                            className={errors.rate ? "is-invalid" : ""}
-                            aria-invalid={!!errors.rate}
-                            aria-describedby={errors.rate ? "desc-error" : "unit-help"}
+                            className={errors.unit ? "is-invalid" : ""}
+                            aria-invalid={!!errors.unit}
+                            aria-describedby={errors.unit ? "desc-error" : "unit-help"}
                         />
                         <datalist id="service-units">
                             {serviceUnits.map((unit) => (

@@ -79,7 +79,7 @@ const Navigation = () => {
               </button>
             </Link>
           }           
-          { (onPage('estimate') || onPage('estimatePreview')) || onPage('newService') && 
+          { (onPage('estimate') || onPage('estimatePreview') || onPage('newService')) && 
             <Link to={pages.services}>
               <button type="button" className="services-button" onClick={() => handleServicesClick()}>
                 <span className='button-text'>{ buttonText.services }</span>

@@ -2,15 +2,29 @@ const STORAGE_KEY = 'userDefinedServices';
 
 // Helper to get all services from localStorage
 const getServices = () => {
-    const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    let data = localStorage.getItem(STORAGE_KEY);
+    if (!data) { return []; }
+    data = JSON.parse(data);
+    data = data.map(service => {
+        // Ensure rate is a number
+        return {
+            ...service,
+            rate: Number(service.rate),
+            isCustom: true
+        };
+    });
+    return data;
 }
 
 const validateService = (service) => {
     if (!service.description || typeof service.description !== 'string') {
         throw new Error('InvalidServiceDescription');
     }
-    if (!service.rate || isNaN(service.rate) || service.rate <= 0) {
+    if (
+        service.rate === undefined ||
+        isNaN(Number(service.rate)) ||
+        Number(service.rate) <= 0
+    ) {
         throw new Error('InvalidServiceRate');
     }
     if (!service.unit || typeof service.unit !== 'string') {

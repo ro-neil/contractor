@@ -42,13 +42,13 @@ const routes = [
   },
   {
     path: '/estimate',
-    element: () => <Estimate />,
+    element: (props) => <Estimate {...props}/>,
     label: 'Estimate',
     showNav: true,
   },
   {
     path: '/estimate/pdf',
-    element: () => <PDFView />,
+    element: (props) => <PDFView {...props}/>,
     label: 'Estimate Preview',
     showNav: true,
   },

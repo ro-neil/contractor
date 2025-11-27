@@ -72,6 +72,10 @@
   color: var(--color-red);
 }
 
+.text-green {
+  color: var(--color-green);
+}
+
 .bg-dark {
   background-color: #1a2a3a !important;
 }
@@ -146,6 +150,11 @@
   box-shadow: unset;
   background-color: unset;
   border-color: transparent;
+}
+
+.job-edit-button {
+  margin-right: 0.25rem;
+  color: var(--color-dark);
 }
 
 .shake-transformation {
