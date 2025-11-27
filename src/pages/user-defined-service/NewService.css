@@ -78,19 +78,6 @@
   margin-left: 0.25rem;
 }
 
-/* 5. Inputs (Text, Number, Datalist) */
-/* .form-group input {
-  appearance: none;
-  background-color: var(--color-bg-input);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0 0.75rem;
-  height: var(--input-height);
-  font-size: 1rem;
-  width: 100%;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-  box-sizing: border-box;
-} */
 
 .form-group input::placeholder {
   color: #9ca3af;
@@ -118,31 +105,47 @@
   justify-content: flex-end; /* Aligns button to right */
 }
 
-.btn-primary {
-  display: inline-flex;
+/* --- Validation Styles --- */
+
+/* 1. Invalid Input State */
+.form-group input.is-invalid {
+  border-color: var(--color-danger);
+  /* Optional: faint red background to call attention */
+  background-color: #fef2f2; 
+  padding-right: 2.5rem; /* Make room for an optional error icon */
+  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ef4444'%3E%3C' path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' /%3E%3C/svg%3E"); */
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+}
+
+/* 2. Invalid Input Focus */
+.form-group input.is-invalid:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); /* Red Focus Ring */
+}
+
+/* 3. Error Message Text */
+.error-message {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--color-primary);
-  color: white;
+  gap: 0.25rem;
+  color: var(--color-danger);
+  font-size: 0.75rem;
   font-weight: 500;
-  border: none;
-  border-radius: var(--radius-md);
-  height: var(--input-height);
-  padding: 0 var(--spacing-lg);
-  cursor: pointer;
-  transition: background-color var(--transition-fast);
-  font-size: 0.95rem;
+  margin-top: 0.25rem;
+  
+  /* Animation for smoother UX */
+  animation: slideDownFade 0.2s ease-out forwards;
 }
 
-.btn-primary:hover {
-  background-color: var(--color-primary-hover);
-}
-
-.btn-primary:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
-}
-
-.btn-primary:active {
-  transform: translateY(1px);
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

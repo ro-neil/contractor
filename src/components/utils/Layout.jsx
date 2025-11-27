@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import routes from '@/routes/routeConfig.jsx';
+import routes from '@/hooks/router.jsx';
 import Navigation from '@/components/navigation/Navigation.jsx';
 
 const containerStyle = {

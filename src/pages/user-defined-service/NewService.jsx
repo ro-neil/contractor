@@ -3,17 +3,24 @@ import "./NewService.css";
 import serviceUnitMap from "@/data/service-unit-map.json";
 import { titleCase } from "@/utils/string.js";
 import contractorServicesData from "@/data/contractor-services.json";
+import { useCreateService } from "@/hooks/user-defined-services.jsx";
+import { usePages} from '@/hooks/router.jsx';
+import { useNavigate } from 'react-router-dom';
 
-const serviceUnits = Object.keys(serviceUnitMap) || [];
-const serviceCategories = [...new Set(contractorServicesData.map(service => service.category))].sort((a, b) => a.localeCompare(b));
 
 export default function NewService() {
+    
+    const serviceUnits = Object.keys(serviceUnitMap) || [];
+    const serviceCategories = [...new Set(contractorServicesData.map(service => service.category))].sort((a, b) => a.localeCompare(b));
+    const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         description: "",
         rate: "",
         unit: "",
         category: "",
     });
+    const pages = usePages();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,23 +30,50 @@ export default function NewService() {
         }));
     };
 
-    const handleSubmit = (e) => {
+
+    const handleAddService = (e) => {
         e.preventDefault();
-        // Submit logic here
-        console.log(form);
+        setErrors({}); // Reset errors
+
+        try {
+            useCreateService(form);
+            alert("Service added successfully!");
+            navigate(pages.services);
+        } catch (err) {
+            const newErrors = {};
+
+            // Map Error Names to Field Names
+            switch (err.message) {
+                case 'InvalidServiceDescription':
+                    newErrors.description = 'Description is required.';
+                    break;
+                case 'InvalidServiceRate':
+                    newErrors.rate = 'Please enter a valid positive rate.';
+                    break;
+                case 'InvalidServiceUnit':
+                    newErrors.unit = 'Unit is required.';
+                    break;
+                case 'InvalidServiceCategory':
+                    newErrors.category = 'Invalid category format.';
+                    break;
+                default:
+                    console.error(err);
+            }
+            setErrors(newErrors);
+        }
     };
 
     return (
         <div className="new-service-container">
             <h2>New Service</h2>
-            <form className="new-service-form" onSubmit={handleSubmit} noValidate>
+            <form className="new-service-form" onSubmit={handleAddService} noValidate>
                 <fieldset>
                     <legend className="visually-hidden">Create New Service</legend>
 
                     {/* Description */}
                     <div className="form-group">
                         <label htmlFor="service-description">
-                            <span className="required">Name</span>
+                            <span className="required">Description</span>
                         </label>
                         <input
                             id="service-description"
@@ -49,8 +83,15 @@ export default function NewService() {
                             onChange={handleChange}
                             required
                             aria-required="true"
-                            // placeholder="Enter service description"
+                            className={errors.description ? "is-invalid" : ""}
+                            aria-invalid={!!errors.description}
+                            aria-describedby={errors.description ? "desc-error" : "desc-help"}
                         />
+                        {errors.description &&
+                            (<span id="desc-error" className="error-message" role="alert">
+                                {errors.description}
+                            </span>)
+                        }
                     </div>
 
                     {/* Rate */}
@@ -67,9 +108,17 @@ export default function NewService() {
                             required
                             min="0"
                             step="0.01"
-                            aria-describedby="rate-help"
+                            className={errors.rate ? "is-invalid" : ""}
+                            aria-invalid={!!errors.rate}
+                            aria-describedby={errors.rate ? "desc-error" : "rate-help"}
                         />
-                        <small id="rate-help" className="help-text">Enter amount per unit (e.g., per hour, per item)</small>
+                        {errors.rate ? 
+                            (<span id="desc-error" className="error-message" role="alert">
+                                {errors.rate}
+                            </span>) :
+                            (<small id="rate-help" className="help-text">Enter amount per unit (e.g., 50, 1218.99)</small>)
+                        }
+                        
                     </div>
 
                     {/* Unit */}
@@ -84,14 +133,21 @@ export default function NewService() {
                             value={form.unit}
                             onChange={handleChange}
                             required
-                            aria-describedby="unit-help"
+                            className={errors.rate ? "is-invalid" : ""}
+                            aria-invalid={!!errors.rate}
+                            aria-describedby={errors.rate ? "desc-error" : "unit-help"}
                         />
                         <datalist id="service-units">
                             {serviceUnits.map((unit) => (
                                 <option key={unit} value={titleCase(unit)} />
                             ))}
                         </datalist>
-                        <small id="unit-help" className="help-text">Type or select a unit (e.g., Day, Square Foot, Each)</small>
+                        {errors.unit ? 
+                            (<span id="desc-error" className="error-message" role="alert">
+                                {errors.unit}
+                            </span>) :
+                            (<small id="unit-help" className="help-text">Type or select a unit (e.g., Day, Square Foot, Each)</small>)
+                        }                     
                     </div>
 
                     {/* Category (optional) */}
@@ -105,13 +161,22 @@ export default function NewService() {
                             name="category"
                             value={form.category || ''}
                             onChange={handleChange}
+                            className={errors.category ? "is-invalid" : ""}
+                            aria-invalid={!!errors.category}
+                            aria-describedby={errors.category ? "desc-error" : "category-help"}
                         />
                         <datalist id="service-categories">
                             {serviceCategories.map((category) => (
                                 <option key={category} value={category} />
                             ))}
                         </datalist>
-                        <small id="category-help" className="help-text">Type or select a category (e.g., Masonry, Carpentry)</small>
+                        {errors.category ? 
+                            (<span id="category-error" className="error-message" role="alert">
+                                {errors.category}
+                            </span>) :
+                            (<small id="category-help" className="help-text">Type or select a category (e.g., Masonry, Carpentry)</small>)
+                        }  
+                        
                     </div>
 
                     {/* Submit */}

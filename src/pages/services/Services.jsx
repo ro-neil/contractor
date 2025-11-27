@@ -5,6 +5,7 @@ import Currency from "@/components/utils/Currency.jsx";
 import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import SearchInput from "@/components/utils/SearchInput.jsx";
 import contractorServicesData from "@/data/contractor-services.json";
+import { useGetServices, useUpdateService, useDeleteService } from "@/hooks/user-defined-services.jsx";
 import "./Services.css";
 
 const ServicesList = () => {
@@ -12,11 +13,12 @@ const ServicesList = () => {
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const userServices = useGetServices();
     const estimateJobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
 
     // DataPipeline-ready dataSource (returns the local JSON)
-    const dataSource = contractorServicesData;
+    const dataSource = [...contractorServicesData, ...userServices];
 
     useEffect(() => {
         // Immediately prepare the sorted data (same behavior as before)
@@ -29,7 +31,7 @@ const ServicesList = () => {
         ]);
         setServices(sortedData);
         setLoading(false);
-    }, [contractorServicesData]);
+    }, [dataSource]);
 
 
     const filteredServices = services

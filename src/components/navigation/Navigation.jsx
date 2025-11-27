@@ -2,7 +2,7 @@ import React from 'react';
 import "./Navigation.css";
 import "@/pages/export/PDFView.jsx";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import {useOnPage, useShowNav, usePages} from '@/routes/routeConfig.jsx';
+import {useOnPage, useShowNav, usePages} from '@/hooks/router.jsx';
 
 
 const Navigation = () => {
@@ -11,7 +11,6 @@ const Navigation = () => {
   const onPage = useOnPage(location);
   const showNav = useShowNav(location);
   const pages = usePages();
-  console.log('Pages:', pages);
   const buttonText = {
     home: 'Home',
     services: 'Services',

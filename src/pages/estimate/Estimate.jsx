@@ -7,7 +7,7 @@ import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.
 import "./Estimate.css";
 import unitMap from "@/data/service-unit-map.json"
 import { useNavigate } from "react-router-dom";
-import {usePages} from '@/routes/routeConfig.jsx';
+import { usePages } from '@/hooks/router.jsx';
 
 
 const Estimate = ({ table, discount }) => {

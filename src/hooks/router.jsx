@@ -42,13 +42,13 @@ const routes = [
   },
   {
     path: '/estimate',
-    element: (props) => <Estimate />,
+    element: () => <Estimate />,
     label: 'Estimate',
     showNav: true,
   },
   {
     path: '/estimate/pdf',
-    element: (props) => <PDFView />,
+    element: () => <PDFView />,
     label: 'Estimate Preview',
     showNav: true,
   },
@@ -78,11 +78,11 @@ const pages = Object.fromEntries(
     ])
 );
 
-const usePages = () => {
+export const usePages = () => {
   return pages;
 }
 
-const useOnPage = (location) => {
+export const useOnPage = (location) => {
     return (page) => {
         const path = pages[page];
         if (!path) return false;
@@ -90,11 +90,11 @@ const useOnPage = (location) => {
     };
 };
 
-const useShowNav = (location) => {
+export const useShowNav = (location) => {
     const currentRoute = routes.find(r => r.path === location.pathname);
     return !!currentRoute?.showNav;
 }
 
 
 
-export { routes as default, useOnPage, useShowNav, usePages };
+export { routes as default };
