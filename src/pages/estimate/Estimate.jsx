@@ -17,7 +17,7 @@ const Estimate = ({ table, discount }) => {
     const pages = usePages();
 
     const handleExportPDF = () => {
-        const previewPage = pages.preview;
+        const previewPage = pages.estimatePreview;
         navigate(previewPage);
     };
 

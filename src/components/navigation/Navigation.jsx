@@ -11,6 +11,7 @@ const Navigation = () => {
   const onPage = useOnPage(location);
   const showNav = useShowNav(location);
   const pages = usePages();
+  console.log('Pages:', pages);
   const buttonText = {
     home: 'Home',
     services: 'Services',
@@ -54,7 +55,8 @@ const Navigation = () => {
    * @return {void}
    */
   const handleNewServiceClick = () => {
-    alert('Add Service button clicked! Implement new service creation logic here.');
+    const newServicePage = pages.newService;
+    navigate(newServicePage);
   }
 
   return (
@@ -71,15 +73,14 @@ const Navigation = () => {
               <span className='button-text'>{ buttonText.newService }</span>
             </button>
           }
-          { (onPage('services') || onPage('preview')) &&
+          { (onPage('services') || onPage('estimatePreview')) &&
             <Link to={pages.estimate}>
               <button type="button" className="estimate-button" onClick={() => handleEstimateClick()}>
                 <span className='button-text'>{ buttonText.estimate }</span>
               </button>
             </Link>
-          }
-              
-          { (onPage('estimate') || onPage('preview')) && 
+          }           
+          { (onPage('estimate') || onPage('estimatePreview')) || onPage('newService') && 
             <Link to={pages.services}>
               <button type="button" className="services-button" onClick={() => handleServicesClick()}>
                 <span className='button-text'>{ buttonText.services }</span>

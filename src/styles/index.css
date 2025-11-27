@@ -168,6 +168,59 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 
+.file-input-wrapper .file-input-button,
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="email"],
+input[type="date"],
+input[type="file"],
+input[list],
+textarea {
+    padding: 0.5rem;
+    border: 1px solid light-dark(#ccc, #313740);
+    border-radius: 4px;
+    font-family: var(--body-font);
+    font-size: 1rem;
+    background-color: #fff;
+    color: light-dark(var(--text-color), var(--color-light));
+    transition: border-color 0.2s;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+label {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.required::after { content: " *"; color: #e74c3c; }
+.optional { color: #567; font-style: italic; }
+.help-text { color: #567; font-size: 0.875rem; }
+
 @keyframes shake {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(-15deg); }

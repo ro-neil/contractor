@@ -1,14 +1,8 @@
 :root {
     --primary-color: #012e5a;
-    /* dark blue */
     --secondary-color: #ec4c50;
-    /* green */
     --background-color: #f4f4f4;
-    /* light gray */
     --text-color: #333;
-    /* dark gray */
-    /* --header-font: 'Arial Black', sans-serif;
-    --body-font: 'Arial', sans-serif; */
 }
 
 .pdf-view {
@@ -280,7 +274,7 @@
     border-top: 1px solid #003366;
     border-bottom: 1px solid #003366;
 }
-
+/* 
 .pdf-view .file-input-wrapper .file-input-button,
 .pdf-view input[type="text"],
 .pdf-view input[type="number"],
@@ -316,7 +310,7 @@
     color: var(--primary-color);
     margin-bottom: 0.25rem;
     display: block;
-}
+} */
 
 .pdf-view .logo-preview-container {
     display: flex;

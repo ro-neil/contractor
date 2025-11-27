@@ -4,7 +4,8 @@
   "square foot": "ft²",
   "cubic yard": "yd³",
   "each": "ea",
-  "day": "d",
+  "hour": "hr",
+  "day": "day",
   "square": "sq",
   "100 square feet": "100 ft²",
   "pound": "lb",
@@ -12,3 +13,4 @@
   "pair": "pr",
   "tread": "tr"
 }
+
