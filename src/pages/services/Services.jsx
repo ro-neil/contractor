@@ -4,7 +4,7 @@ import { addJob, updateJobQuantity } from "@/data/EstimateSlice.js";
 import Currency from "@/components/utils/Currency.jsx";
 import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import SearchInput from "@/components/utils/SearchInput.jsx";
-import { useGetServices, useUpdateService, useDeleteService } from "@/hooks/user-defined-services.jsx";
+import { useGetServices, useUpdateService, useDeleteService } from "@/hooks/custom-services.jsx";
 import useSystemServices from "@/hooks/system-services.jsx";
 import "./Services.css";
 

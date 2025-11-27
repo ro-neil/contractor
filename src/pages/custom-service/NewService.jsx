@@ -3,14 +3,14 @@ import "./NewService.css";
 import serviceUnitMap from "@/data/service-unit-map.json";
 import { titleCase } from "@/utils/string.js";
 import contractorServicesData from "@/data/contractor-services.json";
-import { useCreateService } from "@/hooks/user-defined-services.jsx";
+import { useCreateService } from "@/hooks/custom-services.jsx";
 import { usePages} from '@/hooks/router.jsx';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function NewService() {
     
-    const serviceUnits = Object.keys(serviceUnitMap) || [];
+    const serviceUnits = Object.keys(serviceUnitMap).sort() || [];
     const serviceCategories = [...new Set(contractorServicesData.map(service => service.category))].sort((a, b) => a.localeCompare(b));
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
@@ -116,7 +116,7 @@ export default function NewService() {
                             (<span id="desc-error" className="error-message" role="alert">
                                 {errors.rate}
                             </span>) :
-                            (<small id="rate-help" className="help-text">Enter amount per unit (e.g., 50, 1218.99)</small>)
+                            (<small id="rate-help" className="help-text">Enter price per unit, or total price for fixed-cost jobs.</small>)
                         }
                         
                     </div>
@@ -146,7 +146,7 @@ export default function NewService() {
                             (<span id="desc-error" className="error-message" role="alert">
                                 {errors.unit}
                             </span>) :
-                            (<small id="unit-help" className="help-text">Type or select a unit (e.g., Day, Square Foot, Each)</small>)
+                            (<small id="unit-help" className="help-text">Type or select a unit (e.g. "Hour" for hourly work, or "Flat Fee" for fixed price.)</small>)
                         }                     
                     </div>
 

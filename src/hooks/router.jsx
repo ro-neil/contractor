@@ -2,7 +2,7 @@
 
 import LandingPage from '@/pages/home/LandingPage.jsx';
 import ServicesList from '@/pages/services/Services.jsx';
-import NewService from '@/pages/user-defined-service/NewService.jsx';
+import NewService from '@/pages/custom-service/NewService.jsx';
 import Estimate from '@/pages/estimate/Estimate.jsx';
 import PDFView from '@/pages/export/PDFView.jsx';
 import NotFound from '@/pages/notFound/NotFound.jsx';
