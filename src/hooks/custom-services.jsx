@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 const STORAGE_KEY = 'userDefinedServices';
 
 // Helper to get all services from localStorage
@@ -5,12 +7,14 @@ const getServices = () => {
     let data = localStorage.getItem(STORAGE_KEY);
     if (!data) { return []; }
     data = JSON.parse(data);
-    data = data.map(service => {
+    data = data.map((service, idx) => {
+        const newID = `usr-${service.category}-${service.description}${idx > 0 ? `-${idx}` : ''}`.replaceAll(' ', '-').toLowerCase();
         // Ensure rate is a number
         return {
             ...service,
             rate: Number(service.rate),
-            isCustom: true
+            isCustom: true,
+            id: service.id || newID // Ensure id exists
         };
     });
     return data;
@@ -51,8 +55,38 @@ export const useCreateService = (service) => {
 }
 
 // Read all services
-export const useGetServices = () =>{
+export const useFetchServices = () => {
     return getServices();
+}
+
+export const useFetchServiceById = (serviceId) => {
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+
+        if (!serviceId) return;
+
+        const fetchService = async () => {
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const services = getServices();
+                const service = services.find(s => s.id === serviceId);
+                setData(service);
+            } catch (err) {
+                setError(err);
+                setData(null);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchService();
+    }, [serviceId]);
+    return { data, isLoading, error };
 }
 
 // Update a service by id

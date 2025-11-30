@@ -1,18 +1,13 @@
-import { BrowserRouter as Router, HashRouter } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+import router from '@/routing/router.jsx';
 import './App.css';
-import Layout from './utils/Layout.jsx';
-
 
 const App = () => {
 
   return (
     <>
-    {
-      <HashRouter>
-        <Layout/>
-      </HashRouter>
-    }
-    </>
+      <RouterProvider router={router} />
+    </> 
   )
 }
 

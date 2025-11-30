@@ -110,6 +110,11 @@
   --outline-color-dark: rgba(237, 156, 64);
 }
 
+.root-layout-content {
+  display: flex;
+  justify-content: center;
+}
+
 
 a {
   font-weight: 500;

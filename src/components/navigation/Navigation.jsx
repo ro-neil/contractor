@@ -1,94 +1,91 @@
-import React from 'react';
-import "./Navigation.css";
-import "@/pages/export/PDFView.jsx";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import {useOnPage, useShowNav, usePages} from '@/hooks/router.jsx';
+import { Link, useMatches } from 'react-router-dom';
+import { usePages } from '@/routing/router.jsx'; 
+import { camelCase } from '@/utils/string.js';
+import './Navigation.css';
+
+
+const buttonText = {
+  home: 'Home',
+  services: 'Services',
+  estimate: 'Estimate',
+  newService: 'Add Service'
+};
 
 
 const Navigation = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const onPage = useOnPage(location);
-  const showNav = useShowNav(location);
-  const pages = usePages();
-  const buttonText = {
-    home: 'Home',
-    services: 'Services',
-    estimate: 'Estimate',
-    newService: 'Add Service'
-  }
+  // Use useMatches to get the 'handle' property from the current route.
+  const matches = useMatches();
+  const currentHandle = matches[matches.length - 1]?.handle || {};
+  
+  // Use the current route title for logic, falling back to path if needed.
+  const currentPageTitle = currentHandle.title; 
+  const pages = usePages(); // Assuming this returns the route targets like { home: '/', services: '/services' }
 
-  /**
-   * Navigates the user to the home page (root route '/').
-   * @function handleHomeClick
-   * @returns {void}
-   */
-  const handleHomeClick = () => {
-    const homePage = pages.home;
-    navigate(homePage);
+  // Helper function to determine if a button should show on the current page.
+  // We use the known page title from the route handle.
+  const shouldShow = (target) => {
+    switch (camelCase(currentPageTitle)) {
+      case 'services':
+        return target === 'newService' || target === 'estimate';
+      case 'newService':
+        return target === 'services';
+      case 'editService':
+        return target === 'services';
+      case 'estimate':
+        return target === 'services';
+      case 'estimatePreview':
+        return target === 'estimate' || target === 'services';
+      default:
+        return false;
+    }
   };
 
-  /**
-   * Navigates to the services page
-   * @function handleServicesClick
-   * @returns {void}
-   */
-  const handleServicesClick = () => {
-    const servicesPage = pages.services;
-    navigate(servicesPage);
-  }
-
-  /**
-   * Navigates to the estimate page
-   * @function handleEstimateClick
-   * @returns {void}
-   */
-  const handleEstimateClick = () => {
-    const estimatePage = pages.estimate;
-    navigate(estimatePage);
-  }
-
-  /**
-   * Navigates to the new service creation page
-   * @function handleNewServiceClick
-   * @return {void}
-   */
-  const handleNewServiceClick = () => {
-    const newServicePage = pages.newService;
-    navigate(newServicePage);
-  }
+  // Define button-link elements as an array
+  const dynamicButtons = [
+    {
+      key: 'newService',
+      to: pages.newService,
+      className: 'new-service-button',
+      buttonText: buttonText.newService,
+      visible: shouldShow('newService')
+    },
+    {
+      key: 'estimate',
+      to: pages.estimate,
+      className: 'estimate-button',
+      buttonText: buttonText.estimate,
+      visible: shouldShow('estimate')
+    },
+    {
+      key: 'services',
+      to: pages.services,
+      className: 'services-button',
+      buttonText: buttonText.services,
+      visible: shouldShow('services')
+    }
+  ];
 
   return (
-    <nav className={showNav ? 'navigation' : 'invisible'}>
+    <nav className='navigation'>
       <div className='nav-container'>
         <div className="nav-left">
-          <button type="button" className="home-button" onClick={() => handleHomeClick()}>
-            <span className='button-text'>{ buttonText.home }</span>
-          </button>
+          <Link to={pages.home}>
+            <button type="button" className="home-button">
+              <span className='button-text'>{buttonText.home}</span>
+            </button>
+          </Link>
         </div>
         <div className="nav-right">
-          { (onPage('services')) &&
-            <button type="button" className="new-service-button" onClick={() => handleNewServiceClick()}>
-              <span className='button-text'>{ buttonText.newService }</span>
-            </button>
-          }
-          { (onPage('services') || onPage('estimatePreview')) &&
-            <Link to={pages.estimate}>
-              <button type="button" className="estimate-button" onClick={() => handleEstimateClick()}>
-                <span className='button-text'>{ buttonText.estimate }</span>
+          {dynamicButtons.filter(btn => btn.visible).map(btn => (
+            <Link to={btn.to} key={btn.key}>
+              <button type="button" className={btn.className}>
+                <span className='button-text'>{btn.buttonText}</span>
               </button>
             </Link>
-          }           
-          { (onPage('estimate') || onPage('estimatePreview') || onPage('newService')) && 
-            <Link to={pages.services}>
-              <button type="button" className="services-button" onClick={() => handleServicesClick()}>
-                <span className='button-text'>{ buttonText.services }</span>
-              </button>
-            </Link>     
-          }
+          ))}
         </div>
       </div>
-    </nav>  
+    </nav>
   );
 };
 
