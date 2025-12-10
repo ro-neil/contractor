@@ -1,17 +1,15 @@
 import { useState } from "react";
 import "./NewService.css";
 import serviceUnitMap from "@/data/service-unit-map.json";
-import { titleCase } from "@/utils/string.js";
 import contractorServicesData from "@/data/contractor-services.json";
 import { useCreateService } from "@/hooks/custom-services.jsx";
 import { usePages} from '@/routing/router.jsx';
 import { useNavigate } from 'react-router-dom';
+import ServiceForm from "./ServiceForm.jsx";
 
 
 export default function NewService() {
-    
-    const serviceUnits = Object.keys(serviceUnitMap).sort() || [];
-    const serviceCategories = [...new Set(contractorServicesData.map(service => service.category))].sort((a, b) => a.localeCompare(b));
+   
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         description: "",
@@ -66,123 +64,14 @@ export default function NewService() {
     return (
         <div className="new-service-container">
             <h1 className="page-heading">New Service</h1>
-            {serviceForm()}
+                <ServiceForm 
+                    form={form} 
+                    errors={errors} 
+                    handleChange={handleChange} 
+                    handleSubmit={handleAddService} 
+                    submitButtonText="Create Service"
+                    legend="Create New Service"
+                />
         </div>
     );
-
-    function serviceForm(action="create") {
-        return <form className="new-service-form" onSubmit={handleAddService} noValidate>
-            <fieldset>
-                <legend className="visually-hidden">Create New Service</legend>
-
-                {/* Description */}
-                <div className="form-group">
-                    <label htmlFor="service-description">
-                        <span className="required">Description</span>
-                    </label>
-                    <input
-                        id="service-description"
-                        type="text"
-                        name="description"
-                        value={form.description}
-                        onChange={handleChange}
-                        required
-                        aria-required="true"
-                        className={errors.description ? "is-invalid" : ""}
-                        aria-invalid={!!errors.description}
-                        aria-describedby={errors.description ? "desc-error" : "desc-help"} />
-                    {errors.description &&
-                        (<span id="desc-error" className="error-message" role="alert">
-                            {errors.description}
-                        </span>)}
-                </div>
-
-                {/* Rate */}
-                <div className="form-group">
-                    <label htmlFor="service-rate">
-                        <span className="required">Rate</span>
-                    </label>
-                    <input
-                        id="service-rate"
-                        type="number"
-                        name="rate"
-                        value={form.rate || ''}
-                        onChange={handleChange}
-                        required
-                        min="0"
-                        step="0.01"
-                        className={errors.rate ? "is-invalid" : ""}
-                        aria-invalid={!!errors.rate}
-                        aria-describedby={errors.rate ? "desc-error" : "rate-help"} />
-                    {errors.rate ?
-                        (<span id="desc-error" className="error-message" role="alert">
-                            {errors.rate}
-                        </span>) :
-                        (<small id="rate-help" className="help-text">Enter price per unit, or total price for fixed-cost jobs.</small>)}
-
-                </div>
-
-                {/* Unit */}
-                <div className="form-group">
-                    <label htmlFor="service-unit">
-                        <span className="required">Unit</span>
-                    </label>
-                    <input
-                        id="service-unit"
-                        name="unit"
-                        list="service-units"
-                        value={form.unit}
-                        onChange={handleChange}
-                        required
-                        className={errors.unit ? "is-invalid" : ""}
-                        aria-invalid={!!errors.unit}
-                        aria-describedby={errors.unit ? "desc-error" : "unit-help"} />
-                    <datalist id="service-units">
-                        {serviceUnits.map((unit) => (
-                            <option key={unit} value={titleCase(unit)} />
-                        ))}
-                    </datalist>
-                    {errors.unit ?
-                        (<span id="desc-error" className="error-message" role="alert">
-                            {errors.unit}
-                        </span>) :
-                        (<small id="unit-help" className="help-text">Type or select a unit (e.g. "Hour" for hourly work, or "Flat Fee" for fixed price.)</small>)}
-                </div>
-
-                {/* Category (optional) */}
-                <div className="form-group">
-                    <label htmlFor="service-category">
-                        Category <span className="optional">(optional)</span>
-                    </label>
-                    <input
-                        id="service-category"
-                        list="service-categories"
-                        name="category"
-                        value={form.category || ''}
-                        onChange={handleChange}
-                        className={errors.category ? "is-invalid" : ""}
-                        aria-invalid={!!errors.category}
-                        aria-describedby={errors.category ? "desc-error" : "category-help"} />
-                    <datalist id="service-categories">
-                        {serviceCategories.map((category) => (
-                            <option key={category} value={category} />
-                        ))}
-                    </datalist>
-                    {errors.category ?
-                        (<span id="category-error" className="error-message" role="alert">
-                            {errors.category}
-                        </span>) :
-                        (<small id="category-help" className="help-text">Type or select a category (e.g., Masonry, Carpentry)</small>)}
-
-                </div>
-
-                {/* Submit */}
-                <div className="form-actions">
-                    <button type="submit" className="button">
-                        Create Service
-                    </button>
-                </div>
-            </fieldset>
-        </form>;
-    }
 }

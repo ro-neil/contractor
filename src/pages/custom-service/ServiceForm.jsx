@@ -14,12 +14,12 @@ const serviceCategories = [...new Set(contractorServicesData.map(service => serv
  * @param {function} props.handleSubmit - Handler for form submission
  * @param {string} props.submitButtonText - Text for the submit button (e.g., 'Create' or 'Update')
  */
-const ServiceForm = ({ form, errors, handleChange, handleSubmit, submitButtonText }) => {
+const ServiceForm = ({ form, errors, handleChange, handleSubmit, submitButtonText, legend = 'Service Form' }) => {
 
     return (
         <form className="new-service-form" onSubmit={handleSubmit} noValidate>
             <fieldset>
-                <legend className="visually-hidden">{submitButtonText} Service</legend>
+                <legend className="visually-hidden">{legend}</legend>
 
                 {/* Description Field... (Structure remains the same) */}
                 <div className="form-group">
