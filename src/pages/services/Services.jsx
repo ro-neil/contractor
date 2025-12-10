@@ -158,6 +158,8 @@ const ServicesList = () => {
                                     onBlur={handleBlur} // Update the Redux store when input loses focus
                                     onMinus={() => handleQuantityUpdate(-1)}
                                     onPlus={() => handleQuantityUpdate(1)}
+                                    incrementTitle="Increase Quantity"
+                                    decrementTitle="Decrease Quantity"
                                 />
                             </div>
                         )

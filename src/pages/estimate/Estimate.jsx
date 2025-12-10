@@ -162,6 +162,8 @@ const Estimate = ({ table, discount }) => {
                                         onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
                                         onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
                                         onBlur={() => handleBlur(job.description, job.quantity)}
+                                        incrementTitle="Increase Quantity"
+                                        decrementTitle="Decrease Quantity"
                                     />
                                     
                                     <div className="job-rate-container">
