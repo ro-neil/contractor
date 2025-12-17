@@ -271,7 +271,25 @@
     /* Ensure the table takes full width if needed */
     .estimate-table {
         width: 100%;
+        margin-bottom: 0; 
+        padding-bottom: 0;
     }
 
+    body {
+      counter-reset: page 1;
+    }
+    
+}
+
+@page {
+  size: A4;
+  margin: 1cm 0.5cm 2cm 0.5cm;
+
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 10pt;
+    font-weight: bold;
+    color: #444;
+  }
 }
 

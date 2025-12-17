@@ -4,8 +4,8 @@
  * @param {number|string} figure - The numeric value to format
  * @param {string} currency - ISO currency code (default: 'USD')
  * @param {string} locale - Locale string (default: 'en-US')
- * @param {number} min_dp - Minimum decimal places (default: 2)
- * @param {number} max_dp - Maximum decimal places (default: 2)
+ * @param {number} minDecimalPlaces - Minimum decimal places (default: 2)
+ * @param {number} maxDecimalPlaces - Maximum decimal places (default: 2)
  * @returns {string} Formatted currency string or empty string on invalid input
  */
 export const formatCurrency = (

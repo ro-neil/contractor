@@ -49,7 +49,7 @@ const Estimate = ({ table, discount }) => {
         const grandTotal = subtotal - discount; // Assuming no tax, as in your code
 
         return (
-            <table className="estimate-table print-repeat-header">
+            <table className="estimate-table print-no-repeat-header">
                 <thead>
                     <tr className="table-header">
                         <th className="th-left">Description</th>
@@ -74,7 +74,7 @@ const Estimate = ({ table, discount }) => {
                         </tr>
                     ))}
 
-                    {/* Totals rows – now inside tbody, so they only appear once */}
+                    {/* Totals rows inside tbody, so they only appear once */}
                     <tr className="border-top subtotal-row">
                         <td colSpan={4} className="td-right">Subtotal</td>
                         <td className="td-left">
@@ -95,7 +95,6 @@ const Estimate = ({ table, discount }) => {
                         </td>
                     </tr>
                 </tbody>
-                {/* Remove <tfoot> entirely */}
             </table>
         );
     };
