@@ -247,3 +247,31 @@
 
 }
 
+
+@media print {
+
+    .print-repeat-header thead {
+      display: table-header-group;
+    }
+
+    .print-no-repeat-header thead {
+      display: table-row-group;
+    }
+
+    /* Prevent awkward breaks inside rows */
+    tr {
+        page-break-inside: avoid;
+    }
+
+    /* Hide anything you don't want printed (buttons, nav, etc.) */
+    .no-print {
+        display: none;
+    }
+
+    /* Ensure the table takes full width if needed */
+    .estimate-table {
+        width: 100%;
+    }
+
+}
+

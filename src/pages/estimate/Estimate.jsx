@@ -44,9 +44,12 @@ const Estimate = ({ table, discount }) => {
         dispatch(updateJobQuantity({ description, quantity }));
     };
 
-    const generateEstimateTable = (jobs, discount=0) => {
+    const generateEstimateTable = (jobs, discount = 0) => {
+        const subtotal = jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0);
+        const grandTotal = subtotal - discount; // Assuming no tax, as in your code
+
         return (
-            <table className="estimate-table">
+            <table className="estimate-table print-repeat-header">
                 <thead>
                     <tr className="table-header">
                         <th className="th-left">Description</th>
@@ -70,123 +73,113 @@ const Estimate = ({ table, discount }) => {
                             </td>
                         </tr>
                     ))}
-                </tbody>
-                <tfoot>
-                    {(() => {
-                        const subtotal = jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0);
-                        const taxAmount = 0;
-                        // const discount = 0;
-                        const grandTotal = subtotal + taxAmount - discount;
 
-                        return (
-                            <>
-                                <tr className="border-top subtotal-row">
-                                    <td colSpan={4} className="td-right">Subtotal</td>
-                                    <td className="td-left">
-                                        <Currency figure={subtotal.toFixed(2)} />
-                                    </td>
-                                </tr>
-                                <tr className="discount-row">
-                                    <td colSpan={4} className="td-right">Discount</td>
-                                    <td className="td-left">
-                                        <Currency figure={discount.toFixed(2)} />
-                                    </td>
-                                </tr>
-                                <tr className="total-row">
-                                    <td colSpan={3}></td>
-                                    <td className="td-right">Total (JMD)</td>
-                                    <td className="td-left">
-                                        <Currency figure={grandTotal.toFixed(2)} />
-                                    </td>
-                                </tr>
-                            </>
-                        );
-                    })()}
-                </tfoot>
+                    {/* Totals rows – now inside tbody, so they only appear once */}
+                    <tr className="border-top subtotal-row">
+                        <td colSpan={4} className="td-right">Subtotal</td>
+                        <td className="td-left">
+                            <Currency figure={subtotal.toFixed(2)} />
+                        </td>
+                    </tr>
+                    <tr className="discount-row">
+                        <td colSpan={4} className="td-right">Discount</td>
+                        <td className="td-left">
+                            <Currency figure={discount.toFixed(2)} />
+                        </td>
+                    </tr>
+                    <tr className="total-row">
+                        <td colSpan={3}></td>
+                        <td className="td-right">Total (JMD)</td>
+                        <td className="td-left">
+                            <Currency figure={grandTotal.toFixed(2)} />
+                        </td>
+                    </tr>
+                </tbody>
+                {/* Remove <tfoot> entirely */}
             </table>
-        )
-    }
+        );
+    };
 
     const isEmpty = (arr) => arr.length <= 0;
 
 
     return (
-        table === true ? <div className="estimate-component">{generateEstimateTable(jobs, discount)}</div> : 
-        <div className="estimate-component">
-            <h1 className="estimate-heading page-heading">Estimate</h1>
-            {isEmpty(jobs) && (      
-                <section className="estimate-body">            
-                    <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
-                        <h2 className="empty-estimate-text">No services added</h2>
-                    </div>
-                </section>
-            )}
+        table === true ? <div className="estimate-component">{generateEstimateTable(jobs, discount)}</div> :
+            <div className="estimate-component">
+                <h1 className="estimate-heading page-heading">Estimate</h1>
+                {isEmpty(jobs) && (
+                    <section className="estimate-body">
+                        <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
+                            <h2 className="empty-estimate-text">No services added</h2>
+                        </div>
+                    </section>
+                )}
 
-            {!isEmpty(jobs) && (
-                <section className="estimate-body">
-                    <div className="controls flex justify-end">
-                        <button title="Preview PDF Estimate" type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
-                            <span className='button-text'>PDF Preview</span>                           
-                        </button>
-                    </div>
+                {!isEmpty(jobs) && (
+                    <section className="estimate-body">
+                        <div className="controls flex justify-end">
+                            <button title="Preview PDF Estimate" type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
+                                <span className='button-text'>PDF Preview</span>
+                            </button>
+                        </div>
 
-                    <div className="grand-total-container">
-                        <span className="grand-total-text colon-end">Grand Total</span>
-                        <span className="grand-total-currency">
-                            <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
-                        </span>
-                    </div>
+                        <div className="grand-total-container">
+                            <span className="grand-total-text colon-end">Grand Total</span>
+                            <span className="grand-total-currency">
+                                <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
+                            </span>
+                        </div>
 
-                    <div className="job-items">
-                        {jobs.map((job, index) => (
-                            <div key={index} className="job-item">                    
-                                <div className="job-item-header">
-                                    <span title="Job Description" className="job-description">{job.description}</span>
-                                    <button 
-                                        className="job-remove-button icon-button text-red shake-transformation"
-                                        title="Remove Job from Estimate"
-                                        onClick={() => handleRemoveJob(job.description)}
-                                    >
-                                        <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                                        </svg>
-                                    </button>     
-                                </div>
-                                <div className="job-item-body">
-                                    <IncrementDecrementInput 
-                                        id={`job_quantity_${index}`} 
-                                        name={`job_quantity_${index}`} 
-                                        value={job.quantity || ''} 
-                                        placeholder="Qty"
-                                        onChange={(e) => handleNumberInputChange(job.description, e)}
-                                        onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
-                                        onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
-                                        onBlur={() => handleBlur(job.description, job.quantity)}
-                                        incrementTitle="Increase Quantity"
-                                        decrementTitle="Decrease Quantity"
-                                    />
-                                    
-                                    <div className="job-rate-container">
-                                        <span className="at-symbol">&#64;</span>
-                                        <div className="job-rate">
-                                            <Currency figure={job.rate} />
-                                            <span className="forward-slash">&#47;</span> 
-                                            <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit] || truncate(String(job.unit))}</span>
-                                            <span title="Job Unit" className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                        <div className="job-items">
+                            {jobs.map((job, index) => (
+                                <div key={index} className="job-item">
+                                    <div className="job-item-header">
+                                        <span title="Job Description" className="job-description">{job.description}</span>
+                                        <button
+                                            className="job-remove-button icon-button text-red shake-transformation"
+                                            title="Remove Job from Estimate"
+                                            onClick={() => handleRemoveJob(job.description)}
+                                        >
+                                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div className="job-item-body">
+                                        <IncrementDecrementInput
+                                            id={`job_quantity_${index}`}
+                                            name={`job_quantity_${index}`}
+                                            value={job.quantity || ''}
+                                            placeholder="Qty"
+                                            onChange={(e) => handleNumberInputChange(job.description, e)}
+                                            onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
+                                            onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
+                                            onBlur={() => handleBlur(job.description, job.quantity)}
+                                            incrementTitle="Increase Quantity"
+                                            decrementTitle="Decrease Quantity"
+                                        />
+
+                                        <div className="job-rate-container">
+                                            <span className="at-symbol">&#64;</span>
+                                            <div className="job-rate">
+                                                <Currency figure={job.rate} />
+                                                <span className="forward-slash">&#47;</span>
+                                                <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit] || truncate(String(job.unit))}</span>
+                                                <span title="Job Unit" className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>                    
-                                <div className="job-item-footer job-subtotal">
-                                    <span className="job-subtotal-text">Subtotal</span> 
-                                    <Currency figure={(job.quantity * job.rate) || 0} />                            
+                                    <div className="job-item-footer job-subtotal">
+                                        <span className="job-subtotal-text">Subtotal</span>
+                                        <Currency figure={(job.quantity * job.rate) || 0} />
+                                    </div>
                                 </div>
-                            </div>
                             ))
-                        }
-                    </div>                  
-                </section>
-            )}
-        </div>
+                            }
+                        </div>
+                    </section>
+                )}
+            </div>
     );
 };
 
