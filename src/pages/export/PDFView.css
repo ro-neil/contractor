@@ -166,13 +166,6 @@
     margin-bottom: 1rem;
 }
 
-
-.pdf-view .estimate-project-title,
-.pdf-view .estimate-date {
-    margin-top: 0;
-    font-size: larger;
-}
-
 .pdf-view .estimate-project-title span,
 .pdf-view .estimate-date span {
     font-weight: 600;
@@ -254,7 +247,7 @@
 }
 
 .pdf-view .subtotal-row *,
-.discount-row * {
+.tax-row * {
     font-weight: bold;
 }
 
@@ -351,6 +344,20 @@
 
 .pdf-view .file-input-wrapper .file-input-button .file-input-button-text {
     color: light-dark(inherit, var(--color-light-semi-transparent));
+}
+
+.tax-slider-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 45ch;
+    gap: 1rem;
+}
+
+.tax-slider-container .tax-percentage {
+    width: 6ch;
+    text-align: right;
+    font-weight: bold
 }
 
 

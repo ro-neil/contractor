@@ -10,7 +10,7 @@ import { formatReadableDate } from "@/utils/formatReadableDate";
  * 
  * Features:
  * - Toggle between edit and preview modes.
- * - Edit company and client details, project title, estimate title, date, and discount.
+ * - Edit company and client details, project title, estimate title, date, and sales tax.
  * - Format phone numbers and dates for display.
  * - Print or save the estimate using the browser's print dialog.
  * - Renders a customizable estimate header and details section.
@@ -45,9 +45,9 @@ const PDFView = () => {
             city: ""
         },
         clientPhone: "",
-        estimateDate: today,
+        estimateDate: today.toLocaleDateString('en-CA'), // YYYY-MM-DD format
         projectTitle: "",
-        estimateDiscount: 0
+        estimateTax: 0,
     });
 
     const handleLogoUpload = (e) => {
@@ -99,8 +99,17 @@ const PDFView = () => {
                 value = formatPhoneNumber(value);
                 // Try to keep cursor near where user is typing
                 e.target.setSelectionRange(cursorPosition, cursorPosition)
-            } else if (field === "estimateDiscount") {
-                value = value.replace(/\D/g, '');
+            }
+            if (field === "estimateTax") {
+                // Ensure tax is a number between 0 and 100
+                value = Math.min(Math.max(parseFloat(value) || 0, 0), 100);
+                
+                // Limit to max 5 characters including decimal point
+                if (value >= 10) {
+                    value = value.toString().slice(0, 5);
+                } else {
+                    value = value.toString().slice(0, 4);
+                }
             }
             setEstimateHeader(prev => ({
                 ...prev,
@@ -406,29 +415,32 @@ const PDFView = () => {
                         </section>
 
                         {editMode && (
-                            <div className="estimate-discount">
-                                <h3>Discount</h3>
-                                <input
-                                    id="estimate-discount"
-                                    type="tel"
-                                    min={0}
-                                    max={999999999}
-                                    maxLength="9"
-                                    pattern="\d*"
-                                    title="Estimate Discount"
-                                    placeholder="Estimate Discount"
-                                    value={estimateHeader.estimateDiscount}
-                                    onChange={(e) => handleInputChange(e, null, "estimateDiscount")}
-                                    required
-                                    style={{ alignSelf: 'start' }}
-                                />
+                            <div className="estimate-tax">
+                                <label htmlFor="estimate-tax"><h3>Tax Rate (%)</h3></label>
+                                <div className="tax-slider-container">
+                                    <input
+                                        id="estimate-tax"
+                                        className="tax-slider"
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        step="0.1"
+                                        title="Estimate Tax"
+                                        value={estimateHeader.estimateTax}
+                                        onChange={(e) => handleInputChange(e, null, "estimateTax")}
+                                    />
+                                    <span className="tax-percentage">{estimateHeader.estimateTax}%</span>
+                                </div>
                             </div>
                         )}
 
                     </div>
                 </div>
 
-                <Estimate table={true} discount={Number.parseInt(estimateHeader.estimateDiscount) || 0} />
+                <Estimate 
+                    table={true} 
+                    tax={Number.parseFloat(estimateHeader.estimateTax) || 0}
+                />
             </section>
         </div>
     );

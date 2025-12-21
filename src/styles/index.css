@@ -181,6 +181,7 @@ input[type="email"],
 input[type="date"],
 input[type="file"],
 input[list],
+select,
 textarea {
     padding: 0.5rem;
     border: 1px solid light-dark(#ccc, #313740);

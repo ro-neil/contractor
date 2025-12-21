@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { usePages } from '@/routing/router.jsx';
 
 
-const Estimate = ({ table, discount }) => {
+const Estimate = ({ table, tax }) => {
     const jobs = useSelector(state => state.estimate.jobs);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -44,10 +44,10 @@ const Estimate = ({ table, discount }) => {
         dispatch(updateJobQuantity({ description, quantity }));
     };
 
-    const generateEstimateTable = (jobs, discount = 0) => {
+    const generateEstimateTable = () => {
         const subtotal = jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0);
-        const grandTotal = subtotal - discount; // Assuming no tax, as in your code
-
+        const taxAmount = (subtotal * tax) / 100; 
+        const grandTotal = subtotal + taxAmount;
         return (
             <table className="estimate-table print-no-repeat-header">
                 <thead>
@@ -81,12 +81,12 @@ const Estimate = ({ table, discount }) => {
                             <Currency figure={subtotal.toFixed(2)} />
                         </td>
                     </tr>
-                    <tr className="discount-row">
-                        <td colSpan={4} className="td-right">Discount</td>
+                    {!!tax && <tr className="tax-row">
+                        <td colSpan={4} className="td-right">Tax ({tax}%)</td>
                         <td className="td-left">
-                            <Currency figure={discount.toFixed(2)} />
+                            <Currency figure={taxAmount.toFixed(2)} />
                         </td>
-                    </tr>
+                    </tr>}
                     <tr className="total-row">
                         <td colSpan={3}></td>
                         <td className="td-right">Total (JMD)</td>
@@ -103,7 +103,7 @@ const Estimate = ({ table, discount }) => {
 
 
     return (
-        table === true ? <div className="estimate-component">{generateEstimateTable(jobs, discount)}</div> :
+        table === true ? <div className="estimate-component">{generateEstimateTable()}</div> :
             <div className="estimate-component">
                 <h1 className="estimate-heading page-heading">Estimate</h1>
                 {isEmpty(jobs) && (
