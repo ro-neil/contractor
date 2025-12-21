@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./PDFView.css";
 import Estimate from "@/pages/estimate/Estimate.jsx";
 import EstimateLogo from "@/components/utils/EstimateLogo.jsx";
+import { formatReadableDate } from "@/utils/formatReadableDate";
 
 
 /**
@@ -23,8 +24,7 @@ import EstimateLogo from "@/components/utils/EstimateLogo.jsx";
  */
 const PDFView = () => {
     const [editMode, setEditMode] = useState(false);
-    let today = new Date();
-    today = today.toISOString().split('T')[0];  // Format for the <input type="date"> (YYYY-MM-DD)
+    const today = new Date();
 
     const [estimateHeader, setEstimateHeader] = useState({
         estimateTitle: "Construction Estimate",
@@ -122,43 +122,6 @@ const PDFView = () => {
             window.print();
         }, 100);
     }
-
-    /**
-     * Formats an ISO date string into a human-readable alphanumeric format like "Sep 26, 2025",
-     * using the user's local time zone.
-     * 
-     * @param {string} isoDateString - The date string in ISO format (with or without time).
-     * @param {string} [locale='en-US'] - Optional locale for formatting.
-     * @param {Object} [options] - Optional Intl.DateTimeFormat options.
-     * @returns {string} - Formatted date string.
-     */
-    const formatReadableDate = (
-        isoDateString,
-        locale = 'en-US',
-        options = {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        }
-    ) => {
-        if (!isoDateString) return '';
-
-        const normalizedDateString = isoDateString.includes('T')
-            ? isoDateString
-            : `${isoDateString}T00:00:00`;
-
-        const date = new Date(normalizedDateString);
-
-        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-        const formatter = new Intl.DateTimeFormat(locale, {
-            ...options,
-            timeZone: userTimeZone, // Ensures correct local rendering
-        });
-
-        return formatter.format(date);
-    };
-
 
 
     /**
