@@ -22,7 +22,7 @@ const Currency = ({
   className = '',
 }) => {
   // Handle invalid or missing input gracefully
-  if (figure == null || isNaN(figure)) {
+  if (!!figure == false || isNaN(figure)) {
     return <span className={`currency-value ${className}`}>-</span>;
   }
 

@@ -416,7 +416,7 @@ const PDFView = () => {
 
                         {editMode && (
                             <div className="estimate-tax">
-                                <label htmlFor="estimate-tax"><h3>Tax Rate (%)</h3></label>
+                                <label htmlFor="estimate-tax"><h3>Sales Tax (%)</h3></label>
                                 <input
                                     id="estimate-tax"
                                     className="tax-input"

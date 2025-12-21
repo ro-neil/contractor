@@ -81,12 +81,12 @@ const Estimate = ({ table, tax }) => {
                             <Currency figure={subtotal.toFixed(2)} />
                         </td>
                     </tr>
-                    {!!tax && <tr className="tax-row">
-                        <td colSpan={4} className="td-right">Tax ({tax}%)</td>
+                    <tr className="tax-row">
+                        <td colSpan={4} className="td-right">Sales Tax ({tax}%)</td>
                         <td className="td-left">
-                            <Currency figure={taxAmount.toFixed(2)} />
+                            <Currency figure={taxAmount.toFixed(2) == 0 ? "" : taxAmount.toFixed(2)} />
                         </td>
-                    </tr>}
+                    </tr>
                     <tr className="total-row">
                         <td colSpan={3}></td>
                         <td className="td-right">Total (JMD)</td>
