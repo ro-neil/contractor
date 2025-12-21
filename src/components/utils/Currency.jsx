@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /**
  * Renders a number as a formatted currency value with symbol (e.g., $1,234.56).
@@ -49,16 +48,6 @@ const Currency = ({
       {num < 0 && showNegative ? `(${formatted})` : formatted}
     </span>
   );
-};
-
-Currency.propTypes = {
-  figure: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  currency: PropTypes.string,
-  maximumFractionDigits: PropTypes.number,
-  locale: PropTypes.string,
-  showSymbol: PropTypes.bool,
-  showNegative: PropTypes.bool,
-  className: PropTypes.string,
 };
 
 export default Currency;
