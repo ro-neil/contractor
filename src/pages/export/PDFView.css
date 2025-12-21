@@ -346,20 +346,6 @@
     color: light-dark(inherit, var(--color-light-semi-transparent));
 }
 
-.tax-slider-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 45ch;
-    gap: 1rem;
-}
-
-.tax-slider-container .tax-percentage {
-    width: 6ch;
-    text-align: right;
-    font-weight: bold
-}
-
 
 /* Print styling */
 @media print {

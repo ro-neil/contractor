@@ -103,7 +103,7 @@ const PDFView = () => {
             if (field === "estimateTax") {
                 // Ensure tax is a number between 0 and 100
                 value = Math.min(Math.max(parseFloat(value) || 0, 0), 100);
-                
+
                 // Limit to max 5 characters including decimal point
                 if (value >= 10) {
                     value = value.toString().slice(0, 5);
@@ -189,10 +189,10 @@ const PDFView = () => {
                                     <div className="company-logo-upload">
                                         {!estimateHeader.companyLogo &&
                                             <div className="file-input-wrapper" title="Upload Company Logo">
-                                                <input id="companyLogoInput" className="file-input" type="file" accept="image/*" onChange={handleLogoUpload}/>
+                                                <input id="companyLogoInput" className="file-input" type="file" accept="image/*" onChange={handleLogoUpload} />
                                                 <label htmlFor="companyLogoInput" className="file-input-button" role="button" aria-label="Upload image">
                                                     <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                                                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z"/>
+                                                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
                                                     </svg>
                                                     <span className="file-input-button-text">Company Logo</span>
                                                 </label>
@@ -417,28 +417,25 @@ const PDFView = () => {
                         {editMode && (
                             <div className="estimate-tax">
                                 <label htmlFor="estimate-tax"><h3>Tax Rate (%)</h3></label>
-                                <div className="tax-slider-container">
-                                    <input
-                                        id="estimate-tax"
-                                        className="tax-slider"
-                                        type="number"
-                                        min="0"
-                                        max="100"
-                                        step="0.1"
-                                        title="Estimate Tax"
-                                        value={estimateHeader.estimateTax}
-                                        onChange={(e) => handleInputChange(e, null, "estimateTax")}
-                                    />
-                                    <span className="tax-percentage">{estimateHeader.estimateTax}%</span>
-                                </div>
+                                <input
+                                    id="estimate-tax"
+                                    className="tax-input"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    step="0.1"
+                                    title="Estimate Tax"
+                                    value={estimateHeader.estimateTax}
+                                    onChange={(e) => handleInputChange(e, null, "estimateTax")}
+                                />
                             </div>
                         )}
 
                     </div>
                 </div>
 
-                <Estimate 
-                    table={true} 
+                <Estimate
+                    table={true}
                     tax={Number.parseFloat(estimateHeader.estimateTax) || 0}
                 />
             </section>
