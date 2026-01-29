@@ -45,7 +45,7 @@ const PDFView = () => {
             city: ""
         },
         clientPhone: "",
-        estimateDate: today.toLocaleDateString('en-CA'), // YYYY-MM-DD format
+        estimateDate: today.toLocaleDateString('en-US'), // YYYY-MM-DD format
         projectTitle: "",
         estimateTax: 0,
     });
