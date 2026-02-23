@@ -80,6 +80,7 @@
     {"description" : "Granite Ceiling", "rate" : 1000, "unit" : "square yard", "category" : "Finishes"},
     {"description" : "Roughcast & Granite Ceiling", "rate" : 2000, "unit" : "square yard", "category" : "Finishes"},
     {"description" : "Set Screeds to Floor/Roof using mortar", "rate" : 280, "unit" : "square yard", "category" : "Flooring"},
+    {"description" : "Prepare and Cast Floor", "rate" : 1875, "unit" : "square yard", "category" : "Flooring"},
     {"description" : "Spray Flooring", "rate" : 210, "unit" : "square yard", "category" : "Flooring"},
     {"description" : "Rod & settle concrete from Premix incl. Labour", "rate" : 1260, "unit" : "square yard", "category" : "Concrete"},
     {"description" : "Fill & ram Flooring", "rate" : 1760, "unit" : "square yard", "category" : "Flooring"},
