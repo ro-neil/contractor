@@ -75,11 +75,11 @@ const ServiceForm = ({ form, errors, handleChange, handleSubmit, submitButtonTex
                         aria-invalid={!!errors.unit}
                         aria-describedby={errors.unit ? "unit-error" : "unit-help"} />
                     <datalist id="service-units">
-                        {serviceUnits.map((unit) => (<option key={unit} value={titleCase(unit)} />))}
+                        {serviceUnits.map((unit) => (<option key={unit} value={unit} />))}
                     </datalist>
                     {errors.unit ?
                         (<span id="unit-error" className="error-message" role="alert">{errors.unit}</span>) :
-                        (<small id="unit-help" className="help-text">Type or select a unit (e.g. "Hour" for hourly work, or "Flat Fee" for fixed price.)</small>)}
+                        (<small id="unit-help" className="help-text">Type or select a unit (e.g. "hour" for hourly work, or "flat fee" for fixed price.)</small>)}
                 </div>
 
                 {/* Category Field... */}
