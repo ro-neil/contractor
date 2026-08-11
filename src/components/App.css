@@ -151,7 +151,7 @@
 
 .job-edit-button {
   margin-right: 0.25rem;
-  color: var(--color-dark);
+  color: light-dark(var(--color-dark), var(--color-yellow));
 }
 
 .shake-transformation {
