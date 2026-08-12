@@ -6,13 +6,14 @@ import { addJob, updateJobQuantity } from "@/data/EstimateSlice.js";
 import Currency from "@/components/utils/Currency.jsx";
 import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import SearchInput from "@/components/utils/SearchInput.jsx";
+import SearchResultsSummary from "@/components/utils/SearchResultsSummary.jsx";
 import { useFetchServices, useDeleteService } from "@/hooks/custom-services.jsx";
 import useSystemServices from "@/hooks/system-services.jsx";
 import "./Services.css";
 
 const ServicesList = () => {
     const [services, setServices] = useState([]);
-    const [search, setSearch] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const pages = usePages();
@@ -43,7 +44,7 @@ const ServicesList = () => {
     const filteredServices = services
         .flatMap(([, items]) => items)
         .filter(service =>
-            (service.description ?? "").toLowerCase().includes((search ?? "").toLowerCase())
+            (service.description ?? "").toLowerCase().includes((searchTerm ?? "").toLowerCase())
         );
 
     const handleAddToEstimate = (service) => {
@@ -180,14 +181,6 @@ const ServicesList = () => {
         );
     }
 
-    const SearchResultsText = ({ count, search }) => (
-        search && <div className="search-results-text">
-            {count > 0
-                ? `Showing ${count} result${count > 1 ? "s" : ""} for "${search}"`
-                : `No results found for "${search}"`}
-        </div>
-    );
-
     // if (loading) return <h2>Loading services...</h2>;
     if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
@@ -195,15 +188,15 @@ const ServicesList = () => {
         <div className="services-component page">
             <h1 className="services-heading page-heading">Services</h1>
             <div className="flex justify-center controls">
-                <SearchInput id="servicesSearchInput" value={search} onChange={setSearch} />
+                <SearchInput id="servicesSearchInput" value={searchTerm} onChange={setSearchTerm} />
             </div>
 
-            <SearchResultsText count={filteredServices.length} search={search} />
+            <SearchResultsSummary count={filteredServices.length} searchTerm={searchTerm} />
 
             {loading && <p className="loading-text">Loading services...</p>}
 
             <section className="services-section">
-                {!search ? (
+                {!searchTerm ? (
                     services.map(([category, items], idx) => (
                         <div className="services-category" key={idx}>
                             <h2 className="services-category-header" title="Service Category">{category}</h2>

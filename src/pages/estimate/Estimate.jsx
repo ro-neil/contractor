@@ -8,6 +8,8 @@ import unitMap from "@/data/service-unit-map.json";
 import { truncate } from "@/utils/string.js";
 import { useNavigate } from "react-router-dom";
 import { usePages } from '@/routing/router.jsx';
+import SearchInput from "@/components/utils/SearchInput.jsx";
+import SearchResultsSummary from "@/components/utils/SearchResultsSummary.jsx";
 
 
 const Estimate = ({ table, tax }) => {
@@ -106,6 +108,7 @@ const Estimate = ({ table, tax }) => {
         table === true ? <div className="estimate-component">{generateEstimateTable()}</div> :
             <div className="estimate-component">
                 <h1 className="estimate-heading page-heading">Estimate</h1>
+
                 {isEmpty(jobs) && (
                     <section className="estimate-body">
                         <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
