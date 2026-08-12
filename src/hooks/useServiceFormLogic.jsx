@@ -62,7 +62,7 @@ export const useServiceFormLogic = (initialData, onValidSubmit) => {
             setErrors(validationErrors);
             return;
         }
-
+        
         // If validation passes, call the external submit function
         // Pass a cleaned version of the form data
         onValidSubmit({

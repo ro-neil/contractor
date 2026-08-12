@@ -3,11 +3,16 @@ import { usePages } from '@/routing/router.jsx';
 import ServiceForm from "@/pages/custom-service/ServiceForm.jsx";
 import { useServiceFormLogic } from "@/hooks/useServiceFormLogic.jsx";
 import { useFetchServiceById, useUpdateService } from "@/hooks/custom-services.jsx"; 
+import { createFieldChangeDispatches } from "@/utils/createFieldChangeDispatches.js";
+import { updateJobDescription, updateJobRate, updateJobUnit, updateJobCategory } from "@/data/EstimateSlice.js";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function EditService() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const pages = usePages();
+    const jobs = useSelector(state => state.estimate.jobs);
 
     // 1. Fetch the existing data (e.g., using a query hook)
     const { data: existingService, isLoading } = useFetchServiceById(id);
@@ -16,7 +21,26 @@ export default function EditService() {
     const handleUpdate = async (serviceData) => {
         try {
             // Note: serviceData now includes the ID from the fetched data
-            await useUpdateService(id, serviceData); 
+            const updatedService = await useUpdateService(id, serviceData);
+            if (!updatedService) {
+                alert("Failed to update service.");
+                return;
+            }
+
+            const fieldChangeActions = createFieldChangeDispatches(
+                existingService,
+                updatedService,
+                dispatch,
+                {
+                    updateJobDescription,
+                    updateJobRate,
+                    updateJobUnit,
+                    updateJobCategory,
+                }
+            );
+
+            fieldChangeActions.forEach((actionFn) => actionFn());
+
             alert("Service updated successfully!");
             navigate(pages.services); 
         } catch (err) {
