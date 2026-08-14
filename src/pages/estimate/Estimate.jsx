@@ -1,7 +1,8 @@
 
+import { useState, useEffect } from "react";
 import Currency from "@/components/utils/Currency.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { removeJob, updateJobQuantity } from "@/data/EstimateSlice.js";
+import { addJob, removeJob, updateJobQuantity } from "@/data/EstimateSlice.js";
 import IncrementDecrementInput from "@/components/utils/IncrementDecrementInput.jsx";
 import "./Estimate.css";
 import unitMap from "@/data/service-unit-map.json";
@@ -10,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { usePages } from '@/routing/router.jsx';
 import SearchInput from "@/components/utils/SearchInput.jsx";
 import SearchResultsSummary from "@/components/utils/SearchResultsSummary.jsx";
+import { useFetchServices } from "@/hooks/custom-services.jsx";
+import useSystemServices from "@/hooks/system-services.jsx";
+import ServiceItemCard from "@/pages/services/ServiceItemCard.jsx";
 
 
 const Estimate = ({ table, tax }) => {
@@ -17,6 +21,33 @@ const Estimate = ({ table, tax }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const pages = usePages();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [services, setServices] = useState([]);
+    const userServices = useFetchServices();
+    const systemServices = useSystemServices();
+
+    useEffect(() => {
+        // Assign IDs to custom services if not present
+        const dataSource = [...systemServices, ...userServices].map((service, idx) => ({
+            ...service,
+            id: service.id ?? `${service.category}_${service.description}_${idx + 1}`.replaceAll(' ', '_')
+        }));
+        // Immediately prepare the sorted data (same behavior as before)
+        const categories = [...new Set(dataSource.map(service => service.category))].sort((a, b) => a.localeCompare(b));
+        const sortedData = categories.map(category => [
+            category,
+            dataSource
+                .filter(service => service.category === category)
+                .sort((a, b) => a.description.localeCompare(b.description))
+        ]);
+        setServices(sortedData);
+    }, []);
+
+    const filteredServices = services
+        .flatMap(([, items]) => items)
+        .filter(service =>
+            (service.description ?? "").toLowerCase().includes((searchTerm ?? "").toLowerCase())
+        );
 
     const handleExportPDF = () => {
         const previewPage = pages.estimatePreview;
@@ -36,6 +67,11 @@ const Estimate = ({ table, tax }) => {
         dispatch(removeJob(description));
     }
 
+    const handleAddJob = (service) => {
+        const job = { ...service, quantity: 1 };
+        dispatch(addJob(job));
+    }
+
     const handleNumberInputChange = (description, e) => {
         const value = e.target.value.replace(/\D/g, '').slice(0, 6);
         handleBlur(description, value);
@@ -48,7 +84,7 @@ const Estimate = ({ table, tax }) => {
 
     const generateEstimateTable = () => {
         const subtotal = jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0);
-        const taxAmount = (subtotal * tax) / 100; 
+        const taxAmount = (subtotal * tax) / 100;
         const grandTotal = subtotal + taxAmount;
         return (
             <table className="estimate-table print-no-repeat-header">
@@ -109,78 +145,104 @@ const Estimate = ({ table, tax }) => {
             <div className="estimate-component">
                 <h1 className="estimate-heading page-heading">Estimate</h1>
 
-                {isEmpty(jobs) && (
-                    <section className="estimate-body">
-                        <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
-                            <h2 className="empty-estimate-text">No services added</h2>
-                        </div>
-                    </section>
-                )}
+                {/* <div className="flex justify-center controls">
+                    <SearchInput id="servicesSearchInput" value={searchTerm} placeholder="Search services..." onChange={setSearchTerm} />
+                </div>
 
-                {!isEmpty(jobs) && (
-                    <section className="estimate-body">
-                        <div className="controls flex justify-end">
-                            <button title="Preview PDF Estimate" type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
-                                <span className='button-text'>PDF Preview</span>
-                            </button>
-                        </div>
+                <SearchResultsSummary count={filteredServices.length} searchTerm={searchTerm} /> */}
 
-                        <div className="grand-total-container">
-                            <span className="grand-total-text colon-end">Grand Total</span>
-                            <span className="grand-total-currency">
-                                <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
-                            </span>
-                        </div>
+                <div className="estimate-body-container">
+                    {isEmpty(jobs) && (
+                        <section className="estimate-body">
+                            <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
+                                <h2 className="empty-estimate-text">No services added</h2>
+                            </div>
+                        </section>
+                    )}
 
-                        <div className="job-items">
-                            {jobs.map((job, index) => (
-                                <div key={index} className="job-item">
-                                    <div className="job-item-header">
-                                        <span title="Job Description" className="job-description">{job.description}</span>
-                                        <button
-                                            className="job-remove-button icon-button text-red shake-transformation"
-                                            title="Remove Job from Estimate"
-                                            onClick={() => handleRemoveJob(job.description)}
-                                        >
-                                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div className="job-item-body">
-                                        <IncrementDecrementInput
-                                            id={`job_quantity_${index}`}
-                                            name={`job_quantity_${index}`}
-                                            value={job.quantity || ''}
-                                            placeholder="Qty"
-                                            onChange={(e) => handleNumberInputChange(job.description, e)}
-                                            onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
-                                            onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
-                                            onBlur={() => handleBlur(job.description, job.quantity)}
-                                            incrementTitle="Increase Quantity"
-                                            decrementTitle="Decrease Quantity"
-                                        />
+                    {!(searchTerm || isEmpty(jobs)) && (
+                        <section className="estimate-body">
+                            <div className="controls flex justify-end">
+                                <button title="Preview PDF Estimate" type="button" className="button pdf-preview-button" onClick={handleExportPDF}>
+                                    <span className='button-text'>PDF Preview</span>
+                                </button>
+                            </div>
 
-                                        <div className="job-rate-container">
-                                            <span className="at-symbol">&#64;</span>
-                                            <div className="job-rate">
-                                                <Currency figure={job.rate} />
-                                                <span className="forward-slash">&#47;</span>
-                                                <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit] || truncate(String(job.unit))}</span>
-                                                <span title="Job Unit" className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                            <div className="grand-total-container">
+                                <span className="grand-total-text colon-end">Grand Total</span>
+                                <span className="grand-total-currency">
+                                    <Currency figure={jobs.reduce((sum, job) => sum + job.quantity * job.rate, 0) || 0} />
+                                </span>
+                            </div>
+
+                            <div className="job-items">
+                                {jobs.map((job, index) => (
+                                    <div key={index} className={job?.quantity === 0 ? 'job-item inactive' : 'job-item'}>
+                                        <div className="job-item-header">
+                                            <span title="Job Description" className="job-description">{job.description}</span>
+                                            <button
+                                                className="job-remove-button icon-button text-red shake-transformation"
+                                                title="Remove Job from Estimate"
+                                                onClick={() => handleRemoveJob(job.description)}
+                                            >
+                                                <svg className="icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                                                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div className="job-item-body">
+                                            <IncrementDecrementInput
+                                                id={`job_quantity_${index}`}
+                                                name={`job_quantity_${index}`}
+                                                value={job.quantity || ''}
+                                                placeholder="Qty"
+                                                onChange={(e) => handleNumberInputChange(job.description, e)}
+                                                onMinus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) - 1)}
+                                                onPlus={() => handleUpdateQuantity(job.description, Number.parseInt(job.quantity) + 1)}
+                                                onBlur={() => handleBlur(job.description, job.quantity)}
+                                                incrementTitle="Increase Quantity"
+                                                decrementTitle="Decrease Quantity"
+                                            />
+
+                                            <div className="job-rate-container">
+                                                <span className="at-symbol">&#64;</span>
+                                                <div className="job-rate">
+                                                    <Currency figure={job.rate} />
+                                                    <span className="forward-slash">&#47;</span>
+                                                    <span title="Job Unit" className="short-unit job-unit overflow-ellipsis">{unitMap[job.unit] || truncate(String(job.unit))}</span>
+                                                    <span title="Job Unit" className="long-unit job-unit overflow-ellipsis" style={{ display: "none" }}>{job.unit}</span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div className="job-item-footer job-subtotal">
+                                            <span className="job-subtotal-text">Subtotal</span>
+                                            <Currency figure={(job.quantity * job.rate) || 0} />
+                                        </div>
                                     </div>
-                                    <div className="job-item-footer job-subtotal">
-                                        <span className="job-subtotal-text">Subtotal</span>
-                                        <Currency figure={(job.quantity * job.rate) || 0} />
+                                ))}
+                            </div>
+                        </section>
+                    )}
+                    {searchTerm && (
+                        <ul className="services-list" style={{ paddingLeft: "unset" }}>
+                            {filteredServices.map((service, index) => (
+                                <li key={index} className="service-item">
+                                    <div className="flex">
+                                        <div className="flex flex-col" style={{ flex: 1, gap: "0.25rem" }}>
+                                            <span className="service-category" style={{ textAlign: "left", color: "gray" }}>{service.category}</span>
+                                            <span className="service-description">{service.description}</span>
+                                        </div>
+
+                                        <button type="button" className="button add-to-estimate-button" title="Add Service to Estimate" onClick={() => handleAddJob(service)}>
+                                            Add to Estimate
+                                        </button>
                                     </div>
-                                </div>
-                            ))
-                            }
-                        </div>
-                    </section>
-                )}
+                                </li>
+                            ))}
+                        </ul>)
+                    }
+
+                </div>
             </div>
     );
 };

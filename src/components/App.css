@@ -105,6 +105,10 @@
   display: flex;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .align-center {
   align-items: center;
 }
@@ -152,6 +156,14 @@
 .job-edit-button {
   margin-right: 0.25rem;
   color: light-dark(var(--color-dark), var(--color-yellow));
+}
+
+.search-results-text {
+    text-align: center;
+    margin: 0.5rem 0;
+    color: light-dark(#373c43ff, var(--color-yellow));
+    font-style: italic;
+    font-weight: 500;
 }
 
 .shake-transformation {

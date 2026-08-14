@@ -1,13 +1,18 @@
 .estimate-component {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-bottom: 2rem;
 }
 
 .estimate-table {
   border-style: hidden;
+}
+
+.estimate-body-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .estimate-body {
@@ -17,7 +22,9 @@
   box-shadow: var(--box-shadow-medium);
   max-width: 768px;
   width: 80%;
-  border: 1px solid light-dark(transparent, #313740)
+  border: 1px solid light-dark(transparent, #313740);
+  margin: 2rem auto 1rem auto;
+
 }
 
 .estimate-body .empty-estimate {
@@ -91,6 +98,12 @@
   margin-bottom: 0.75rem;
   border: 1px solid light-dark(var(--border-color-light), #3d4551);
   padding-top: 0.5rem;
+}
+
+.job-item.inactive {
+  background-color: light-dark(var(--color-disabled-light), var(--color-disabled-dark)) !important;
+  opacity: 0.6;
+  color: light-dark(var(--color-disabled-text-light), var(--color-disabled-text-dark));
 }
 
 .job-item-header {
@@ -186,6 +199,14 @@
   text-align: center !important;
 }
 
+.estimate-component .controls .search-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px light-dark(var(--color-light-semi-transparent), var(--outline-color-dark)), var(--box-shadow-heavy);
+}
+.estimate-component .controls .search-input {
+    border-color: light-dark(var(--border-color-light), #313740) !important;
+}
+
 
 
 /* Responsive layout for smaller screens */
@@ -203,6 +224,10 @@
   }
   .long-unit {
     display: inline-block !important;
+  }
+
+  .search-input-container {
+    max-width: 50ch;
   }
 }
 

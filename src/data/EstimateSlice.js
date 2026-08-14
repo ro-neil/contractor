@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const EstimateSlice = createSlice({
-  name: 'jobs',
+  name: 'estimate',
   initialState: {
     jobs: [],
   },
@@ -54,6 +54,8 @@ export const EstimateSlice = createSlice({
   },
 });
 
+export const { getJobByDescription } = EstimateSlice.selectors;
+
 export const { 
   addJob, 
   removeJob, 
@@ -61,6 +63,8 @@ export const {
   updateJobDescription, 
   updateJobRate, 
   updateJobUnit, 
-  updateJobCategory 
+  updateJobCategory,
 } = EstimateSlice.actions;
+
+
 export default EstimateSlice.reducer;

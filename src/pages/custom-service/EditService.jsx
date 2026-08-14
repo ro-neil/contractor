@@ -24,6 +24,7 @@ export default function EditService() {
             const updatedService = await useUpdateService(id, serviceData);
             if (!updatedService) {
                 alert("Failed to update service.");
+                navigate(-1); // go to previous page
                 return;
             }
 
@@ -42,7 +43,7 @@ export default function EditService() {
             fieldChangeActions.forEach((actionFn) => actionFn());
 
             alert("Service updated successfully!");
-            navigate(pages.services); 
+            navigate(-1); // go to previous page
         } catch (err) {
             console.error("API Update Error:", err);
         }
