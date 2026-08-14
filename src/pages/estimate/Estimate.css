@@ -136,6 +136,20 @@
   flex-direction: column-reverse;
 }
 
+.estimate-component .services-section {
+    border-radius: 1rem;
+    max-width: 64rem;
+    margin: 2rem auto 1rem auto;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.estimate-component .services-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    min-width: 18rem;
+}
+
 .overflow-ellipsis {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -260,6 +274,11 @@
       padding-right: 2rem;
     }
 
+    
+  .estimate-component .services-list {
+      min-width: 24rem;
+  }
+
 }
 
 
@@ -267,6 +286,10 @@
 @media (min-width: 768px) {
   .job-item {
     flex-direction: column;
+  }
+
+  .estimate-component .services-list {
+      min-width: 36rem;
   }
 
 }

@@ -19,7 +19,7 @@ const NumberInput = ({
     onChange={onChange}
     onBlur={onBlur}
     placeholder={placeholder || 'Value'}
-    pattern="^\d{0,6}$"
+    pattern="^\d{0,6}(\.\d{0,2})?$"
   />
 );
 

@@ -25,6 +25,8 @@ const Estimate = ({ table, tax }) => {
     const [services, setServices] = useState([]);
     const userServices = useFetchServices();
     const systemServices = useSystemServices();
+    const allowCustomServiceUpdate = false; // Set to false to disable custom service updates on the estimate page
+
 
     useEffect(() => {
         // Assign IDs to custom services if not present
@@ -57,6 +59,10 @@ const Estimate = ({ table, tax }) => {
     const handleEmptyEstimateClick = () => {
         const servicesPage = pages.services;
         navigate(servicesPage);
+    }
+
+    const getJobByDescription = (description) => {
+        return jobs.find(job => job.description === description);
     }
 
     const handleUpdateQuantity = (description, value) => {
@@ -145,14 +151,14 @@ const Estimate = ({ table, tax }) => {
             <div className="estimate-component">
                 <h1 className="estimate-heading page-heading">Estimate</h1>
 
-                {/* <div className="flex justify-center controls">
+                <div className="flex justify-center controls">
                     <SearchInput id="servicesSearchInput" value={searchTerm} placeholder="Search services..." onChange={setSearchTerm} />
                 </div>
 
-                <SearchResultsSummary count={filteredServices.length} searchTerm={searchTerm} /> */}
+                <SearchResultsSummary count={filteredServices.length} searchTerm={searchTerm} />
 
                 <div className="estimate-body-container">
-                    {isEmpty(jobs) && (
+                    {isEmpty(jobs) && !searchTerm && (
                         <section className="estimate-body">
                             <div className="empty-estimate" title="Go to Services" onClick={handleEmptyEstimateClick}>
                                 <h2 className="empty-estimate-text">No services added</h2>
@@ -224,23 +230,25 @@ const Estimate = ({ table, tax }) => {
                         </section>
                     )}
                     {searchTerm && (
-                        <ul className="services-list" style={{ paddingLeft: "unset" }}>
-                            {filteredServices.map((service, index) => (
-                                <li key={index} className="service-item">
-                                    <div className="flex">
-                                        <div className="flex flex-col" style={{ flex: 1, gap: "0.25rem" }}>
-                                            <span className="service-category" style={{ textAlign: "left", color: "gray" }}>{service.category}</span>
-                                            <span className="service-description">{service.description}</span>
-                                        </div>
-
-                                        <button type="button" className="button add-to-estimate-button" title="Add Service to Estimate" onClick={() => handleAddJob(service)}>
-                                            Add to Estimate
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>)
-                    }
+                        <div className="services-section">
+                            <ul className="services-list" style={{ paddingLeft: "unset" }}>
+                                {filteredServices.map((service, index) => (
+                                    <li key={index}>
+                                        <ServiceItemCard
+                                            key={index}
+                                            service={service}
+                                            allowCustomServiceUpdate={allowCustomServiceUpdate}
+                                            // handleRemoveCustomService={handleRemoveJob}
+                                            // handleIncrementQuantity={handleUpdateQuantity}
+                                            // handleDecrementQuantity={handleUpdateQuantity}
+                                            // handleAddToEstimate={handleAddJob}
+                                            handleGetEstimateJob={getJobByDescription}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                 </div>
             </div>

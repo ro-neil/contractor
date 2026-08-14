@@ -13,6 +13,7 @@ const ServiceItemCard = ({
         handleDecrementQuantity,
         handleAddToEstimate,
         handleGetEstimateJob,
+        allowCustomServiceUpdate = true,
     }) => {
 
     
@@ -39,7 +40,7 @@ const ServiceItemCard = ({
         <div className={estimateJob ? "service-item selected" : "service-item"}>
             <div className="job-item-header">
                 <span title="Service Description" className="service-description">{service.description}</span>
-                {service.isCustom &&
+                {service.isCustom && allowCustomServiceUpdate &&
                     (<div className="flex">
                         <Link to={pages.editService.replace(':id', service.id)}>
                             <button
