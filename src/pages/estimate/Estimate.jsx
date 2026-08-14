@@ -61,6 +61,11 @@ const Estimate = ({ table, tax }) => {
         navigate(servicesPage);
     }
 
+    const createEstimateJob = (service) => {
+        const job = { ...service, quantity: 1 };
+        return job;
+    }
+
     const getJobByDescription = (description) => {
         return jobs.find(job => job.description === description);
     }
@@ -73,10 +78,18 @@ const Estimate = ({ table, tax }) => {
         dispatch(removeJob(description));
     }
 
+
     const handleAddJob = (service) => {
-        const job = { ...service, quantity: 1 };
+        const estimateJob = getJobByDescription(service.description);
+        if (estimateJob) {
+            alert(`Service "${service.description}" is already on the estimate.`);
+            return;
+        }
+        // Create a new job with quantity 1 and add it to the estimate
+        const job = createEstimateJob(service);
         dispatch(addJob(job));
-    }
+        return job;
+    };
 
     const handleNumberInputChange = (description, e) => {
         const value = e.target.value.replace(/\D/g, '').slice(0, 6);
@@ -241,7 +254,7 @@ const Estimate = ({ table, tax }) => {
                                             // handleRemoveCustomService={handleRemoveJob}
                                             // handleIncrementQuantity={handleUpdateQuantity}
                                             // handleDecrementQuantity={handleUpdateQuantity}
-                                            // handleAddToEstimate={handleAddJob}
+                                            handleAddToEstimate={handleAddJob}
                                             handleGetEstimateJob={getJobByDescription}
                                         />
                                     </li>
