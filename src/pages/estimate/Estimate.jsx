@@ -74,6 +74,31 @@ const Estimate = ({ table, tax }) => {
         dispatch(updateJobQuantity({ description: description, quantity: value }));
     }
 
+    const handleIncrementQuantity = (service) => {
+        const estimateJob =  getJobByDescription(service.description);
+        if (!estimateJob) {
+            alert(`Service "${service.description}" is not on the estimate. Cannot decrement quantity.`);
+            return;
+        }
+
+        const currentQuantity = estimateJob.quantity || 0;
+        const newQuantity = currentQuantity + 1;
+        handleUpdateQuantity(service.description, newQuantity);
+        return newQuantity;
+    }
+
+    const handleDecrementQuantity = (service) => {
+        const estimateJob = getJobByDescription(service.description);
+        if (!estimateJob) {
+            alert(`Service "${service.description}" is not on the estimate. Cannot decrement quantity.`);
+            return;
+        }
+        const currentQuantity = estimateJob.quantity || 1;
+        const newQuantity = Math.max(1, currentQuantity - 1);
+        handleUpdateQuantity(service.description, newQuantity);
+        return newQuantity;
+    }
+
     const handleRemoveJob = (description) => {
         dispatch(removeJob(description));
     }
@@ -251,9 +276,8 @@ const Estimate = ({ table, tax }) => {
                                             key={index}
                                             service={service}
                                             allowCustomServiceUpdate={allowCustomServiceUpdate}
-                                            // handleRemoveCustomService={handleRemoveJob}
-                                            // handleIncrementQuantity={handleUpdateQuantity}
-                                            // handleDecrementQuantity={handleUpdateQuantity}
+                                            handleIncrementQuantity={handleIncrementQuantity}
+                                            handleDecrementQuantity={handleDecrementQuantity}
                                             handleAddToEstimate={handleAddJob}
                                             handleGetEstimateJob={getJobByDescription}
                                         />
