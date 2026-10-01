@@ -17,8 +17,8 @@ const ServiceItemCard = ({
     }) => {
 
     
-    const [estimateJob, setEstimateJob] = useState(handleGetEstimateJob(service.description));
-    const [localQuantity, setLocalQuantity] = useState(estimateJob?.quantity || 1); // Default to 1 if not present
+    const [estimateJob, setEstimateJob] = useState(null);
+    const [localQuantity, setLocalQuantity] = useState(1);
     const pages = usePages();
     const dispatch = useDispatch();
 
@@ -35,6 +35,11 @@ const ServiceItemCard = ({
     const handleUpdateJobQuantity = (service, quantity) => {
         dispatch(updateJobQuantity({ description: service.description, quantity }));
     }
+
+    useEffect(() => {
+        setEstimateJob(handleGetEstimateJob(service.description));
+        setLocalQuantity(handleGetEstimateJob(service.description)?.quantity || 1);  // Default to 1 if not present
+    }, [service.description, handleGetEstimateJob]);
 
     return (
         <div className={estimateJob ? "service-item selected" : "service-item"}>

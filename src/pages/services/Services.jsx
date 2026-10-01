@@ -47,7 +47,7 @@ const ServicesList = () => {
     }, []);
 
 
-    const filteredServices = services
+    let filteredServices = services
         .flatMap(([, items]) => items)
         .filter(service =>
             (service.description ?? "").toLowerCase().includes((searchTerm ?? "").toLowerCase())
