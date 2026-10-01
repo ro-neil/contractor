@@ -13,7 +13,7 @@ import SearchInput from "@/components/utils/SearchInput.jsx";
 import SearchResultsSummary from "@/components/utils/SearchResultsSummary.jsx";
 import { useFetchServices } from "@/hooks/custom-services.jsx";
 import useSystemServices from "@/hooks/system-services.jsx";
-import ServiceItemCard from "@/pages/services/ServiceItemCard.jsx";
+import SearchResults from "@/components/utils/SearchResults";
 
 
 const Estimate = ({ table, tax }) => {
@@ -75,7 +75,7 @@ const Estimate = ({ table, tax }) => {
     }
 
     const handleIncrementQuantity = (service) => {
-        const estimateJob =  getJobByDescription(service.description);
+        const estimateJob = getJobByDescription(service.description);
         if (!estimateJob) {
             alert(`Service "${service.description}" is not on the estimate. Cannot decrement quantity.`);
             return;
@@ -269,21 +269,15 @@ const Estimate = ({ table, tax }) => {
                     )}
                     {searchTerm && (
                         <div className="services-section">
-                            <ul className="services-list" style={{ paddingLeft: "unset" }}>
-                                {filteredServices.map((service, index) => (
-                                    <li key={index}>
-                                        <ServiceItemCard
-                                            key={index}
-                                            service={service}
-                                            allowCustomServiceUpdate={allowCustomServiceUpdate}
-                                            handleIncrementQuantity={handleIncrementQuantity}
-                                            handleDecrementQuantity={handleDecrementQuantity}
-                                            handleAddToEstimate={handleAddJob}
-                                            handleGetEstimateJob={getJobByDescription}
-                                        />
-                                    </li>
-                                ))}
-                            </ul>
+                            <SearchResults
+                                className="services-list"
+                                services={filteredServices}
+                                allowCustomServiceUpdate={allowCustomServiceUpdate}
+                                handleIncrementQuantity={handleIncrementQuantity}
+                                handleDecrementQuantity={handleDecrementQuantity}
+                                getEstimateJobByDescription={getJobByDescription}
+                                handleAddToEstimate={handleAddJob}
+                            />
                         </div>
                     )}
 

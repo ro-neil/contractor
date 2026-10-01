@@ -4,10 +4,12 @@ import { updateJobQuantity, addJob } from "@/data/EstimateSlice.js";
 import ServiceItemCard from "@/pages/services/ServiceItemCard.jsx";
 import SearchInput from "@/components/utils/SearchInput.jsx";
 import SearchResultsSummary from "@/components/utils/SearchResultsSummary.jsx";
+import SearchResults from "@/components/utils/SearchResults.jsx";
 import { useFetchServices, useDeleteService } from "@/hooks/custom-services.jsx";
 import useSystemServices from "@/hooks/system-services.jsx";
 
 import "./Services.css";
+
 
 const ServicesList = () => {
     const [services, setServices] = useState([]);
@@ -159,21 +161,15 @@ const ServicesList = () => {
                         </div>
                     ))
                 ) : (
-                    <ul className="services-list" style={{ paddingLeft: "unset" }}>
-                        {filteredServices.map((service, index) => (
-                            <li key={index} className="service-item">
-                                <ServiceItemCard 
-                                    key={index} 
-                                    service={service}  
-                                    handleRemoveCustomService={handleRemoveCustomService}
-                                    handleIncrementQuantity={handleIncrementQuantity}
-                                    handleDecrementQuantity={handleDecrementQuantity}
-                                    handleAddToEstimate={handleAddToEstimate}                          
-                                    handleGetEstimateJob={getEstimateJobByDescription}
-                                />
-                            </li>
-                        ))}
-                    </ul>
+                    <SearchResults 
+                        className="services-list"
+                        services={filteredServices} 
+                        handleRemoveCustomService={handleRemoveCustomService}
+                        handleIncrementQuantity={handleIncrementQuantity}
+                        handleDecrementQuantity={handleDecrementQuantity}
+                        getEstimateJobByDescription={getEstimateJobByDescription}
+                        handleAddToEstimate={handleAddToEstimate}
+                    /> 
                 )}
             </section>
             <p className="footnote">
